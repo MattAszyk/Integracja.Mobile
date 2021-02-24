@@ -10,29 +10,32 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      constraints: BoxConstraints.expand(),
-      decoration: BoxDecoration(
+      body: Container(
+        constraints: BoxConstraints.expand(),
+        decoration: BoxDecoration(
           image: DecorationImage(
-        image: AssetImage("assets/images/login_screen/login_background.jpg"),
-        fit: BoxFit.cover,
-      )),
-      child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        builder: (context, state) {
-          if (state is AuthenticationNotAuthenticatedState) {
-            return _AuthenticationForm();
-          }
-          if (state is AuthenticationFailure) {
-            return _AuthenticationForm();
-          }
-          return Center(
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-            ),
-          );
-        },
+            image:
+                AssetImage("assets/images/login_screen/login_background.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, state) {
+            if (state is AuthenticationNotAuthenticatedState) {
+              return _AuthenticationForm();
+            }
+            if (state is AuthenticationFailure) {
+              return _AuthenticationForm();
+            }
+            return Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
+            );
+          },
+        ),
       ),
-    ));
+    );
   }
 }
 
@@ -182,7 +185,12 @@ class _LoginFormState extends State<_LoginForm> {
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.all(0.001 * height),
-      margin: EdgeInsets.only(top: 0.05 * height, bottom: 0.005 * height),
+      margin: EdgeInsets.only(
+        top: 0.01 * height,
+        bottom: 0.02 * height,
+        left: 20,
+        right: 20,
+      ),
       child: TextField(
         controller: _usernameController,
         decoration: InputDecoration(
@@ -202,7 +210,11 @@ class _LoginFormState extends State<_LoginForm> {
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.all(0.001 * height),
-      margin: EdgeInsets.only(bottom: 0.001 * height),
+      margin: EdgeInsets.only(
+        bottom: 0.01 * height,
+        left: 20,
+        right: 20,
+      ),
       child: TextField(
         obscureText: true,
         controller: _passwordController,
