@@ -40,10 +40,12 @@ class ApiBase {
   Future<dynamic> request(
       {@required RequestType requestType,
       @required API api,
-      ApiRequest transferObject}) async {
+      ApiRequest transferObject,
+      int id}) async {
     switch (requestType) {
       case RequestType.GET:
-        return _get(url: _urlResolver(api), transferObject: transferObject);
+        return _get(
+            url: _urlResolver(api), transferObject: transferObject, id: id);
       case RequestType.POST:
         return _post(url: _urlResolver(api), transferObject: transferObject);
       case RequestType.DELETE:
@@ -54,7 +56,7 @@ class ApiBase {
   }
 
   Future<dynamic> _get(
-      {@required String url, ApiRequest transferObject}) async {}
+      {@required String url, ApiRequest transferObject, int id}) async {}
   Future<dynamic> _post(
       {@required String url, ApiRequest transferObject}) async {
     var request = await http.post(url,
