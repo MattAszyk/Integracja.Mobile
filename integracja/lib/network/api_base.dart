@@ -1,17 +1,20 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:integracja/models/api_item.dart';
+import 'package:integracja/models/authentication/user.dart';
+import 'package:integracja/network/api_exception.dart';
 
 class ApiBase {
   final String _baseUrl = "https://integracja-api.azurewebsites.net";
   final Map<String, String> _header;
-  ApiBase({@required String token})
-      : assert(token != null),
+  ApiBase({@required User user})
+      : assert(user != null),
         _header = {
           'Content-Type': 'application/json',
           'accept': 'text/plain',
-          'token': token
+          HttpHeaders.authorizationHeader: user.token
         };
 
   String _urlResolver(API path) {
@@ -40,6 +43,7 @@ class ApiBase {
   Future<dynamic> request(
       {@required RequestType requestType,
       @required API api,
+      User user,
       ApiRequest transferObject,
       int id}) async {
     switch (requestType) {
@@ -56,12 +60,17 @@ class ApiBase {
   }
 
   Future<dynamic> _get(
-      {@required String url, ApiRequest transferObject, int id}) async {}
+      {@required String url, ApiRequest transferObject, int id}) async {
+    var response =
+        await http.get(url + (id != null ? "/$id" : ""), headers: _header);
+    return _returnResponse(response);
+  }
+
   Future<dynamic> _post(
       {@required String url, ApiRequest transferObject}) async {
-    var request = await http.post(url,
+    var response = await http.post(url,
         headers: _header, body: jsonEncode(transferObject.toJson()));
-    return _returnResponse(request);
+    return _returnResponse(response);
   }
 
   Future<dynamic> _put({@required String url, dynamic transferObject}) async {}
@@ -74,9 +83,9 @@ class ApiBase {
         var responseDecoded = json.decode(response.body);
         return responseDecoded;
       case 400:
-        throw Exception('Bad request');
+        throw BadRequestException();
       case 401:
-        throw Exception('Unauthorized');
+        throw UnauthorizedException();
     }
   }
 }
