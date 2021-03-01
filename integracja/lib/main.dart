@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:integracja/pages/home_page/home_page.dart';
 import 'package:integracja/pages/login/login_page.dart';
 import 'package:integracja/services/authentication_service.dart';
+import 'package:integracja/utils/constrains.dart';
 import 'blocs/authentication/authentication_bloc.dart';
 
 void main() {
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'inteGRAcja',
-      theme: ThemeData(),
+      theme: customTheme(),
       debugShowCheckedModeBanner: false,
       // BlocBuilder will listen to changes in AuthenticationState
       // and build an appropriate widget based on the state.
@@ -46,4 +47,11 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+}
+
+ThemeData customTheme() {
+  return ThemeData(
+    brightness: Brightness.light,
+    primaryColor: primaryColor,
+  );
 }

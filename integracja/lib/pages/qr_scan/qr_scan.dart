@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:integracja/pages/game_details/game_details.dart';
+import 'package:integracja/utils/constrains.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRScan extends StatefulWidget {
@@ -34,8 +35,9 @@ class _QRScabState extends State<QRScan> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 30, 30, 30),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 255, 221, 52),
+        backgroundColor: primaryColor,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,

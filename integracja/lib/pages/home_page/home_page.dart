@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:integracja/blocs/authentication/authentication_bloc.dart';
 import 'package:integracja/models/authentication/user.dart';
 import 'package:integracja/pages/qr_scan/qr_scan.dart';
+import 'package:integracja/utils/constrains.dart';
 import 'active_games.dart';
 import 'bottom_nav_bar.dart';
 
@@ -17,6 +18,15 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 30, 30, 30),
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
+          'Moje gry',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
+      ),
       body: SafeArea(
         minimum: const EdgeInsets.all(16),
         child: Center(
@@ -46,7 +56,7 @@ class HomePage extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavBar(),
       floatingActionButton: FloatingActionButton(
-          backgroundColor: Color.fromARGB(255, 255, 221, 52),
+          backgroundColor: primaryColor,
           child: Icon(
             Icons.play_arrow,
             size: 35,

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:integracja/utils/constrains.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 30, 30, 30),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 255, 221, 52),
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
@@ -29,7 +30,7 @@ class Settings extends StatelessWidget {
           SettingsSection(
             title: 'Główne',
             titleTextStyle: TextStyle(
-              color: Color.fromARGB(255, 255, 221, 52),
+              color: primaryColor,
             ),
             tiles: [
               SettingsTile(
@@ -63,7 +64,7 @@ class Settings extends StatelessWidget {
           SettingsSection(
             title: 'Konto',
             titleTextStyle: TextStyle(
-              color: Color.fromARGB(255, 255, 221, 52),
+              color: primaryColor,
             ),
             tiles: [
               SettingsTile(
