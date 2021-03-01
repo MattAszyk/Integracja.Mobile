@@ -16,7 +16,3 @@ class BadRequestException extends ApiException {
 class UnauthorizedException extends ApiException {
   UnauthorizedException() : super(401, "Unauthorized");
 }
-
-class UserLogoutException extends ApiException {
-  UserLogoutException() : super(403, "User logout by server.");
-}

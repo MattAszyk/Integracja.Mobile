@@ -5,7 +5,7 @@ import 'package:integracja/models/authentication/user.dart';
 import 'package:integracja/network/api_base.dart';
 
 class LoginRepository extends ApiBase {
-  LoginRepository() : super(token: "");
+  LoginRepository() : super(user: User(DateTime.now(), 1, ""));
   Future<User> fetch(
       {@required String username, @required String password}) async {
     var credentials = Credentials(username: username, password: password);
