@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:integracja/models/game.dart';
 import 'package:flutter/rendering.dart';
 
 class BackgroundShape extends CustomClipper<Path> {
