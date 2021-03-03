@@ -1,9 +1,8 @@
-import 'package:integracja/models/game.dart';
 import 'package:flutter/material.dart';
 import 'game_card.dart';
 
 class ActiveGames extends StatelessWidget {
-  final games = Game.fetchAll();
+  final games = [];
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
