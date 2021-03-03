@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:integracja/blocs/authentication/authentication_bloc.dart';
+import 'package:integracja/models/game/game_user.dart';
+import 'package:integracja/network/api/game_repository.dart';
 import 'game_card.dart';
 
 class ActiveGames extends StatelessWidget {
-  final games = [];
   Widget build(BuildContext context) {
+    /*final authBloc = BlocProvider.of<AuthenticationBloc>(context);
+
+    var games = GameRepository(user: user).fetchAll();
+    
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
-        body: games.isNotEmpty
+        body: 1 == 1
             ? ListView(
                 children: games
                     .map((game) => GestureDetector(
@@ -24,7 +31,7 @@ class ActiveGames extends StatelessWidget {
                 ),
               ),
       ),
-    );
+    );*/
   }
 
   _onGameCardTap(BuildContext context, String gameID) {

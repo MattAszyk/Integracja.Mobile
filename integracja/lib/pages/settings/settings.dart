@@ -6,7 +6,7 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 30, 30, 30),
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(
@@ -24,7 +24,7 @@ class Settings extends StatelessWidget {
         ),
       ),
       body: SettingsList(
-        backgroundColor: Color.fromARGB(255, 30, 30, 30),
+        backgroundColor: backgroundColor,
         contentPadding: EdgeInsets.only(top: 10),
         sections: [
           SettingsSection(

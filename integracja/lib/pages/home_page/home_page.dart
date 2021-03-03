@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
     final authBloc = BlocProvider.of<AuthenticationBloc>(context);
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 30, 30, 30),
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
@@ -27,32 +27,22 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: SafeArea(
-        minimum: const EdgeInsets.all(16),
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Text(
-                'Welcome, ${user.token}',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              FlatButton(
-                textColor: Theme.of(context).primaryColor,
-                child: Text('Logout'),
-                onPressed: () {
-                  authBloc.add(UserLoggedOut());
-                  // Add UserLoggedOut to authentication event stream.
-                },
-              )
-            ],
+      body: Column(
+        children: [
+          ActiveGames(),
+          SizedBox(
+            height: 12,
           ),
-        ),
+          Center(
+            child: FlatButton(
+              textColor: primaryColor,
+              child: Text('Logout'),
+              onPressed: () {
+                authBloc.add(UserLoggedOut());
+              },
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavBar(),
       floatingActionButton: FloatingActionButton(

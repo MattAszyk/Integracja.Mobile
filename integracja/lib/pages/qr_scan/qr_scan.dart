@@ -35,7 +35,7 @@ class _QRScabState extends State<QRScan> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 30, 30, 30),
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: primaryColor,
         leading: IconButton(
