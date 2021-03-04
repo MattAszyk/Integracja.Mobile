@@ -8,7 +8,7 @@ class ActiveGames extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         child: Container(
-      child: !_gameUserList.isEmpty
+      child: _gameUserList.isNotEmpty
           ? ListView.separated(
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
