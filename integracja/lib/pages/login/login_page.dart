@@ -48,7 +48,7 @@ class __SignInFormState extends State<_SignInForm> {
             child: Column(
           children: [
             if (_controller.state is LoginLoading) _loading(),
-            if (_controller.state is LoginState) _signIn()
+            if (_controller.state is LoginIdle) _signIn()
           ],
         )),
       );

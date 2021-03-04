@@ -9,6 +9,7 @@ class LoginController extends GetxController {
 
   @override
   void onInit() {
+    _loginStateStream.value = LoginIdle();
     super.onInit();
   }
 
@@ -17,7 +18,7 @@ class LoginController extends GetxController {
     try {
       await _authenticationController.signInWithCredentials(
           username: username, password: password);
-      _loginStateStream.value = LoginState();
+      _loginStateStream.value = LoginIdle();
     } catch (e) {
       _loginStateStream.value = LoginFailure();
     }
