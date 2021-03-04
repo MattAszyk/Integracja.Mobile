@@ -27,22 +27,27 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          ActiveGames(),
-          SizedBox(
-            height: 12,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              ActiveGames(),
+              SizedBox(
+                height: 12,
+              ),
+              Center(
+                child: FlatButton(
+                  textColor: primaryColor,
+                  child: Text('Logout'),
+                  onPressed: () {
+                    authBloc.add(UserLoggedOut());
+                  },
+                ),
+              ),
+            ],
           ),
-          Center(
-            child: FlatButton(
-              textColor: primaryColor,
-              child: Text('Logout'),
-              onPressed: () {
-                authBloc.add(UserLoggedOut());
-              },
-            ),
-          ),
-        ],
+        ),
       ),
       bottomNavigationBar: BottomNavBar(),
       floatingActionButton: FloatingActionButton(
