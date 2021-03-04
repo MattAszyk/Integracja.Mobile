@@ -13,12 +13,11 @@ class HomePage extends StatelessWidget {
   final User user;
   HomePageController _homePageController = Get.put(HomePageController());
   HomePage({Key key, this.user}) : super(key: key);
+
   Column _loading() {
     return Column(
       children: [
-        SizedBox(
-          height: 50,
-        ),
+        Spacer(),
         Center(
           child: SizedBox(
             width: 60,
@@ -27,7 +26,8 @@ class HomePage extends StatelessWidget {
               valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
             ),
           ),
-        )
+        ),
+        Spacer(),
       ],
     );
   }
@@ -45,32 +45,35 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          Obx(() {
-            if (_homePageController.state is HomePageLoading)
-              return _loading();
-            else if (_homePageController.state is HomePageLoaded)
-              return ActiveGames(
-                  (_homePageController.state as HomePageLoaded).gameUserList);
-            else
-              return Container();
-          }),
-          SizedBox(
-            height: 12,
-          ),
-          Center(
-            child: FlatButton(
-              textColor: primaryColor,
-              child: Text('Logout'),
-              onPressed: () {
-                final AuthenticationController authenticationController =
-                    Get.find();
-                authenticationController.signOut();
-              },
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Obx(() {
+              if (_homePageController.state is HomePageLoading)
+                return _loading();
+              else if (_homePageController.state is HomePageLoaded)
+                return ActiveGames(
+                    (_homePageController.state as HomePageLoaded).gameUserList);
+              else
+                return Container();
+            }),
+            SizedBox(
+              height: 12,
             ),
-          ),
-        ],
+            Center(
+              child: FlatButton(
+                textColor: primaryColor,
+                child: Text('Logout'),
+                onPressed: () {
+                  final AuthenticationController authenticationController =
+                      Get.find();
+                  authenticationController.signOut();
+                },
+              ),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavBar(),
       floatingActionButton: FloatingActionButton(

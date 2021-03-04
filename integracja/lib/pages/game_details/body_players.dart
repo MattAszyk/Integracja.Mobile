@@ -72,7 +72,54 @@ class GameDetailsBodyPlayers extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 20,
+          height: 5,
+        ),
+        Text(
+          "Agnieszka Uznańska",
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.grey,
+          ),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "Maciej Aszyk",
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.grey,
+          ),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "Jakub Fladziński",
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.grey,
+          ),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "Michał Guźlewski",
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.grey,
+          ),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "Mikołaj Suchodolski",
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.grey,
+          ),
+        ),
+        SizedBox(height: 5),
+        Text(
+          "Michał Wiciński",
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.grey,
+          ),
         ),
       ],
     );
