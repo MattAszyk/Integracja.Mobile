@@ -5,9 +5,21 @@ import 'package:integracja/network/api_base.dart';
 
 class GameRepository extends ApiBase {
   GameRepository(User user) : super(user: user);
+
   Future<List<GameUser>> fetchAll() async {
-    Iterable list =
-        await request(requestType: RequestType.GET, api: API.Games_MyGames);
+    Iterable list = await request(
+      requestType: RequestType.GET,
+      api: API.Games_MyGames,
+    );
+    return List<GameUser>.from(list.map((e) => GameUser.fromJson(e)));
+  }
+
+  Future<List<GameUser>> fetchById(int gameId) async {
+    Iterable list = await request(
+      requestType: RequestType.GET,
+      api: API.Games_MyGames,
+      id: gameId,
+    );
     return List<GameUser>.from(list.map((e) => GameUser.fromJson(e)));
   }
 }

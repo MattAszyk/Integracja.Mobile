@@ -15,7 +15,7 @@ class ActiveGames extends StatelessWidget {
                 return GestureDetector(
                   child: GameCard(_gameUserList[index].game),
                   onTap: () =>
-                      _onGameCardTap(context, _gameUserList[index].game.guid),
+                      _onGameCardTap(context, _gameUserList[index].game.id),
                 );
               },
               separatorBuilder: (_, index) => const SizedBox(
@@ -32,10 +32,10 @@ class ActiveGames extends StatelessWidget {
     );
   }
 
-  _onGameCardTap(BuildContext context, String gameID) {
+  _onGameCardTap(BuildContext context, int gameId) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GameDetails(gameID)),
+      MaterialPageRoute(builder: (context) => GameDetails(gameId)),
     );
   }
 }

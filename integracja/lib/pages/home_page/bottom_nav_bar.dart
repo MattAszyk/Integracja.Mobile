@@ -32,7 +32,7 @@ class BottomNavBar extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => GameDetails("1")),
+                  MaterialPageRoute(builder: (context) => GameDetails(0)),
                 );
               }),
           Spacer(),

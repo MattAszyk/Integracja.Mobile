@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:integracja/models/game/game_user.dart';
 
 class GameDetailsAppBar extends StatelessWidget {
-  const GameDetailsAppBar({
-    Key key,
-  }) : super(key: key);
+  final List<GameUser> _gameUser;
+  GameDetailsAppBar(this._gameUser);
 
   @override
   Widget build(BuildContext context) {
