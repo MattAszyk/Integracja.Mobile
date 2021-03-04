@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:integracja/blocs/authentication/authentication_bloc.dart';
+import 'package:get/get.dart';
+import 'package:integracja/controllers/authentication/authentication_controller.dart';
 import 'package:integracja/models/authentication/user.dart';
 import 'package:integracja/pages/qr_scan/qr_scan.dart';
 import 'package:integracja/utils/constrains.dart';
@@ -14,8 +14,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authBloc = BlocProvider.of<AuthenticationBloc>(context);
-
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
@@ -29,7 +27,7 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          ActiveGames(),
+          // ActiveGames(),
           SizedBox(
             height: 12,
           ),
@@ -38,7 +36,9 @@ class HomePage extends StatelessWidget {
               textColor: primaryColor,
               child: Text('Logout'),
               onPressed: () {
-                authBloc.add(UserLoggedOut());
+                final AuthenticationController authenticationController =
+                    Get.find();
+                authenticationController.signOut();
               },
             ),
           ),
