@@ -9,7 +9,7 @@ class GameDetailsState extends Equatable {
 class GameDetailsLoading extends GameDetailsState {}
 
 class GameDetailsLoaded extends GameDetailsState {
-  final List<GameUser> gameUser;
+  final GameUser gameUser;
   GameDetailsLoaded(this.gameUser);
 
   @override

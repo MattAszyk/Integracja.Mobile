@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:integracja/models/game/game_user.dart';
 
 class GameDetailsAppBar extends StatelessWidget {
-  final List<GameUser> _gameUser;
+  final GameUser _gameUser;
   GameDetailsAppBar(this._gameUser);
 
   @override
@@ -28,7 +28,7 @@ class GameDetailsAppBar extends StatelessWidget {
       floating: true,
       pinned: true,
       expandedHeight: 180,
-      title: Text('inteGRAcja z zespołem IT'),
+      title: Text(_gameUser.game.name),
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.parallax,
         background: Container(
@@ -63,7 +63,7 @@ class GameDetailsAppBar extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    "Startujemy za 30min",
+                    "Tu czas ogółem",
                     style: TextStyle(
                       fontSize: 18,
                     ),

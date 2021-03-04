@@ -14,12 +14,12 @@ class GameRepository extends ApiBase {
     return List<GameUser>.from(list.map((e) => GameUser.fromJson(e)));
   }
 
-  Future<List<GameUser>> fetchById(int gameId) async {
-    Iterable list = await request(
+  Future<GameUser> fetchById(int gameId) async {
+    var response = await request(
       requestType: RequestType.GET,
       api: API.Games_MyGames,
       id: gameId,
     );
-    return List<GameUser>.from(list.map((e) => GameUser.fromJson(e)));
+    return GameUser.fromJson(response);
   }
 }

@@ -30,11 +30,11 @@ class GameDetailsController extends GetxController {
 
   Future<void> _loadData() async {
     try {
-      var gameList = await GameRepository(_user).fetchById(_gameId);
-      log(gameList.first.toString());
+      var game = await GameRepository(_user).fetchById(_gameId);
+      log(game.toString());
 
-      log('gameList loaded');
-      _homePageStateStream.value = GameDetailsLoaded(gameList);
+      log('game loaded');
+      _homePageStateStream.value = GameDetailsLoaded(game);
     } catch (e) {
       log('error with fetching ${e.toString()}');
     }

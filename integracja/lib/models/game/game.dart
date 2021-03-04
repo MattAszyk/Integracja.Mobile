@@ -10,7 +10,7 @@ class Game {
   int maxPlayersCount;
   int questionsCount;
   Gamemode gamemode;
-  //List<String> players;
+  List<dynamic> players;
 
   Game({
     this.id,
@@ -22,12 +22,12 @@ class Game {
     this.maxPlayersCount,
     this.questionsCount,
     this.gamemode,
-    //this.players,
+    this.players,
   });
 
   @override
   String toString() {
-    return 'Game(id: $id, guid: $guid, name: $name, startTime: $startTime, endTime: $endTime, gameState: $gameState, maxPlayersCount: $maxPlayersCount, questionsCount: $questionsCount, gamemode: $gamemode)'; //, players: $players)';
+    return 'Game(id: $id, guid: $guid, name: $name, startTime: $startTime, endTime: $endTime, gameState: $gameState, maxPlayersCount: $maxPlayersCount, questionsCount: $questionsCount, gamemode: $gamemode, players: $players)';
   }
 
   factory Game.fromJson(Map<String, dynamic> json) {
@@ -43,7 +43,7 @@ class Game {
       gamemode: json['gamemode'] == null
           ? null
           : Gamemode.fromJson(json['gamemode'] as Map<String, dynamic>),
-      //players: json['players'] as List<String>,
+      players: json['players'] as List<dynamic>,
     );
   }
 
@@ -58,7 +58,7 @@ class Game {
       'maxPlayersCount': maxPlayersCount,
       'questionsCount': questionsCount,
       'gamemode': gamemode?.toJson(),
-      //'players': players,
+      'players': players,
     };
   }
 }

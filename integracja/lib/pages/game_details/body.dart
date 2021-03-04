@@ -5,7 +5,7 @@ import 'package:integracja/pages/game_details/body_mode_settings.dart';
 import 'package:integracja/pages/game_details/body_players.dart';
 
 class GameDetailsBody extends StatelessWidget {
-  final List<GameUser> _gameUser;
+  final GameUser _gameUser;
   GameDetailsBody(this._gameUser);
 
   @override
@@ -17,9 +17,9 @@ class GameDetailsBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GameDetailsBodyGameSettings(),
-            GameDetailsBodyModeSettings(),
-            GameDetailsBodyPlayers(),
+            GameDetailsBodyGameSettings(_gameUser.game),
+            GameDetailsBodyModeSettings(_gameUser.game.gamemode),
+            GameDetailsBodyPlayers(_gameUser.game),
           ],
         ),
       ),

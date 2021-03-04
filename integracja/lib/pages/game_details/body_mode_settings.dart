@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:integracja/models/game/gamemode.dart';
 
 class GameDetailsBodyModeSettings extends StatelessWidget {
-  const GameDetailsBodyModeSettings({
-    Key key,
-  }) : super(key: key);
+  final Gamemode _gameMode;
+  GameDetailsBodyModeSettings(this._gameMode);
 
   @override
   Widget build(BuildContext context) {
@@ -19,28 +19,28 @@ class GameDetailsBodyModeSettings extends StatelessWidget {
         ),
         SizedBox(height: 10),
         Text(
-          "Nazwa trybu: Szybki",
+          "Nazwa trybu: ${_gameMode.name}",
           style: TextStyle(
             fontSize: 18,
             color: Colors.grey,
           ),
         ),
         Text(
-          "Czas na cały quiz: 10 minut",
+          "Czas na cały quiz: ${_gameMode.timeForFullQuiz} sekund",
           style: TextStyle(
             fontSize: 18,
             color: Colors.grey,
           ),
         ),
         Text(
-          "Ilość żyć: 3",
+          "Czas na pytanie: ${_gameMode.timeForOneQuestion} sekund",
           style: TextStyle(
             fontSize: 18,
             color: Colors.grey,
           ),
         ),
         Text(
-          "Ilość pytań: 20",
+          "Ilość żyć: ${_gameMode.numberOfLives}",
           style: TextStyle(
             fontSize: 18,
             color: Colors.grey,
