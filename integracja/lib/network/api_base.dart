@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:integracja/models/api_item.dart';
@@ -14,8 +14,10 @@ class ApiBase {
         _header = {
           'Content-Type': 'application/json',
           'accept': 'text/plain',
-          HttpHeaders.authorizationHeader: user.token
-        };
+          'Authorization': 'Bearer ${user.token}'
+        } {
+    log(user.token);
+  }
 
   String _urlResolver(API path) {
     switch (path) {
@@ -63,6 +65,10 @@ class ApiBase {
       {@required String url, ApiRequest transferObject, int id}) async {
     var response =
         await http.get(url + (id != null ? "/$id" : ""), headers: _header);
+    log(url);
+    log(response.request.toString());
+    log(response.body);
+    log(response.statusCode.toString());
     return _returnResponse(response);
   }
 

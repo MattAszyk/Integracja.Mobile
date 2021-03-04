@@ -9,22 +9,21 @@ class GameCard extends StatelessWidget {
 
   GameCard(Game game) {
     this._game = game;
-
-    if (game.gameState == 1) {
-      _text = 'active';
-      _color = Colors.green;
-    } else if (game.gameState == 2) {
-      _text = 'starting soon';
-      _color = Colors.orange;
+    switch (game.gameState) {
+      case 'Normal':
+        _text = 'Normal';
+        _color = Colors.green;
+        break;
+      default:
+        _text = 'IDK';
+        _color = Colors.orange;
+        break;
     }
 
     _minutes = 1; //_game.endTime.difference(DateTime.now()).inMinutes;
     int hours = _minutes ~/ 60;
-    _text += ' (' +
-        hours.toString() +
-        ':' +
-        (_minutes - hours * 60).toString() +
-        'h left)';
+    _text =
+        '$_text (${hours.toString()}:${(_minutes - hours * 60).toString()}h left)';
   }
 
   @override
@@ -34,7 +33,7 @@ class GameCard extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            trailing: _game.gameState == 1
+            trailing: _game.gameState == 'Normal'
                 ? ElevatedButton(
                     onPressed: () {},
                     child: Text('Play'),

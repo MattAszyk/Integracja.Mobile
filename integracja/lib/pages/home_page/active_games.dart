@@ -1,37 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:integracja/blocs/authentication/authentication_bloc.dart';
 import 'package:integracja/models/game/game_user.dart';
-import 'package:integracja/network/api/game_repository.dart';
 import 'game_card.dart';
 
 class ActiveGames extends StatelessWidget {
+  final List<GameUser> _gameUserList;
+  ActiveGames(this._gameUserList);
   Widget build(BuildContext context) {
-    /*final authBloc = BlocProvider.of<AuthenticationBloc>(context);
-
-    var games = GameRepository(user: user).fetchAll();
-    
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        body: 1 == 1
-            ? ListView(
-                children: games
-                    .map((game) => GestureDetector(
-                          child: GameCard(game),
-                          onTap: () => _onGameCardTap(context, game.guid),
-                        ))
-                    .toList(),
-              )
-            : Container(
-                width: MediaQuery.of(context).size.width,
-                child: Image.asset(
-                  "assets/images/arrow.png",
-                  fit: BoxFit.fill,
-                ),
+    return Container(
+        child: Container(
+      child: !_gameUserList.isEmpty
+          ? ListView.separated(
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return GameCard(_gameUserList[index].game);
+              },
+              separatorBuilder: (_, index) => const Divider(),
+              itemCount: _gameUserList.length)
+          : Container(
+              width: MediaQuery.of(context).size.width,
+              child: Image.asset(
+                "assets/images/arrow.png",
+                fit: BoxFit.fill,
               ),
-      ),
-    );*/
+            ),
+    ));
   }
 
   _onGameCardTap(BuildContext context, String gameID) {

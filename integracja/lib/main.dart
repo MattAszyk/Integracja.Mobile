@@ -35,7 +35,8 @@ class MyApp extends GetWidget<AuthenticationController> {
           return HomePage(
             user: (controller.state as Authenticated).user,
           );
-        }
+        } else
+          return LoginPage();
       }),
     );
   }

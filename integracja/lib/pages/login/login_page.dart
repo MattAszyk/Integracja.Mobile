@@ -36,8 +36,8 @@ class __SignInFormState extends State<_SignInForm> {
 
   @override
   Widget build(BuildContext context) {
-    _usernameController.text = 'exampleuser';
-    _passwordController.text = 'VDGqwxycPZb3fzy.';
+    _usernameController.text = 'apidev';
+    _passwordController.text = '12345aA!';
     Size size = MediaQuery.of(context).size;
     return Obx(() {
       return Form(
@@ -47,7 +47,8 @@ class __SignInFormState extends State<_SignInForm> {
         child: SingleChildScrollView(
             child: Column(
           children: [
-            if (_controller.state is LoginLoading) _loading() else _signIn()
+            if (_controller.state is LoginLoading) _loading(),
+            if (_controller.state is LoginState) _signIn()
           ],
         )),
       );
