@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:integracja/models/play_game/play_game.dart';
-import 'package:integracja/pages/home_page/home_page.dart';
 import 'package:integracja/utils/constrains.dart';
 
 class Play extends StatefulWidget {
@@ -27,10 +26,7 @@ class _PlayState extends State<Play> {
             Icons.arrow_back_ios,
             color: Colors.black,
           ),
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HomePage()),
-          ),
+          onPressed: () => Navigator.of(context).pop(),
         ),
         centerTitle: true,
         title: const Text(
@@ -66,7 +62,7 @@ class _PlayState extends State<Play> {
               children: [
                 Expanded(
                   child: RaisedButton(
-                    onPressed: () => checkAnswer(0),
+                    onPressed: () => _answered ? null : checkAnswer(0),
                     color: buttonColor(0),
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
@@ -85,7 +81,7 @@ class _PlayState extends State<Play> {
                 ),
                 Expanded(
                   child: RaisedButton(
-                    onPressed: () => checkAnswer(1),
+                    onPressed: () => _answered ? null : checkAnswer(1),
                     color: buttonColor(1),
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
@@ -108,9 +104,7 @@ class _PlayState extends State<Play> {
               children: [
                 Expanded(
                   child: RaisedButton(
-                    onPressed: () {
-                      checkAnswer(2);
-                    },
+                    onPressed: () => _answered ? null : checkAnswer(2),
                     color: buttonColor(2),
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
@@ -129,9 +123,7 @@ class _PlayState extends State<Play> {
                 ),
                 Expanded(
                   child: RaisedButton(
-                    onPressed: () {
-                      checkAnswer(3);
-                    },
+                    onPressed: () => _answered ? null : checkAnswer(3),
                     color: buttonColor(3),
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
@@ -196,6 +188,9 @@ class _PlayState extends State<Play> {
       _answered = true;
       _btnActive = true;
     });
+
+    // TODO
+    // wyslanie odpowiedzi na serwer
   }
 
   void loadQuestion() {
