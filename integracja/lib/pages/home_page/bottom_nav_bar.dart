@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:integracja/pages/game_details/game_details.dart';
+import 'package:integracja/pages/play/play.dart';
 import 'package:integracja/pages/settings/settings.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -32,7 +33,7 @@ class BottomNavBar extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => GameDetails(0)),
+                  MaterialPageRoute(builder: (context) => Play()),
                 );
               }),
           Spacer(),
