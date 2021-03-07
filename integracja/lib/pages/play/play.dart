@@ -1,6 +1,110 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:integracja/models/play_game/answer.dart';
 import 'package:integracja/models/play_game/play_game.dart';
+import 'package:integracja/models/play_game/question.dart';
 import 'package:integracja/utils/constrains.dart';
+
+Answer a1 = Answer(
+  id: 0,
+  content: '[1]Odp1',
+  isCorrect: true,
+);
+Answer a2 = Answer(
+  id: 1,
+  content: '[1]Odp2',
+  isCorrect: false,
+);
+Answer a3 = Answer(
+  id: 1,
+  content: '[1]Odp3',
+  isCorrect: false,
+);
+Answer a4 = Answer(
+  id: 1,
+  content: '[1]Odp4',
+  isCorrect: false,
+);
+
+Question q1 = Question(
+    id: 0,
+    content: '[1]Pytanko tak o?',
+    positivePoints: 1,
+    negativePoints: 0,
+    questionScoring: 'ScorePerGoodAnswer',
+    isPublic: true,
+    categoryId: 0,
+    answers: [a1, a2, a3, a4],
+    ownerId: 0,
+    ownerUsername: "fladzio");
+
+Answer b1 = Answer(
+  id: 0,
+  content: '[2]Odp1',
+  isCorrect: false,
+);
+Answer b2 = Answer(
+  id: 1,
+  content: '[2]Odp2',
+  isCorrect: true,
+);
+Answer b3 = Answer(
+  id: 2,
+  content: '[2]Odp3',
+  isCorrect: false,
+);
+Answer b4 = Answer(
+  id: 3,
+  content: '[2]Odp4',
+  isCorrect: false,
+);
+
+Question q2 = Question(
+    id: 0,
+    content: '[2]Pytanko tak o?',
+    positivePoints: 1,
+    negativePoints: 0,
+    questionScoring: 'ScorePerGoodAnswer',
+    isPublic: true,
+    categoryId: 0,
+    answers: [b1, b2, b3, b4],
+    ownerId: 0,
+    ownerUsername: "fladzio");
+
+Answer c1 = Answer(
+  id: 0,
+  content: '[3]Odp1',
+  isCorrect: false,
+);
+Answer c2 = Answer(
+  id: 1,
+  content: '[3]Odp2',
+  isCorrect: false,
+);
+Answer c3 = Answer(
+  id: 2,
+  content: '[3]Odp3',
+  isCorrect: true,
+);
+Answer c4 = Answer(
+  id: 3,
+  content: '[3]Odp4',
+  isCorrect: false,
+);
+
+Question q3 = Question(
+    id: 0,
+    content: '[3]Pytanko tak o?',
+    positivePoints: 1,
+    negativePoints: 0,
+    questionScoring: 'ScorePerGoodAnswer',
+    isPublic: true,
+    categoryId: 0,
+    answers: [c1, c2, c3, c4],
+    ownerId: 0,
+    ownerUsername: "fladzio");
+
+List<Question> questions = [q2, q3];
 
 class Play extends StatefulWidget {
   @override
@@ -8,7 +112,13 @@ class Play extends StatefulWidget {
 }
 
 class _PlayState extends State<Play> {
-  PlayGame _play = PlayGame().getFirstQuestion();
+  PlayGame _play = PlayGame(
+    index: 0,
+    overridePositivePoints: 1,
+    overrideNegativePoints: 1,
+    questionId: 0,
+    question: q1,
+  );
   bool _btnActive = false;
   bool _answered = false;
   int _answeredQuestion = 0;
@@ -195,11 +305,7 @@ class _PlayState extends State<Play> {
 
   void loadQuestion() {
     setState(() {
-      if (_question == 0) {
-        _play = PlayGame().getSecondQuestion();
-      } else if (_question == 1) {
-        _play = PlayGame().getThirdQuestion();
-      } else {}
+      if (_question < questions.length) _play.question = questions[_question];
       _question++;
     });
     resetState();
