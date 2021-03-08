@@ -7,30 +7,30 @@ import 'package:integracja/utils/constrains.dart';
 
 Answer a1 = Answer(
   id: 0,
-  content: '[1]Odp1',
-  isCorrect: true,
+  content: '1',
+  isCorrect: false,
 );
 Answer a2 = Answer(
   id: 1,
-  content: '[1]Odp2',
+  content: '2',
   isCorrect: false,
 );
 Answer a3 = Answer(
-  id: 1,
-  content: '[1]Odp3',
+  id: 2,
+  content: '3',
   isCorrect: false,
 );
 Answer a4 = Answer(
-  id: 1,
-  content: '[1]Odp4',
-  isCorrect: false,
+  id: 3,
+  content: '4',
+  isCorrect: true,
 );
 
 Question q1 = Question(
     id: 0,
-    content: '[1]Pytanko tak o?',
+    content: '2 + 2 = ?',
     positivePoints: 1,
-    negativePoints: 0,
+    negativePoints: 1,
     questionScoring: 'ScorePerGoodAnswer',
     isPublic: true,
     categoryId: 0,
@@ -39,31 +39,31 @@ Question q1 = Question(
     ownerUsername: "fladzio");
 
 Answer b1 = Answer(
-  id: 0,
-  content: '[2]Odp1',
-  isCorrect: false,
-);
-Answer b2 = Answer(
-  id: 1,
-  content: '[2]Odp2',
+  id: 4,
+  content: 'czerwony',
   isCorrect: true,
 );
+Answer b2 = Answer(
+  id: 5,
+  content: 'zielony',
+  isCorrect: false,
+);
 Answer b3 = Answer(
-  id: 2,
-  content: '[2]Odp3',
+  id: 6,
+  content: 'żółty',
   isCorrect: false,
 );
 Answer b4 = Answer(
-  id: 3,
-  content: '[2]Odp4',
+  id: 7,
+  content: 'niebieski',
   isCorrect: false,
 );
 
 Question q2 = Question(
     id: 0,
-    content: '[2]Pytanko tak o?',
+    content: 'Jakiego koloru jest czerwony maluch?',
     positivePoints: 1,
-    negativePoints: 0,
+    negativePoints: 1,
     questionScoring: 'ScorePerGoodAnswer',
     isPublic: true,
     categoryId: 0,
@@ -72,31 +72,31 @@ Question q2 = Question(
     ownerUsername: "fladzio");
 
 Answer c1 = Answer(
-  id: 0,
-  content: '[3]Odp1',
+  id: 8,
+  content: '1',
   isCorrect: false,
 );
 Answer c2 = Answer(
-  id: 1,
-  content: '[3]Odp2',
+  id: 9,
+  content: '3',
   isCorrect: false,
 );
 Answer c3 = Answer(
-  id: 2,
-  content: '[3]Odp3',
+  id: 10,
+  content: '2',
   isCorrect: true,
 );
 Answer c4 = Answer(
-  id: 3,
-  content: '[3]Odp4',
+  id: 11,
+  content: '4',
   isCorrect: false,
 );
 
 Question q3 = Question(
     id: 0,
-    content: '[3]Pytanko tak o?',
+    content: 'Ilu jest Flutterowców w zespole inteGRAcja?',
     positivePoints: 1,
-    negativePoints: 0,
+    negativePoints: 1,
     questionScoring: 'ScorePerGoodAnswer',
     isPublic: true,
     categoryId: 0,
@@ -114,8 +114,8 @@ class Play extends StatefulWidget {
 class _PlayState extends State<Play> {
   PlayGame _play = PlayGame(
     index: 0,
-    overridePositivePoints: 1,
-    overrideNegativePoints: 1,
+    overridePositivePoints: 0,
+    overrideNegativePoints: 0,
     questionId: 0,
     question: q1,
   );
@@ -161,6 +161,7 @@ class _PlayState extends State<Play> {
                     style: TextStyle(
                       fontSize: 20,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
@@ -266,7 +267,9 @@ class _PlayState extends State<Play> {
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Text(
-                          'Następne pytanie ->',
+                          (_question < questions.length)
+                              ? 'Następne pytanie'
+                              : 'Zobacz wyniki',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -292,9 +295,14 @@ class _PlayState extends State<Play> {
     });
   }
 
-  void checkAnswer(int odp) {
+  void checkAnswer(int btn) {
+    if (_play.question.answers[btn].isCorrect)
+      _play.overridePositivePoints += _play.question.positivePoints;
+    else
+      _play.overrideNegativePoints += _play.question.negativePoints;
+
     setState(() {
-      _answeredQuestion = odp;
+      _answeredQuestion = btn;
       _answered = true;
       _btnActive = true;
     });
@@ -304,11 +312,32 @@ class _PlayState extends State<Play> {
   }
 
   void loadQuestion() {
-    setState(() {
-      if (_question < questions.length) _play.question = questions[_question];
-      _question++;
-    });
-    resetState();
+    if (_question < questions.length) {
+      setState(() {
+        _play.question = questions[_question];
+        resetState();
+        _question++;
+      });
+    } else {
+      showDialog<void>(context: context, builder: (context) => showDiallog());
+    }
+  }
+
+  AlertDialog showDiallog() {
+    return AlertDialog(
+      title: Text('Wynik'),
+      content: Text(
+          'Poprawnych odpowiedzi: ${_play.overridePositivePoints}\nBłędnych odpowiedzi: ${_play.overrideNegativePoints}'),
+      actions: [
+        FlatButton(
+          textColor: Color(0xFF6200EE),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('ACCEPT'),
+        ),
+      ],
+    );
   }
 
   Color buttonColor(int btn) {
