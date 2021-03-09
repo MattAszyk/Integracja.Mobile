@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:integracja/blocs/authentication/authentication_bloc.dart';
+import 'package:get/get.dart';
+import 'package:integracja/controllers/authentication/authentication_controller.dart';
+import 'package:integracja/controllers/home_page/home_page_controller.dart';
+import 'package:integracja/controllers/home_page/home_page_state.dart';
 import 'package:integracja/models/authentication/user.dart';
 import 'package:integracja/pages/qr_scan/qr_scan.dart';
 import 'package:integracja/utils/constrains.dart';
@@ -9,13 +11,29 @@ import 'bottom_nav_bar.dart';
 
 class HomePage extends StatelessWidget {
   final User user;
+  HomePageController _homePageController = Get.put(HomePageController());
+  HomePage({Key key, this.user}) : super(key: key);
 
-  const HomePage({Key key, this.user}) : super(key: key);
+  Column _loading() {
+    return Column(
+      children: [
+        Spacer(),
+        Center(
+          child: SizedBox(
+            width: 60,
+            height: 60,
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+            ),
+          ),
+        ),
+        Spacer(),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final authBloc = BlocProvider.of<AuthenticationBloc>(context);
-
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
@@ -27,26 +45,34 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              ActiveGames(),
-              SizedBox(
-                height: 12,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Obx(() {
+              if (_homePageController.state is HomePageLoading)
+                return _loading();
+              else if (_homePageController.state is HomePageLoaded)
+                return ActiveGames(
+                    (_homePageController.state as HomePageLoaded).gameUserList);
+              else
+                return Container();
+            }),
+            SizedBox(
+              height: 12,
+            ),
+            Center(
+              child: FlatButton(
+                textColor: primaryColor,
+                child: Text('Logout'),
+                onPressed: () {
+                  final AuthenticationController authenticationController =
+                      Get.find();
+                  authenticationController.signOut();
+                },
               ),
-              Center(
-                child: FlatButton(
-                  textColor: primaryColor,
-                  child: Text('Logout'),
-                  onPressed: () {
-                    authBloc.add(UserLoggedOut());
-                  },
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       bottomNavigationBar: BottomNavBar(),

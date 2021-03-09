@@ -1,50 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:integracja/controllers/authentication/authentication_controller.dart';
+import 'package:integracja/controllers/authentication/authentication_state.dart';
 import 'package:integracja/pages/home_page/home_page.dart';
 import 'package:integracja/pages/login/login_page.dart';
 import 'package:integracja/services/authentication_service.dart';
 import 'package:integracja/utils/constrains.dart';
-import 'blocs/authentication/authentication_bloc.dart';
 
 void main() {
-  //SafeStorage().deleteInSystem();
-  runApp(RepositoryProvider<AuthenticationService>(
-    create: (context) {
-      return RemoteAuthenticationService();
-    },
-    // Injects the Authentication BLoC
-    child: BlocProvider<AuthenticationBloc>(
-      create: (context) {
-        final authService =
-            RepositoryProvider.of<AuthenticationService>(context);
-        return AuthenticationBloc(authService)..add(ApplicationLoaded());
-      },
-      child: MyApp(),
-    ),
-  ));
+  initialize();
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+void initialize() {
+  Get.lazyPut(
+    () => AuthenticationController(Get.put(RemoteAuthenticationService())),
+  );
+}
+
+class MyApp extends GetWidget<AuthenticationController> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'inteGRAcja',
       theme: customTheme(),
       debugShowCheckedModeBanner: false,
       // BlocBuilder will listen to changes in AuthenticationState
       // and build an appropriate widget based on the state.
-      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        builder: (context, state) {
-          if (state is AuthenticationAuthenticatedState) {
-            // show home page
-            return HomePage(
-              user: state.user,
-            );
-          }
-          // otherwise show login page
+      home: Obx(() {
+        if (controller.state is Unauthenticated) {
           return LoginPage();
-        },
-      ),
+        } else if (controller.state is Authenticated) {
+          return HomePage(
+            user: (controller.state as Authenticated).user,
+          );
+        } else
+          return LoginPage();
+      }),
     );
   }
 }

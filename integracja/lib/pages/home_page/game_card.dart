@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:integracja/models/game/game.dart';
+import 'package:integracja/utils/constrains.dart';
 
 class GameCard extends StatelessWidget {
   Game _game;
@@ -10,61 +11,50 @@ class GameCard extends StatelessWidget {
   GameCard(Game game) {
     this._game = game;
 
-    /*if (game.gameState == 1) {
-      _text = 'active';
+    _minutes = _game.endTime.difference(DateTime.now()).inMinutes;
+
+    int posMinutes = (_minutes.isNegative) ? (_minutes * (-1)) : _minutes;
+    int hours = posMinutes ~/ 60;
+
+    if (_minutes > 0) {
+      _text =
+          'Rozpoczęta (pozostało ${hours.toString()}:${(posMinutes - hours * 60).toString()}h)';
       _color = Colors.green;
-    } else if (game.gameState == 2) {
-      _text = 'starting soon';
+    } else {
+      _text =
+          'Nadchodząca (za ${hours.toString()}:${(posMinutes - hours * 60).toString()}h)';
       _color = Colors.orange;
     }
-
-    _minutes = 1; //_game.endTime.difference(DateTime.now()).inMinutes;
-    int hours = _minutes ~/ 60;
-    _text += ' (' +
-        hours.toString() +
-        ':' +
-        (_minutes - hours * 60).toString() +
-        'h left)';
-        */
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Card(
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            children: [
-              ListTile(
-                //trailing: _game.gameState == 1
-                trailing: 1 == 1
-                    ? ElevatedButton(
-                        onPressed: () {},
-                        child: Text('Play'),
-                      )
-                    : null,
-                title: Text(
-                  //_game.name,
-                  "Integracja z zespołem IT",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: ListTile(
+        trailing: _minutes > 0
+            ? ElevatedButton(
+                onPressed: () {},
+                child: Text('Graj'),
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(primaryColor),
                 ),
-                subtitle: Text(
-                  //_text,
-                  'active',
-                  style: TextStyle(
-                    //color: _color,
-                    color: Colors.green,
-                  ),
-                ),
-              ),
-            ],
+              )
+            : null,
+        title: Text(
+          _game.name,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(
-          height: 5,
+        subtitle: Text(
+          _text,
+          style: TextStyle(
+            color: _color,
+          ),
         ),
-      ],
+      ),
     );
   }
 }

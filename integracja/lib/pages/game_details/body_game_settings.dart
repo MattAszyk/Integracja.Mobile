@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:integracja/models/game/game.dart';
 
 class GameDetailsBodyGameSettings extends StatelessWidget {
-  const GameDetailsBodyGameSettings({
-    Key key,
-  }) : super(key: key);
+  final Game _game;
+  GameDetailsBodyGameSettings(this._game);
 
   @override
   Widget build(BuildContext context) {
@@ -19,28 +19,28 @@ class GameDetailsBodyGameSettings extends StatelessWidget {
         ),
         SizedBox(height: 10),
         Text(
-          "Początek: 23.02.2021 16:44",
+          "Początek: ${_game.startTime}",
           style: TextStyle(
             fontSize: 18,
             color: Colors.grey,
           ),
         ),
         Text(
-          "Koniec: 23.02.2021 16:44",
+          "Koniec: ${_game.endTime}",
           style: TextStyle(
             fontSize: 18,
             color: Colors.grey,
           ),
         ),
         Text(
-          "Maksymalna liczba graczy: 10",
+          "Maksymalna liczba graczy: ${_game.maxPlayersCount}",
           style: TextStyle(
             fontSize: 18,
             color: Colors.grey,
           ),
         ),
         Text(
-          "Ilość pytań: 20",
+          "Ilość pytań: ${_game.questionsCount}",
           style: TextStyle(
             fontSize: 18,
             color: Colors.grey,

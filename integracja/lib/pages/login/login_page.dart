@@ -1,8 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:integracja/blocs/authentication/authentication_bloc.dart';
-import 'package:integracja/blocs/login/login_bloc.dart';
-import 'package:integracja/services/authentication_service.dart';
+import 'package:get/get.dart';
+import 'package:integracja/controllers/login/login_controller.dart';
+import 'package:integracja/controllers/login/login_state.dart';
 import 'package:integracja/utils/constrains.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -10,137 +10,110 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        constraints: BoxConstraints.expand(),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image:
-                AssetImage("assets/images/login_screen/login_background.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-          builder: (context, state) {
-            if (state is AuthenticationNotAuthenticatedState) {
-              return _AuthenticationForm();
-            }
-            if (state is AuthenticationFailure) {
-              return _AuthenticationForm();
-            }
-            return Center(
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class _AuthenticationForm extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final authenticationService =
-        RepositoryProvider.of<AuthenticationService>(context);
-    final authenticationBloc =
-        RepositoryProvider.of<AuthenticationBloc>(context);
-    return Container(
+        body: Container(
       constraints: BoxConstraints.expand(),
-      child: BlocProvider<LoginBloc>(
-        create: (context) =>
-            LoginBloc(authenticationBloc, authenticationService),
-        child: _LoginForm(),
-      ),
-    );
+      decoration: BoxDecoration(
+          image: DecorationImage(
+        image: AssetImage("assets/images/login_screen/login_background.jpg"),
+        fit: BoxFit.cover,
+      )),
+      child: _SignInForm(),
+    ));
   }
 }
 
-class _LoginForm extends StatefulWidget {
+class _SignInForm extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _LoginFormState();
+  __SignInFormState createState() => __SignInFormState();
 }
 
-class _LoginFormState extends State<_LoginForm> {
+class __SignInFormState extends State<_SignInForm> {
+  final _controller = Get.put(LoginController());
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
   final _usernameController = TextEditingController();
+  bool _autoValidate = false;
+
   @override
   Widget build(BuildContext context) {
-    _usernameController.text = 'exampleuser';
-    _passwordController.text = 'VDGqwxycPZb3fzy.';
+    _usernameController.text = 'apidev';
+    _passwordController.text = '12345aA!';
     Size size = MediaQuery.of(context).size;
-    final _loginBloc = BlocProvider.of<LoginBloc>(context);
-    _onLoginButtonPressed() {
-      _loginBloc.add(LogInWithCredentials(
-          username: _usernameController.text,
-          password: _passwordController.text));
+    return Obx(() {
+      return Form(
+        key: _key,
+        autovalidateMode:
+            _autoValidate ? AutovalidateMode.always : AutovalidateMode.disabled,
+        child: SingleChildScrollView(
+            child: Column(
+          children: [
+            if (_controller.state is LoginLoading) _loading(),
+            if (_controller.state is LoginIdle) _signIn()
+          ],
+        )),
+      );
+    });
+  }
+
+  Column _signIn() {
+    final size = MediaQuery.of(context).size;
+    onLoginButtonPressed() {
+      if (_key.currentState.validate()) {
+        _controller.login(_usernameController.text, _passwordController.text);
+      } else {
+        setState(() {
+          _autoValidate = true;
+        });
+      }
     }
 
-    return BlocListener<LoginBloc, LoginState>(
-      listener: (context, state) {
-        if (state is LoginFailureState) {
-          //TODO: error
-        }
-      },
-      child: BlocBuilder<LoginBloc, LoginState>(
-        builder: (context, state) {
-          if (state is LoginLoadingState) {
-            return Column(
-              children: [
-                _buildLogo(),
-                Center(
-                  child: SizedBox(
-                    width: 60,
-                    height: 60,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
-                    ),
-                  ),
-                )
-              ],
-            );
-          }
-          return SingleChildScrollView(
-            key: _key,
-            child: Column(
-              children: <Widget>[
-                _buildLogo(),
-                _usernameForm(),
-                _passwordForm(),
-                _clickableLabel(false),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(
-                        width: size.width * 0.9,
-                        height: size.height * 0.065,
-                        child: RaisedButton(
-                          color: Colors.transparent,
-                          onPressed: state is LoginLoadingState
-                              ? () {}
-                              : _onLoginButtonPressed,
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadiusDirectional.circular(16.0),
-                              side: BorderSide(color: primaryColor)),
-                          child: Text(
-                            "Zaloguj się",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ))
-                  ],
+    return Column(children: [
+      _buildLogo(),
+      _usernameForm(),
+      _passwordForm(),
+      _clickableLabel(false),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+              width: size.width * 0.9,
+              height: size.height * 0.065,
+              child: RaisedButton(
+                color: Colors.transparent,
+                onPressed: _controller.state is LoginLoading
+                    ? () {}
+                    : onLoginButtonPressed,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusDirectional.circular(16.0),
+                    side: BorderSide(color: primaryColor)),
+                child: Text(
+                  "Zaloguj się",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
                 ),
-                _clickableLabel(true)
-              ],
-            ),
-          );
-        },
+              ))
+        ],
       ),
+      _clickableLabel(true)
+    ]);
+  }
+
+  Column _loading() {
+    return Column(
+      children: [
+        _buildLogo(),
+        Center(
+          child: SizedBox(
+            width: 60,
+            height: 60,
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+            ),
+          ),
+        )
+      ],
     );
   }
 

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:integracja/models/game/game_user.dart';
 
 class GameDetailsAppBar extends StatelessWidget {
-  const GameDetailsAppBar({
-    Key key,
-  }) : super(key: key);
+  final GameUser _gameUser;
+  GameDetailsAppBar(this._gameUser);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class GameDetailsAppBar extends StatelessWidget {
           Icons.arrow_back_ios,
           color: Colors.black,
         ),
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () => Get.back(),
       ),
       actions: [
         IconButton(
@@ -21,14 +22,14 @@ class GameDetailsAppBar extends StatelessWidget {
             Icons.logout,
             color: Colors.black,
           ),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Get.back(),
         ),
       ],
       centerTitle: true,
       floating: true,
       pinned: true,
       expandedHeight: 180,
-      title: Text('inteGRAcja z zespołem IT'),
+      title: Text(_gameUser.game.name),
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.parallax,
         background: Container(
@@ -63,7 +64,7 @@ class GameDetailsAppBar extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    "Startujemy za 30min",
+                    "Tu czas ogółem",
                     style: TextStyle(
                       fontSize: 18,
                     ),

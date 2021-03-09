@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:integracja/models/game/game.dart';
 
 class GameDetailsBodyPlayers extends StatelessWidget {
-  const GameDetailsBodyPlayers({
-    Key key,
-  }) : super(key: key);
+  final Game _game;
+  String _maxPlayers;
+  List<String> _players;
+  GameDetailsBodyPlayers(this._game) {
+    _maxPlayers = (_game.maxPlayersCount == 0) ? '∞' : _game.maxPlayersCount;
+    _players = List<String>.from(_game.players);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,63 +22,28 @@ class GameDetailsBodyPlayers extends StatelessWidget {
         ),
       ),
       subtitle: Text(
-        "6/10",
+        "${_game.players.length}/$_maxPlayers",
         style: TextStyle(
           fontSize: 18,
           color: Colors.grey,
         ),
       ),
       children: <Widget>[
-        Text(
-          "Agnieszka Uznańska",
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.grey,
+        for (var player in _players)
+          Column(
+            children: [
+              Text(
+                player.toString(),
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.grey,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+            ],
           ),
-        ),
-        SizedBox(height: 5),
-        Text(
-          "Maciej Aszyk",
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.grey,
-          ),
-        ),
-        SizedBox(height: 5),
-        Text(
-          "Jakub Fladziński",
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.grey,
-          ),
-        ),
-        SizedBox(height: 5),
-        Text(
-          "Michał Guźlewski",
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.grey,
-          ),
-        ),
-        SizedBox(height: 5),
-        Text(
-          "Mikołaj Suchodolski",
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.grey,
-          ),
-        ),
-        SizedBox(height: 5),
-        Text(
-          "Michał Wiciński",
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.grey,
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
       ],
     );
   }

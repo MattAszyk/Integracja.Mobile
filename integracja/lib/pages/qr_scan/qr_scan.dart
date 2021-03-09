@@ -97,7 +97,7 @@ class _QRScabState extends State<QRScan> {
         scanned = true;
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => GameDetails("1")),
+          MaterialPageRoute(builder: (context) => GameDetails(0)),
         );
       }
     });
