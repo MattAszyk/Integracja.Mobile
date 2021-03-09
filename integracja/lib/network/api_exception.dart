@@ -1,3 +1,6 @@
+import 'package:get/get.dart';
+import 'package:integracja/controllers/authentication/authentication_controller.dart';
+
 class ApiException implements Exception {
   final String _message;
   final int _codeStatus;
@@ -14,5 +17,7 @@ class BadRequestException extends ApiException {
 }
 
 class UnauthorizedException extends ApiException {
-  UnauthorizedException() : super(401, "Unauthorized");
+  UnauthorizedException() : super(401, "Unauthorized") {
+    Get.find<AuthenticationController>().signOut();
+  }
 }
