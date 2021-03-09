@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:integracja/models/game/game_user.dart';
 import 'package:integracja/pages/game_details/game_details.dart';
 import 'game_card.dart';
@@ -33,9 +34,6 @@ class ActiveGames extends StatelessWidget {
   }
 
   _onGameCardTap(BuildContext context, int gameId) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => GameDetails(gameId)),
-    );
+    Get.to(() => GameDetails(gameId));
   }
 }

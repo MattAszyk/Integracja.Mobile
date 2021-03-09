@@ -22,7 +22,7 @@ void initialize() {
 class MyApp extends GetWidget<AuthenticationController> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'inteGRAcja',
       theme: customTheme(),
       debugShowCheckedModeBanner: false,

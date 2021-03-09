@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:integracja/models/game/game_user.dart';
 
 class GameDetailsAppBar extends StatelessWidget {
@@ -13,7 +14,7 @@ class GameDetailsAppBar extends StatelessWidget {
           Icons.arrow_back_ios,
           color: Colors.black,
         ),
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () => Get.back(),
       ),
       actions: [
         IconButton(
@@ -21,7 +22,7 @@ class GameDetailsAppBar extends StatelessWidget {
             Icons.logout,
             color: Colors.black,
           ),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Get.back(),
         ),
       ],
       centerTitle: true,
