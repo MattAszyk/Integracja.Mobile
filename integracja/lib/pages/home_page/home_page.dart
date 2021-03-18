@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:integracja/controllers/authentication/authentication_controller.dart';
 import 'package:integracja/controllers/home_page/home_page_controller.dart';
 import 'package:integracja/controllers/home_page/home_page_state.dart';
 import 'package:integracja/pages/qr_scan/qr_scan.dart';
@@ -64,20 +63,6 @@ class _HomePageState extends State<HomePage> {
                 return Container();
               }
             }),
-            SizedBox(
-              height: 12,
-            ),
-            Center(
-              child: FlatButton(
-                textColor: primaryColor,
-                child: Text('Logout'),
-                onPressed: () {
-                  final AuthenticationController authenticationController =
-                      Get.find();
-                  authenticationController.signOut();
-                },
-              ),
-            ),
           ],
         ),
       ),
@@ -90,10 +75,7 @@ class _HomePageState extends State<HomePage> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => QRScan()),
-            );
+            Get.to(() => QRScan());
           }),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

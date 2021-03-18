@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:integracja/controllers/authentication/authentication_controller.dart';
 import 'package:integracja/utils/constrains.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -98,7 +100,12 @@ class Settings extends StatelessWidget {
                   Icons.logout,
                   color: Colors.white,
                 ),
-                onPressed: (BuildContext context) {},
+                onPressed: (BuildContext context) {
+                  final AuthenticationController authenticationController =
+                      Get.find();
+                  authenticationController.signOut();
+                  Get.back();
+                },
               ),
             ],
           ),
