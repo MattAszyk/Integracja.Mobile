@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:integracja/controllers/authentication/authentication_controller.dart';
+import 'package:integracja/controllers/authentication/authentication_state.dart';
 import 'package:integracja/controllers/login/login_controller.dart';
 import 'package:integracja/controllers/login/login_state.dart';
 import 'package:integracja/utils/constrains.dart';
@@ -29,6 +31,7 @@ class _SignInForm extends StatefulWidget {
 
 class __SignInFormState extends State<_SignInForm> {
   final _controller = Get.put(LoginController());
+  final _authController = Get.find<AuthenticationController>();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
   final _usernameController = TextEditingController();
@@ -38,7 +41,6 @@ class __SignInFormState extends State<_SignInForm> {
   Widget build(BuildContext context) {
     _usernameController.text = 'apidev';
     _passwordController.text = '12345aA!';
-    Size size = MediaQuery.of(context).size;
     return Obx(() {
       return Form(
         key: _key,
@@ -47,8 +49,12 @@ class __SignInFormState extends State<_SignInForm> {
         child: SingleChildScrollView(
             child: Column(
           children: [
-            if (_controller.state is LoginLoading) _loading(),
-            if (_controller.state is LoginIdle) _signIn()
+            if (_controller.state is LoginLoading ||
+                _authController.state is AuthenticationLoading)
+              _loading(),
+            if (_controller.state is LoginIdle &&
+                !(_authController.state is AuthenticationLoading))
+              _signIn()
           ],
         )),
       );

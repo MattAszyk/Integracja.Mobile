@@ -1,52 +1,63 @@
-class Gamemode {
-	int id;
-	String name;
-	int timeForFullQuiz;
-	int timeForOneQuestion;
-	int numberOfLives;
-	bool isPublic;
-	int ownerId;
-	String ownerUsername;
+import 'package:equatable/equatable.dart';
 
-	Gamemode({
-		this.id,
-		this.name,
-		this.timeForFullQuiz,
-		this.timeForOneQuestion,
-		this.numberOfLives,
-		this.isPublic,
-		this.ownerId,
-		this.ownerUsername,
-	});
+class Gamemode extends Equatable {
+  final int id;
+  final int ownerId;
+  final bool isPublic;
+  final String name;
+  final int timeForFullQuiz;
+  final int timeForOneQuestion;
+  final int numberOfLives;
 
-	@override
-	String toString() {
-		return 'Gamemode(id: $id, name: $name, timeForFullQuiz: $timeForFullQuiz, timeForOneQuestion: $timeForOneQuestion, numberOfLives: $numberOfLives, isPublic: $isPublic, ownerId: $ownerId, ownerUsername: $ownerUsername)';
-	}
+  const Gamemode({
+    this.id,
+    this.ownerId,
+    this.isPublic,
+    this.name,
+    this.timeForFullQuiz,
+    this.timeForOneQuestion,
+    this.numberOfLives,
+  });
 
-	factory Gamemode.fromJson(Map<String, dynamic> json) {
-		return Gamemode(
-			id: json['id'] as int,
-			name: json['name'] as String,
-			timeForFullQuiz: json['timeForFullQuiz'] as int,
-			timeForOneQuestion: json['timeForOneQuestion'] as int,
-			numberOfLives: json['numberOfLives'] as int,
-			isPublic: json['isPublic'] as bool,
-			ownerId: json['ownerId'] as int,
-			ownerUsername: json['ownerUsername'] as String,
-		);
-	}
+  @override
+  String toString() {
+    return 'Gamemode(id: $id, ownerId: $ownerId, isPublic: $isPublic, name: $name, timeForFullQuiz: $timeForFullQuiz, timeForOneQuestion: $timeForOneQuestion, numberOfLives: $numberOfLives)';
+  }
 
-	Map<String, dynamic> toJson() {
-		return {
-			'id': id,
-			'name': name,
-			'timeForFullQuiz': timeForFullQuiz,
-			'timeForOneQuestion': timeForOneQuestion,
-			'numberOfLives': numberOfLives,
-			'isPublic': isPublic,
-			'ownerId': ownerId,
-			'ownerUsername': ownerUsername,
-		};
-	}
+  factory Gamemode.fromJson(Map<String, dynamic> json) {
+    return Gamemode(
+      id: json['id'] as int,
+      ownerId: json['ownerId'] as int,
+      isPublic: json['isPublic'] as bool,
+      name: json['name'] as String,
+      timeForFullQuiz: json['timeForFullQuiz'] as int,
+      timeForOneQuestion: json['timeForOneQuestion'] as int,
+      numberOfLives: json['numberOfLives'] as int,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'ownerId': ownerId,
+      'isPublic': isPublic,
+      'name': name,
+      'timeForFullQuiz': timeForFullQuiz,
+      'timeForOneQuestion': timeForOneQuestion,
+      'numberOfLives': numberOfLives,
+    };
+  }
+
+  @override
+  List<Object> get props {
+    return [
+      id,
+      ownerId,
+      isPublic,
+      name,
+      timeForFullQuiz,
+      timeForOneQuestion,
+      numberOfLives,
+    ];
+  }
 }

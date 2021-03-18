@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:integracja/controllers/authentication/authentication_state.dart';
@@ -13,8 +14,7 @@ class AuthenticationController extends GetxController {
 
   @override
   void onInit() {
-    _getUserFromSystem();
-
+    getUserFromSystem();
     super.onInit();
   }
 
@@ -32,14 +32,18 @@ class AuthenticationController extends GetxController {
     _authenticationStateStream.value = Unauthenticated();
   }
 
-  void _getUserFromSystem() async {
+  Future<void> getUserFromSystem() async {
     _authenticationStateStream.value = AuthenticationLoading();
-    final currentUser = await _authenticationService.getCurrentUser();
 
-    if (currentUser == null) {
-      _authenticationStateStream.value = Unauthenticated();
-    } else {
-      _authenticationStateStream.value = Authenticated(user: currentUser);
+    try {
+      final currentUser = await _authenticationService.getCurrentUser();
+      if (currentUser == null) {
+        _authenticationStateStream.value = Unauthenticated();
+      } else {
+        _authenticationStateStream.value = Authenticated(user: currentUser);
+      }
+    } catch (e) {
+      log('getUserFromSystem: ${e.toString()}');
     }
   }
 }

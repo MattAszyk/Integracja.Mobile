@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:integracja/models/game/game_user.dart';
+import 'package:integracja/models/game/detail_game_user.dart';
 
 class GameDetailsBodyCurrentState extends StatelessWidget {
-  final GameUser _gameUser;
+  final DetailGameUser _gameUser;
   GameDetailsBodyCurrentState(this._gameUser);
 
   @override
