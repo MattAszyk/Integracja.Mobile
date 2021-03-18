@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:integracja/models/play_game/answer.dart';
 import 'package:integracja/models/play_game/play_game.dart';
 import 'package:integracja/models/play_game/question.dart';

@@ -3,12 +3,15 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:integracja/controllers/authentication/authentication_controller.dart';
 import 'package:integracja/controllers/authentication/authentication_state.dart';
+import 'package:integracja/network/api_base.dart';
 import 'package:integracja/pages/home_page/home_page.dart';
 import 'package:integracja/pages/login/login_page.dart';
 import 'package:integracja/services/authentication_service.dart';
 import 'package:integracja/utils/constrains.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   initialize();
   runApp(MyApp());
 }
@@ -17,6 +20,7 @@ void initialize() {
   Get.lazyPut(
     () => AuthenticationController(Get.put(RemoteAuthenticationService())),
   );
+  Get.put(ApiBase());
 }
 
 class MyApp extends GetWidget<AuthenticationController> {
@@ -32,9 +36,7 @@ class MyApp extends GetWidget<AuthenticationController> {
         if (controller.state is Unauthenticated) {
           return LoginPage();
         } else if (controller.state is Authenticated) {
-          return HomePage(
-            user: (controller.state as Authenticated).user,
-          );
+          return HomePage();
         } else
           return LoginPage();
       }),

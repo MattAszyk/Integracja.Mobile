@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:integracja/models/game/detail_game_user.dart';
 import 'package:integracja/models/game/game_user.dart';
 
 class GameDetailsAppBar extends StatelessWidget {
-  final GameUser _gameUser;
-  GameDetailsAppBar(this._gameUser);
+  final DetailGameUser _detailGameUser;
+  GameDetailsAppBar(this._detailGameUser);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class GameDetailsAppBar extends StatelessWidget {
       floating: true,
       pinned: true,
       expandedHeight: 180,
-      title: Text(_gameUser.game.name),
+      title: Text(_detailGameUser.game.name),
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.parallax,
         background: Container(

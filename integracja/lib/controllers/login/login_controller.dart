@@ -13,6 +13,12 @@ class LoginController extends GetxController {
     super.onInit();
   }
 
+  void tryLoginFromDatabase() {
+    _loginStateStream.value = LoginLoading();
+    _authenticationController.getUserFromSystem();
+    _loginStateStream.value = LoginIdle();
+  }
+
   void login(String username, String password) async {
     _loginStateStream.value = LoginLoading();
     try {

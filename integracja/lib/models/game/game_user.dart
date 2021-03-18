@@ -1,20 +1,23 @@
+import 'package:equatable/equatable.dart';
+import 'package:integracja/models/api_item.dart';
+
 import "game.dart";
 
-class GameUser {
-  int gameScore;
-  String gameStartTime;
-  String gameEndTime;
-  String state;
-  int answeredQuestions;
-  int correctlyAnsweredQuestions;
-  int incorrectlyAnsweredQuestions;
-  Game game;
+class GameUser extends Equatable implements ApiRequest {
+  final int gameScore;
+  final String gameStartTime;
+  final String gameEndTime;
+  final bool gameOver;
+  final int answeredQuestions;
+  final int correctlyAnsweredQuestions;
+  final int incorrectlyAnsweredQuestions;
+  final Game game;
 
-  GameUser({
+  const GameUser({
     this.gameScore,
     this.gameStartTime,
     this.gameEndTime,
-    this.state,
+    this.gameOver,
     this.answeredQuestions,
     this.correctlyAnsweredQuestions,
     this.incorrectlyAnsweredQuestions,
@@ -23,7 +26,7 @@ class GameUser {
 
   @override
   String toString() {
-    return 'GameUser(gameScore: $gameScore, gameStartTime: $gameStartTime, gameEndTime: $gameEndTime, state: $state, answeredQuestions: $answeredQuestions, correctlyAnsweredQuestions: $correctlyAnsweredQuestions, incorrectlyAnsweredQuestions: $incorrectlyAnsweredQuestions, game: $game)';
+    return 'GameUser(gameScore: $gameScore, gameStartTime: $gameStartTime, gameEndTime: $gameEndTime, gameOver: $gameOver, answeredQuestions: $answeredQuestions, correctlyAnsweredQuestions: $correctlyAnsweredQuestions, incorrectlyAnsweredQuestions: $incorrectlyAnsweredQuestions, game: $game)';
   }
 
   factory GameUser.fromJson(Map<String, dynamic> json) {
@@ -31,7 +34,7 @@ class GameUser {
       gameScore: json['gameScore'] as int,
       gameStartTime: json['gameStartTime'] as String,
       gameEndTime: json['gameEndTime'] as String,
-      state: json['state'] as String,
+      gameOver: json['gameOver'] as bool,
       answeredQuestions: json['answeredQuestions'] as int,
       correctlyAnsweredQuestions: json['correctlyAnsweredQuestions'] as int,
       incorrectlyAnsweredQuestions: json['incorrectlyAnsweredQuestions'] as int,
@@ -46,11 +49,25 @@ class GameUser {
       'gameScore': gameScore,
       'gameStartTime': gameStartTime,
       'gameEndTime': gameEndTime,
-      'state': state,
+      'gameOver': gameOver,
       'answeredQuestions': answeredQuestions,
       'correctlyAnsweredQuestions': correctlyAnsweredQuestions,
       'incorrectlyAnsweredQuestions': incorrectlyAnsweredQuestions,
       'game': game?.toJson(),
     };
+  }
+
+  @override
+  List<Object> get props {
+    return [
+      gameScore,
+      gameStartTime,
+      gameEndTime,
+      gameOver,
+      answeredQuestions,
+      correctlyAnsweredQuestions,
+      incorrectlyAnsweredQuestions,
+      game,
+    ];
   }
 }

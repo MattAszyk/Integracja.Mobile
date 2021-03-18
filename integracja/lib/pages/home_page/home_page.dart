@@ -3,19 +3,24 @@ import 'package:get/get.dart';
 import 'package:integracja/controllers/authentication/authentication_controller.dart';
 import 'package:integracja/controllers/home_page/home_page_controller.dart';
 import 'package:integracja/controllers/home_page/home_page_state.dart';
-import 'package:integracja/models/authentication/user.dart';
 import 'package:integracja/pages/qr_scan/qr_scan.dart';
 import 'package:integracja/utils/constrains.dart';
 import 'active_games.dart';
 import 'bottom_nav_bar.dart';
 
-class HomePage extends StatelessWidget {
-  final User user;
-  HomePageController _homePageController = Get.put(HomePageController());
-  HomePage({Key key, this.user}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key key}) : super(key: key);
 
-  Column _loading() {
-    return Column(
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  HomePageController _homePageController = Get.put(HomePageController());
+
+  Expanded _loading() {
+    return Expanded(
+        child: Column(
       children: [
         Spacer(),
         Center(
@@ -29,7 +34,7 @@ class HomePage extends StatelessWidget {
         ),
         Spacer(),
       ],
-    );
+    ));
   }
 
   @override
@@ -50,13 +55,14 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             Obx(() {
-              if (_homePageController.state is HomePageLoading)
+              if (_homePageController.state is HomePageLoading) {
                 return _loading();
-              else if (_homePageController.state is HomePageLoaded)
+              } else if (_homePageController.state is HomePageLoaded) {
                 return ActiveGames(
                     (_homePageController.state as HomePageLoaded).gameUserList);
-              else
+              } else {
                 return Container();
+              }
             }),
             SizedBox(
               height: 12,

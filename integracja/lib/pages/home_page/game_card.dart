@@ -11,7 +11,7 @@ class GameCard extends StatelessWidget {
   GameCard(Game game) {
     this._game = game;
 
-    _minutes = _game.endTime.difference(DateTime.now()).inMinutes;
+    _minutes = _game.endTime.difference(DateTime.now().toUtc()).inMinutes;
 
     int posMinutes = (_minutes.isNegative) ? (_minutes * (-1)) : _minutes;
     int hours = posMinutes ~/ 60;

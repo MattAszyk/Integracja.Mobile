@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:integracja/models/game/game_user.dart';
+import 'package:integracja/models/game/detail_game_user.dart';
 import 'package:integracja/pages/game_details/body_game_settings.dart';
 import 'package:integracja/pages/game_details/body_mode_settings.dart';
 import 'package:integracja/pages/game_details/body_players.dart';
 
 class GameDetailsBody extends StatelessWidget {
-  final GameUser _gameUser;
+  final DetailGameUser _gameUser;
   GameDetailsBody(this._gameUser);
 
   @override
@@ -19,7 +19,7 @@ class GameDetailsBody extends StatelessWidget {
           children: [
             GameDetailsBodyGameSettings(_gameUser.game),
             GameDetailsBodyModeSettings(_gameUser.game.gamemode),
-            GameDetailsBodyPlayers(_gameUser.game),
+            GameDetailsBodyPlayers(_gameUser),
           ],
         ),
       ),

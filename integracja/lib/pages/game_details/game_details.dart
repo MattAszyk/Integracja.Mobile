@@ -6,13 +6,18 @@ import 'package:integracja/pages/game_details/appbar.dart';
 import 'package:integracja/pages/game_details/body.dart';
 import 'package:integracja/utils/constrains.dart';
 
-class GameDetails extends StatelessWidget {
+class GameDetails extends StatefulWidget {
   final int _gameId;
   GameDetailsController _gameDetailsController;
   GameDetails(this._gameId) {
     _gameDetailsController = Get.put(GameDetailsController(_gameId));
   }
 
+  @override
+  _GameDetailsState createState() => _GameDetailsState();
+}
+
+class _GameDetailsState extends State<GameDetails> {
   Column _loading() {
     return Column(
       children: [
@@ -36,15 +41,17 @@ class GameDetails extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Obx(() {
-        if (_gameDetailsController.state is GameDetailsLoading)
+        if (widget._gameDetailsController.state is GameDetailsLoading)
           return _loading();
-        else if (_gameDetailsController.state is GameDetailsLoaded)
+        else if (widget._gameDetailsController.state is GameDetailsLoaded)
           return CustomScrollView(
             slivers: <Widget>[
               GameDetailsAppBar(
-                  (_gameDetailsController.state as GameDetailsLoaded).gameUser),
+                  (widget._gameDetailsController.state as GameDetailsLoaded)
+                      .detailGameUser),
               GameDetailsBody(
-                  (_gameDetailsController.state as GameDetailsLoaded).gameUser),
+                  (widget._gameDetailsController.state as GameDetailsLoaded)
+                      .detailGameUser),
             ],
           );
         else
