@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:integracja/models/play_game/answer.dart';
 import 'package:integracja/models/play_game/play_game.dart';
 import 'package:integracja/models/play_game/question.dart';
@@ -111,7 +112,7 @@ class Play extends StatefulWidget {
   _PlayState createState() => _PlayState();
 }
 
-class _PlayState extends State<Play> {
+class _PlayState extends State<Play> with TickerProviderStateMixin {
   PlayGame _play = PlayGame(
     index: 0,
     overridePositivePoints: 0,
@@ -119,12 +120,49 @@ class _PlayState extends State<Play> {
     questionId: 0,
     question: q1,
   );
+
+  Timer _timer;
+
   bool _btnActive = false;
   bool _answered = false;
   int _answeredQuestion = 0;
   int _question = 0;
+  int _answerTime = 10;
+  double _timeLeft = 10;
+  double _progress = 1.0;
   Color wrongColor = Colors.red;
   Color goodColor = Colors.green;
+
+  void startTimer() {
+    _timer = new Timer.periodic(
+      const Duration(milliseconds: 100),
+      (Timer timer) {
+        if (_timeLeft <= 0.0) {
+          setState(() {
+            timer.cancel();
+          });
+          checkAnswer(-1);
+        } else {
+          setState(() {
+            _timeLeft -= 0.1;
+            _progress -= 1.0 / _answerTime / 10;
+          });
+        }
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    startTimer();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +177,7 @@ class _PlayState extends State<Play> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'Nazwa giereczki',
           style: TextStyle(
             color: Colors.black,
@@ -150,6 +188,13 @@ class _PlayState extends State<Play> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
+            LinearProgressIndicator(
+              minHeight: 5,
+              value: _progress,
+            ),
+            SizedBox(
+              height: 5,
+            ),
             Container(
               width: MediaQuery.of(context).size.width,
               color: Colors.blue[100],
@@ -292,11 +337,15 @@ class _PlayState extends State<Play> {
       _btnActive = false;
       _answered = false;
       _answeredQuestion = 0;
+      _progress = 1.0;
+      _timeLeft = 10;
     });
   }
 
   void checkAnswer(int btn) {
-    if (_play.question.answers[btn].isCorrect)
+    if (_timer.isActive) _timer.cancel();
+
+    if (btn != -1 && _play.question.answers[btn].isCorrect)
       _play.overridePositivePoints += _play.question.positivePoints;
     else
       _play.overrideNegativePoints += _play.question.negativePoints;
@@ -318,6 +367,7 @@ class _PlayState extends State<Play> {
         resetState();
         _question++;
       });
+      startTimer();
     } else {
       showDialog<void>(context: context, builder: (context) => showDiallog());
     }

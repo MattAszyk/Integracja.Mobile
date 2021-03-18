@@ -5,11 +5,12 @@ import 'package:integracja/controllers/authentication/authentication_controller.
 import 'package:integracja/controllers/authentication/authentication_state.dart';
 import 'package:integracja/pages/home_page/home_page.dart';
 import 'package:integracja/pages/login/login_page.dart';
+import 'package:integracja/pages/play/play.dart';
 import 'package:integracja/services/authentication_service.dart';
 import 'package:integracja/utils/constrains.dart';
 
 void main() {
-  initialize();
+  //initialize();
   runApp(MyApp());
 }
 
@@ -28,7 +29,8 @@ class MyApp extends GetWidget<AuthenticationController> {
       debugShowCheckedModeBanner: false,
       // BlocBuilder will listen to changes in AuthenticationState
       // and build an appropriate widget based on the state.
-      home: Obx(() {
+      home:
+          /*Obx(() {
         if (controller.state is Unauthenticated) {
           return LoginPage();
         } else if (controller.state is Authenticated) {
@@ -37,7 +39,8 @@ class MyApp extends GetWidget<AuthenticationController> {
           );
         } else
           return LoginPage();
-      }),
+      }),*/
+          Play(),
     );
   }
 }
