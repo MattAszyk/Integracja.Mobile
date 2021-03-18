@@ -29,8 +29,7 @@ class MyApp extends GetWidget<AuthenticationController> {
       debugShowCheckedModeBanner: false,
       // BlocBuilder will listen to changes in AuthenticationState
       // and build an appropriate widget based on the state.
-      home:
-          /*Obx(() {
+      home: Obx(() {
         if (controller.state is Unauthenticated) {
           return LoginPage();
         } else if (controller.state is Authenticated) {
@@ -39,8 +38,7 @@ class MyApp extends GetWidget<AuthenticationController> {
           );
         } else
           return LoginPage();
-      }),*/
-          Play(),
+      }),
     );
   }
 }
