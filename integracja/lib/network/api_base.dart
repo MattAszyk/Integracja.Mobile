@@ -1,22 +1,29 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:integracja/controllers/authentication/authentication_controller.dart';
+import 'package:integracja/controllers/authentication/authentication_state.dart';
 import 'package:integracja/models/api_item.dart';
 import 'package:integracja/models/authentication/user.dart';
 import 'package:integracja/network/api_exception.dart';
 
 class ApiBase {
   final String _baseUrl = "https://integracja-api.azurewebsites.net";
-  final Map<String, String> _header;
-  ApiBase({@required User user})
-      : assert(user != null),
-        _header = {
-          'Content-Type': 'application/json',
-          'accept': 'text/plain',
-          'Authorization': 'Bearer ${user.token}'
-        } {
-    log(user.token);
+  final authenticationController = Get.find<AuthenticationController>();
+  Map<String, String> _header() {
+    if (authenticationController.state is Authenticated) {
+      _tokenRefreshIfNeeded();
+      User user = (authenticationController.state as Authenticated).user;
+      return {
+        'Content-Type': 'application/json',
+        'accept': 'text/plain',
+        'Authorization': 'Bearer ${user.token}'
+      };
+    } else {
+      return {'Content-Type': 'application/json', 'accept': 'text/plain'};
+    }
   }
 
   String _urlResolver(API path) {
@@ -35,6 +42,12 @@ class ApiBase {
         return _baseUrl + '/api/Games/MyGames';
       case API.Games_Play:
         return _baseUrl + '/api/Games/Play';
+      case API.Questions:
+        return _baseUrl + '/api/Questions';
+      case API.Users_Games:
+        return _baseUrl + '/api/Users/Games';
+      case API.Users_GamesArchived:
+        return _baseUrl + '/api/Users/GamesArchived';
       case API.Questions:
         return _baseUrl + '/api/Questions';
       default:
@@ -64,24 +77,30 @@ class ApiBase {
   Future<dynamic> _get(
       {@required String url, ApiRequest transferObject, int id}) async {
     var response =
-        await http.get(url + (id != null ? "/$id" : ""), headers: _header);
-    log(url);
-    log(response.request.toString());
-    log(response.body);
-    log(response.statusCode.toString());
+        await http.get(url + (id != null ? "/$id" : ""), headers: _header());
+
     return _returnResponse(response);
   }
 
   Future<dynamic> _post(
       {@required String url, ApiRequest transferObject}) async {
     var response = await http.post(url,
-        headers: _header, body: jsonEncode(transferObject.toJson()));
+        headers: _header(), body: jsonEncode(transferObject.toJson()));
     return _returnResponse(response);
   }
 
   Future<dynamic> _put({@required String url, dynamic transferObject}) async {}
   Future<dynamic> _delete(
       {@required String url, dynamic transferObject}) async {}
+
+  Future<bool> _tokenRefreshIfNeeded() async {
+    User user = (authenticationController.state as Authenticated).user;
+    if (user.validTo.isBefore(DateTime.now().toUtc())) {
+      await authenticationController.getUserFromSystem();
+      return true;
+    }
+    return true;
+  }
 
   dynamic _returnResponse(http.Response response) {
     switch (response.statusCode) {
@@ -98,6 +117,8 @@ class ApiBase {
 
 enum API {
   Auth,
+  Users_Games,
+  Users_GamesArchived,
   Games,
   Games_Accept,
   Games_Join,

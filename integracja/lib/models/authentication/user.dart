@@ -1,31 +1,63 @@
-import 'package:integracja/models/api_item.dart';
+import 'package:equatable/equatable.dart';
 
-class User extends ApiRequest {
-  final DateTime expireOnDate;
-  final int expiryIn;
+class User extends Equatable {
+  final int id;
+  final String userName;
+  final String email;
+  final String profilePicture;
+  final String profileThumbnail;
+  final DateTime validTo;
   final String token;
 
-  User(
-    this.expireOnDate,
-    this.expiryIn,
+  const User({
+    this.id,
+    this.userName,
+    this.email,
+    this.profilePicture,
+    this.profileThumbnail,
+    this.validTo,
     this.token,
-  );
+  });
 
   @override
   String toString() {
-    return 'User(expireOnDate: expiryIn: $expiryIn, token: $token)';
+    return 'User(id: $id, userName: $userName, email: $email, profilePicture: $profilePicture, profileThumbnail: $profileThumbnail, validTo: $validTo, token: $token)';
   }
 
-  User.fromJson(Map<String, dynamic> json)
-      : expireOnDate = DateTime.parse(json['expireOnDate']),
-        expiryIn = json['expiryIn'],
-        token = json['token'];
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'] as int,
+      userName: json['userName'] as String,
+      email: json['email'] as String,
+      profilePicture: json['profilePicture'] as String,
+      profileThumbnail: json['profileThumbnail'] as String,
+      validTo: DateTime.parse(json['validTo']),
+      token: json['token'] as String,
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return {
-      'expireOnDate': expireOnDate,
-      'expiryIn': expiryIn,
+      'id': id,
+      'userName': userName,
+      'email': email,
+      'profilePicture': profilePicture,
+      'profileThumbnail': profileThumbnail,
+      'validTo': validTo,
       'token': token,
     };
+  }
+
+  @override
+  List<Object> get props {
+    return [
+      id,
+      userName,
+      email,
+      profilePicture,
+      profileThumbnail,
+      validTo,
+      token,
+    ];
   }
 }
