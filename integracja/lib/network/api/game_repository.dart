@@ -11,7 +11,7 @@ class GameRepository {
     final apiBase = Get.find<ApiBase>();
     Iterable list = await apiBase.request(
       requestType: RequestType.GET,
-      api: API.Users_GamesArchived,
+      api: API.Users_Games,
     );
 
     return List<GameUser>.from(list.map((e) => GameUser.fromJson(e)));

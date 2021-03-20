@@ -33,10 +33,10 @@ class DetailGameUser extends Equatable implements ApiRequest {
         gameScore: json['gameScore'] == null ? 0 : json['gameScore'],
         gameStartTime: json['gameStartTime'] == null
             ? DateTime.now()
-            : DateTime.parse(json['gameStartTime']),
+            : DateTime.parse(json['gameStartTime']).toLocal(),
         gameEndTime: json['gameEndTime'] == null
             ? DateTime.now()
-            : DateTime.parse(json['gameEndTime']),
+            : DateTime.parse(json['gameEndTime']).toLocal(),
         gameOver: json['gameOver'] as bool,
         answeredQuestions: json['answeredQuestions'] as int,
         correctlyAnsweredQuestions: json['correctlyAnsweredQuestions'] as int,
