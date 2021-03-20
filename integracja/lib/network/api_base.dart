@@ -16,6 +16,7 @@ class ApiBase {
     if (authenticationController.state is Authenticated) {
       _tokenRefreshIfNeeded();
       User user = (authenticationController.state as Authenticated).user;
+      log(user.token);
       return {
         'Content-Type': 'application/json',
         'accept': 'text/plain',
@@ -78,7 +79,7 @@ class ApiBase {
       {@required String url, ApiRequest transferObject, int id}) async {
     var response =
         await http.get(url + (id != null ? "/$id" : ""), headers: _header());
-
+    log(response.body);
     return _returnResponse(response);
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:integracja/controllers/home_page/home_page_controller.dart';
 import 'package:integracja/controllers/home_page/home_page_state.dart';
+import 'package:integracja/pages/common/logo.dart';
 import 'package:integracja/pages/qr_scan/qr_scan.dart';
 import 'package:integracja/utils/constrains.dart';
 import 'active_games.dart';
@@ -16,25 +17,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomePageController _homePageController = Get.put(HomePageController());
-
-  Expanded _loading() {
-    return Expanded(
-        child: Column(
-      children: [
-        Spacer(),
-        Center(
-          child: SizedBox(
-            width: 60,
-            height: 60,
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
-            ),
-          ),
-        ),
-        Spacer(),
-      ],
-    ));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +37,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             Obx(() {
               if (_homePageController.state is HomePageLoading) {
-                return _loading();
+                return Logo();
               } else if (_homePageController.state is HomePageLoaded) {
                 return ActiveGames(
                     (_homePageController.state as HomePageLoaded).gameUserList);
@@ -70,7 +52,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
           backgroundColor: primaryColor,
           child: Icon(
-            Icons.play_arrow,
+            Icons.qr_code_scanner,
             size: 35,
             color: Colors.black,
           ),

@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:integracja/pages/game_details/game_details.dart';
 import 'package:integracja/pages/play/play.dart';
 import 'package:integracja/pages/settings/settings.dart';
+import 'package:integracja/utils/constrains.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({
@@ -13,13 +13,14 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
+      color: primaryColor,
       shape: CircularNotchedRectangle(),
       notchMargin: 10,
       child: Row(
         children: [
           Spacer(),
           IconButton(
-              icon: Icon(Icons.settings),
+              icon: Icon(Icons.person_outline_outlined),
               onPressed: () {
                 Get.to(() => Settings());
               }),
