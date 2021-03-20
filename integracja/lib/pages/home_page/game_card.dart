@@ -5,7 +5,7 @@ import 'package:integracja/utils/constrains.dart';
 class GameCard extends StatelessWidget {
   Game _game;
   String _text;
-  int _minutes;
+  int _seconds;
   Color _incoming = Color(0xffE09F36);
   Color _active = Color(0xff36E0BB);
   Color _color = Colors.black;
@@ -13,18 +13,21 @@ class GameCard extends StatelessWidget {
   GameCard(Game game) {
     this._game = game;
 
-    _minutes = _game.endTime.difference(DateTime.now()).inMinutes;
+    _seconds = _game.endTime.difference(DateTime.now()).inSeconds;
+    int seconds = _seconds;
 
-    int posMinutes = (_minutes.isNegative) ? (_minutes * (-1)) : _minutes;
-    int hours = posMinutes ~/ 60;
+    int hours = (seconds / 3600).floor();
+    seconds %= 3600;
+    int minutes = (seconds / 60).floor();
+    seconds %= 60;
 
-    if (_minutes > 0) {
-      _text =
-          'Pozostało ${hours.toString()}:${(posMinutes - hours * 60).toString()}h';
+    String zero = (minutes > 9) ? '' : '0';
+
+    if (_seconds > 0) {
+      _text = 'Pozostało $hours:$zero${minutes}h';
       _color = _active;
     } else {
-      _text =
-          'Pozostało ${hours.toString()}:${(posMinutes - hours * 60).toString()}h';
+      _text = 'Pozostało $hours:$zero${minutes}h';
       _color = _incoming;
     }
   }
@@ -41,7 +44,7 @@ class GameCard extends StatelessWidget {
               border: new Border(
                   right: new BorderSide(width: 1.0, color: backgroundColor))),
           child: Column(
-            children: _minutes > 0
+            children: _seconds > 0
                 ? [
                     Icon(
                       Icons.play_arrow_outlined,
