@@ -7,6 +7,7 @@ import 'package:integracja/network/api_exception.dart';
 
 class GameDetailsController extends GetxController {
   int _gameId;
+  var leaveGameStatus = 0.obs;
   GameDetailsController(int gameId) {
     _gameId = gameId;
   }
@@ -17,6 +18,14 @@ class GameDetailsController extends GetxController {
     _homePageStateStream.value = GameDetailsLoading();
     _loadData();
     super.onInit();
+  }
+
+  Future<void> leaveGame({bool dismiss = false}) async {
+    if (dismiss) return;
+    try {
+      await GameRepository.leaveGame(_gameId);
+      Get.back();
+    } catch (e) {}
   }
 
   Future<void> _loadData() async {

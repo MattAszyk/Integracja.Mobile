@@ -1,4 +1,3 @@
-import 'package:integracja/models/play_game/answer.dart';
 import 'package:integracja/models/play_game/question.dart';
 
 class PlayGame {

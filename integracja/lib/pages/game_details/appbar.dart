@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:integracja/controllers/game_details/game_details_controller.dart';
 import 'package:integracja/models/game/detail_game_user.dart';
-import 'package:integracja/models/game/game_user.dart';
 
 class GameDetailsAppBar extends StatelessWidget {
   final DetailGameUser _detailGameUser;
@@ -23,7 +23,7 @@ class GameDetailsAppBar extends StatelessWidget {
             Icons.logout,
             color: Colors.black,
           ),
-          onPressed: () => Get.back(),
+          onPressed: () => Get.find<GameDetailsController>().leaveGameStatus++,
         ),
       ],
       centerTitle: true,

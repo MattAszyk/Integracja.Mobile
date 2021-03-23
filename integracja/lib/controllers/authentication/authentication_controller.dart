@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -14,17 +15,16 @@ class AuthenticationController extends GetxController {
 
   @override
   void onInit() {
-    getUserFromSystem();
+    _authenticationStateStream.value = Unauthenticated();
+
     super.onInit();
   }
 
   Future<void> signInWithCredentials(
       {@required username, @required password}) async {
-    try {
-      final user = await _authenticationService.signInWithCredentials(
-          username, password);
-      _authenticationStateStream.value = Authenticated(user: user);
-    } catch (e) {}
+    final user =
+        await _authenticationService.signInWithCredentials(username, password);
+    _authenticationStateStream.value = Authenticated(user: user);
   }
 
   void signOut() async {
@@ -33,17 +33,20 @@ class AuthenticationController extends GetxController {
   }
 
   Future<void> getUserFromSystem() async {
-    _authenticationStateStream.value = AuthenticationLoading();
-
     try {
-      final currentUser = await _authenticationService.getCurrentUser();
-      if (currentUser == null) {
-        _authenticationStateStream.value = Unauthenticated();
-      } else {
-        _authenticationStateStream.value = Authenticated(user: currentUser);
-      }
+      getUserFromSystem();
     } catch (e) {
-      log('getUserFromSystem: ${e.toString()}');
+      _authenticationStateStream.value = Unauthenticated();
+    }
+  }
+
+  Future<void> _getUserFromSystem() async {
+    _authenticationStateStream.value = AuthenticationLoading();
+    final currentUser = await _authenticationService.getCurrentUser();
+    if (currentUser == null) {
+      _authenticationStateStream.value = Unauthenticated();
+    } else {
+      _authenticationStateStream.value = Authenticated(user: currentUser);
     }
   }
 }

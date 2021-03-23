@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:integracja/controllers/home_page/home_page_controller.dart';
 import 'package:integracja/models/game/game_user.dart';
 import 'package:integracja/pages/game_details/game_details.dart';
 import 'game_card.dart';
@@ -9,29 +10,39 @@ class ActiveGames extends StatelessWidget {
   ActiveGames(this._gameUserList);
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        child: _gameUserList.isNotEmpty
-            ? ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    child: GameCard(_gameUserList[index].game),
-                    onTap: () =>
-                        _onGameCardTap(context, _gameUserList[index].game.id),
-                  );
-                },
-                separatorBuilder: (_, index) => const SizedBox(
-                      height: 5,
+      child: RefreshIndicator(
+          onRefresh: () => Get.find<HomePageController>().refresh(),
+          child: _gameUserList.isNotEmpty
+              ? ListView.separated(
+                  physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      child: GameCard(_gameUserList[index].game),
+                      onTap: () =>
+                          _onGameCardTap(context, _gameUserList[index].game.id),
+                    );
+                  },
+                  separatorBuilder: (_, index) => const SizedBox(
+                        height: 5,
+                      ),
+                  itemCount: _gameUserList.length)
+              : Stack(
+                  children: <Widget>[
+                    ListView(
+                      physics: const BouncingScrollPhysics(
+                          parent: AlwaysScrollableScrollPhysics()),
                     ),
-                itemCount: _gameUserList.length)
-            : Container(
-                width: MediaQuery.of(context).size.width,
-                child: Image.asset(
-                  'assets/images/arrow.png',
-                  fit: BoxFit.fill,
-                ),
-              ),
-      ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Image.asset(
+                        'assets/images/arrow.png',
+                        fit: BoxFit.fill,
+                      ),
+                    )
+                  ],
+                )),
     );
   }
 

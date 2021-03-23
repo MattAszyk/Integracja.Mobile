@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:integracja/models/game/detail_game_user.dart';
 
-class GameDetailsBodyPlayers extends StatelessWidget {
+class GameDetailsBodyPlayers extends StatefulWidget {
   final DetailGameUser _game;
+
+  GameDetailsBodyPlayers(this._game);
+
+  @override
+  _GameDetailsBodyPlayersState createState() =>
+      _GameDetailsBodyPlayersState(_game);
+}
+
+class _GameDetailsBodyPlayersState extends State<GameDetailsBodyPlayers> {
   String _maxPlayers;
-  GameDetailsBodyPlayers(this._game) {
+  final _game;
+  _GameDetailsBodyPlayersState(this._game) {
     _maxPlayers = (_game.game.players.length == 0)
         ? '∞'
         : _game.game.players.length.toString();
   }
-
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
@@ -22,7 +31,7 @@ class GameDetailsBodyPlayers extends StatelessWidget {
         ),
       ),
       subtitle: Text(
-        "${_game.game.players.length.toString()}/$_maxPlayers",
+        "${_game.game.players.length.toString()}/${_game.game.maxPlayersCount.toString()}",
         style: TextStyle(
           fontSize: 18,
           color: Colors.grey,

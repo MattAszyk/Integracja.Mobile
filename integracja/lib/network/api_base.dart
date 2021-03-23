@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/cupertino.dart';
@@ -11,6 +12,7 @@ import 'package:integracja/network/api_exception.dart';
 
 class ApiBase {
   final String _baseUrl = "https://integracja-api.azurewebsites.net";
+  final _duration = Duration(seconds: 10);
   final authenticationController = Get.find<AuthenticationController>();
   Map<String, String> _header() {
     if (authenticationController.state is Authenticated) {
@@ -77,16 +79,20 @@ class ApiBase {
 
   Future<dynamic> _get(
       {@required String url, ApiRequest transferObject, int id}) async {
-    var response =
-        await http.get(url + (id != null ? "/$id" : ""), headers: _header());
+    var response = await http
+        .get(url + (id != null ? "/$id" : ""), headers: _header())
+        .timeout(_duration);
     log(response.body);
     return _returnResponse(response);
   }
 
   Future<dynamic> _post(
       {@required String url, ApiRequest transferObject}) async {
-    var response = await http.post(url,
-        headers: _header(), body: jsonEncode(transferObject.toJson()));
+    var response = await http
+        .post(url,
+            headers: _header(), body: jsonEncode(transferObject.toJson()))
+        .timeout(_duration);
+
     return _returnResponse(response);
   }
 
@@ -108,10 +114,15 @@ class ApiBase {
       case 200:
         var responseDecoded = json.decode(response.body);
         return responseDecoded;
+      case 204:
+        return true;
       case 400:
         throw BadRequestException();
       case 401:
         throw UnauthorizedException();
+      case 409:
+        var error = json.decode(response.body);
+        throw GameException(error['errorCode'], error['message']);
     }
   }
 }

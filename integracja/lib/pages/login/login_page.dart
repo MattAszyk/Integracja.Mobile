@@ -50,6 +50,7 @@ class __SignInFormState extends State<_SignInForm> {
             child: Column(
           children: [
             if (_controller.state is LoginLoading ||
+                _controller.state is LoginTimeout ||
                 _authController.state is AuthenticationLoading)
               _loading(),
             if (_controller.state is LoginIdle &&
@@ -110,15 +111,29 @@ class __SignInFormState extends State<_SignInForm> {
     return Column(
       children: [
         _buildLogo(),
-        Center(
-          child: SizedBox(
-            width: 60,
-            height: 60,
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+        if (_controller.state is LoginTimeout)
+          Container(
+            child: AlertDialog(
+              title: Text("Przekroczono czas zapytania"),
+              content: Text(
+                  "Spróbuj ponownie za chwilę lub sprawdź połączenie z internetem."),
+              actions: [
+                FlatButton(
+                    onPressed: () => _controller.backToLoginIdle(),
+                    child: Text("AKCEPTUJ")),
+              ],
             ),
-          ),
-        )
+          )
+        else
+          Center(
+            child: SizedBox(
+              width: 60,
+              height: 60,
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+              ),
+            ),
+          )
       ],
     );
   }

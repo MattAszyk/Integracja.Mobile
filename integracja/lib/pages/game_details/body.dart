@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:integracja/controllers/game_details/game_details_controller.dart';
+import 'package:integracja/controllers/game_details/game_details_state.dart';
 import 'package:integracja/models/game/detail_game_user.dart';
 import 'package:integracja/pages/game_details/body_current_state.dart';
 import 'package:integracja/pages/game_details/body_game_settings.dart';
@@ -8,7 +11,7 @@ import 'package:integracja/pages/game_details/body_players.dart';
 class GameDetailsBody extends StatelessWidget {
   final DetailGameUser _gameUser;
   GameDetailsBody(this._gameUser);
-
+  final _controller = Get.find<GameDetailsController>();
   @override
   Widget build(BuildContext context) {
     return SliverFillRemaining(
@@ -19,6 +22,20 @@ class GameDetailsBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GameDetailsBodyCurrentState(_gameUser),
+            if (_controller.leaveGameStatus % 2 == 1) Text("xd"),
+            AlertDialog(
+              title: Text("Czy chcesz usunąć grę?"),
+              content: Text(
+                  "Czy na pewno chcesz usunąć grę \"${(_controller.state as GameDetailsLoaded).detailGameUser}\"?"),
+              actions: [
+                FlatButton(
+                    onPressed: () => _controller.leaveGameStatus++,
+                    child: Text("NIE")),
+                FlatButton(
+                    onPressed: () => _controller.leaveGame(),
+                    child: Text("TAK"))
+              ],
+            ),
             GameDetailsBodyGameSettings(_gameUser.game),
             GameDetailsBodyModeSettings(_gameUser.game.gamemode),
             GameDetailsBodyPlayers(_gameUser),

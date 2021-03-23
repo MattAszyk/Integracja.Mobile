@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:integracja/models/game/detail_game_user.dart';
 import 'package:integracja/models/game/game_user.dart';
@@ -25,5 +22,15 @@ class GameRepository {
       id: gameId,
     );
     return DetailGameUser.fromJson(response);
+  }
+
+  static Future<bool> leaveGame(int gameId) async {
+    final apiBase = Get.find<ApiBase>();
+    var response = await apiBase.request(
+      requestType: RequestType.GET,
+      api: API.Games_Leave,
+      id: gameId,
+    );
+    return response;
   }
 }

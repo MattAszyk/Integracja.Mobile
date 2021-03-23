@@ -21,3 +21,7 @@ class UnauthorizedException extends ApiException {
     Get.find<AuthenticationController>().signOut();
   }
 }
+
+class GameException extends ApiException {
+  GameException(int errorCode, String message) : super(errorCode, message);
+}
