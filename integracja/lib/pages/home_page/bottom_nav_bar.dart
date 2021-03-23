@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:integracja/pages/play/play.dart';
 import 'package:integracja/pages/settings/settings.dart';
 import 'package:integracja/utils/constrains.dart';
 
@@ -27,11 +26,7 @@ class BottomNavBar extends StatelessWidget {
           Spacer(),
           Spacer(),
           Spacer(),
-          IconButton(
-              icon: Icon(Icons.history),
-              onPressed: () {
-                Get.to(() => Play());
-              }),
+          IconButton(icon: Icon(Icons.history), onPressed: () {}),
           Spacer(),
         ],
       ),

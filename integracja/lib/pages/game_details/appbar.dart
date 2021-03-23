@@ -45,7 +45,7 @@ class GameDetailsAppBar extends StatelessWidget {
                 children: [
                   OutlinedButton(
                     onPressed: () {
-                      Get.to(() => Play());
+                      Get.to(() => Play(_detailGameUser.game.id));
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(10),

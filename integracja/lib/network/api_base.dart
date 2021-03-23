@@ -61,13 +61,20 @@ class ApiBase {
       @required API api,
       User user,
       ApiRequest transferObject,
-      int id}) async {
+      List<int> answerId,
+      int id,
+      int secondId}) async {
     switch (requestType) {
       case RequestType.GET:
         return _get(
             url: _urlResolver(api), transferObject: transferObject, id: id);
       case RequestType.POST:
-        return _post(url: _urlResolver(api), transferObject: transferObject);
+        return _post(
+            url: _urlResolver(api),
+            transferObject: transferObject,
+            id: id,
+            secondId: secondId,
+            answerId: answerId);
       case RequestType.DELETE:
         return _delete(url: _urlResolver(api), transferObject: transferObject);
       case RequestType.PUT:
@@ -84,9 +91,18 @@ class ApiBase {
   }
 
   Future<dynamic> _post(
-      {@required String url, ApiRequest transferObject}) async {
-    var response = await http.post(url,
-        headers: _header(), body: jsonEncode(transferObject.toJson()));
+      {@required String url,
+      ApiRequest transferObject,
+      int id,
+      int secondId,
+      List<int> answerId}) async {
+    var response = await http.post(
+        url +
+            (id != null ? "/$id" : "") +
+            (secondId != null ? "/$secondId" : ""),
+        headers: _header(),
+        body:
+            jsonEncode(answerId != null ? answerId : transferObject.toJson()));
     return _returnResponse(response);
   }
 
