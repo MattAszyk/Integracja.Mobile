@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:integracja/controllers/authentication/authentication_controller.dart';
 import 'package:integracja/models/game/detail_game_user.dart';
 import 'package:integracja/models/game/game_user.dart';
+import 'package:integracja/pages/play/play.dart';
 
 class GameDetailsAppBar extends StatelessWidget {
   final DetailGameUser _detailGameUser;
@@ -41,26 +43,21 @@ class GameDetailsAppBar extends StatelessWidget {
             child: Center(
               child: Column(
                 children: [
-                  OutlineButton(
-                      color: Colors.red,
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Text(
-                          'GRAJ',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 30,
-                          ),
+                  OutlinedButton(
+                    onPressed: () {
+                      Get.to(() => Play());
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        'GRAJ',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 30,
                         ),
                       ),
-                      borderSide: BorderSide(
-                        color: Colors.black, //Color of the border
-                        style: BorderStyle.solid, //Style of the border
-                        width: 1, //width of the border
-                      ),
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(30.0))),
+                    ),
+                  ),
                   SizedBox(
                     height: 10,
                   ),

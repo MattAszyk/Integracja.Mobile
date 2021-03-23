@@ -6,19 +6,17 @@ class Answer {
   Answer({
     this.id,
     this.content,
-    this.isCorrect,
   });
 
   @override
   String toString() {
-    return 'Answer(id: $id, content: $content, isCorrect: $isCorrect)';
+    return 'Answer(id: $id, content: $content';
   }
 
   factory Answer.fromJson(Map<String, dynamic> json) {
     return Answer(
       id: json['id'] as int,
       content: json['content'] as String,
-      isCorrect: json['isCorrect'] as bool,
     );
   }
 
@@ -26,7 +24,6 @@ class Answer {
     return {
       'id': id,
       'content': content,
-      'isCorrect': isCorrect,
     };
   }
 }
