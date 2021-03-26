@@ -7,51 +7,28 @@ import 'package:integracja/pages/game_details/appbar.dart';
 import 'package:integracja/pages/game_details/body.dart';
 import 'package:integracja/utils/constrains.dart';
 
-class GameDetails extends StatefulWidget {
+class GameDetails extends StatelessWidget {
   final int _gameId;
-  GameDetailsController _gameDetailsController;
-  GameDetails(this._gameId) {
-    _gameDetailsController = Get.put(GameDetailsController(_gameId));
-  }
 
-  @override
-  _GameDetailsState createState() => _GameDetailsState();
-}
-
-class _GameDetailsState extends State<GameDetails> {
-  Column _loading() {
-    return Column(
-      children: [
-        Spacer(),
-        Center(
-          child: SizedBox(
-            width: 60,
-            height: 60,
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
-            ),
-          ),
-        ),
-        Spacer(),
-      ],
-    );
-  }
+  GameDetails(this._gameId);
 
   @override
   Widget build(BuildContext context) {
+    var _gameDetailsController = Get.put(GameDetailsController(_gameId));
+
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Obx(() {
-        if (widget._gameDetailsController.state is GameDetailsLoading)
+        if (_gameDetailsController.state is GameDetailsLoading)
           return Logo();
-        else if (widget._gameDetailsController.state is GameDetailsLoaded)
+        else if (_gameDetailsController.state is GameDetailsLoaded)
           return CustomScrollView(
             slivers: <Widget>[
               GameDetailsAppBar(
-                  (widget._gameDetailsController.state as GameDetailsLoaded)
+                  (_gameDetailsController.state as GameDetailsLoaded)
                       .detailGameUser),
               GameDetailsBody(
-                  (widget._gameDetailsController.state as GameDetailsLoaded)
+                  (_gameDetailsController.state as GameDetailsLoaded)
                       .detailGameUser),
             ],
           );

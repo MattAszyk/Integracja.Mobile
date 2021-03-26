@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:integracja/controllers/authentication/authentication_controller.dart';
 import 'package:integracja/models/game/detail_game_user.dart';
-import 'package:integracja/models/game/game_user.dart';
 import 'package:integracja/pages/play/play.dart';
 
 class GameDetailsAppBar extends StatelessWidget {
@@ -45,7 +43,7 @@ class GameDetailsAppBar extends StatelessWidget {
                 children: [
                   OutlinedButton(
                     onPressed: () {
-                      Get.to(() => Play());
+                      Get.off(() => Play(_detailGameUser));
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(10),
@@ -62,9 +60,9 @@ class GameDetailsAppBar extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    "Tu czas ogółem",
+                    "czas",
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 15,
                     ),
                   ),
                 ],

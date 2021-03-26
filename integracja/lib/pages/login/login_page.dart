@@ -63,7 +63,7 @@ class __SignInFormState extends State<_SignInForm> {
 
   Column _signIn() {
     final size = MediaQuery.of(context).size;
-    onLoginButtonPressed() {
+    void onLoginButtonPressed() {
       if (_key.currentState.validate()) {
         _controller.login(_usernameController.text, _passwordController.text);
       } else {
@@ -84,14 +84,14 @@ class __SignInFormState extends State<_SignInForm> {
           SizedBox(
               width: size.width * 0.9,
               height: size.height * 0.065,
-              child: RaisedButton(
-                color: Colors.transparent,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusDirectional.circular(16.0),
+                        side: BorderSide(color: primaryColor))),
                 onPressed: _controller.state is LoginLoading
                     ? () {}
                     : onLoginButtonPressed,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusDirectional.circular(16.0),
-                    side: BorderSide(color: primaryColor)),
                 child: Text(
                   "Zaloguj się",
                   style: TextStyle(
@@ -128,7 +128,7 @@ class __SignInFormState extends State<_SignInForm> {
     return Padding(
       padding: EdgeInsets.only(
           bottom: isRegister ? 0 : 0.005 * height, top: 0.005 * height),
-      child: FlatButton(
+      child: OutlinedButton(
         onPressed: isRegister ? registrationForm : forgotPasswordForm,
         child: Text(
           isRegister ? "Zarejestruj się" : "Przypomnij hasło",

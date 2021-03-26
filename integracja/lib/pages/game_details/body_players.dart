@@ -3,15 +3,15 @@ import 'package:integracja/models/game/detail_game_user.dart';
 
 class GameDetailsBodyPlayers extends StatelessWidget {
   final DetailGameUser _game;
-  String _maxPlayers;
-  GameDetailsBodyPlayers(this._game) {
-    _maxPlayers = (_game.game.players.length == 0)
-        ? '∞'
-        : _game.game.players.length.toString();
-  }
+
+  GameDetailsBodyPlayers(this._game);
 
   @override
   Widget build(BuildContext context) {
+    String _maxPlayers;
+    _maxPlayers = (_game.game.players.length == 0)
+        ? '∞'
+        : _game.game.players.length.toString();
     return ExpansionTile(
       tilePadding: const EdgeInsets.all(0),
       title: Text(

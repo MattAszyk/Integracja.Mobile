@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:integracja/controllers/home_page/home_page_controller.dart';
 import 'package:integracja/models/game/game_user.dart';
 import 'package:integracja/pages/game_details/game_details.dart';
 import 'game_card.dart';
@@ -9,6 +10,7 @@ class ActiveGames extends StatelessWidget {
   ActiveGames(this._gameUserList);
   Widget build(BuildContext context) {
     return Expanded(
+        child: RefreshIndicator(
       child: Container(
         child: _gameUserList.isNotEmpty
             ? ListView.separated(
@@ -24,15 +26,18 @@ class ActiveGames extends StatelessWidget {
                       height: 5,
                     ),
                 itemCount: _gameUserList.length)
-            : Container(
-                width: MediaQuery.of(context).size.width,
-                child: Image.asset(
-                  'assets/images/arrow.png',
-                  fit: BoxFit.fill,
-                ),
-              ),
+            : GestureDetector(
+                onTap: () => Get.find<HomePageController>().refresh(),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.asset(
+                    'assets/images/arrow.png',
+                    fit: BoxFit.fill,
+                  ),
+                )),
       ),
-    );
+      onRefresh: () => Get.find<HomePageController>().refresh(),
+    ));
   }
 
   _onGameCardTap(BuildContext context, int gameId) {

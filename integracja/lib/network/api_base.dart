@@ -61,13 +61,20 @@ class ApiBase {
       @required API api,
       User user,
       ApiRequest transferObject,
-      int id}) async {
+      List<int> answerId,
+      int id,
+      int secondId}) async {
     switch (requestType) {
       case RequestType.GET:
         return _get(
             url: _urlResolver(api), transferObject: transferObject, id: id);
       case RequestType.POST:
-        return _post(url: _urlResolver(api), transferObject: transferObject);
+        return _post(
+            url: _urlResolver(api),
+            transferObject: transferObject,
+            id: id,
+            secondId: secondId,
+            answerId: answerId);
       case RequestType.DELETE:
         return _delete(url: _urlResolver(api), transferObject: transferObject);
       case RequestType.PUT:
@@ -77,16 +84,26 @@ class ApiBase {
 
   Future<dynamic> _get(
       {@required String url, ApiRequest transferObject, int id}) async {
-    var response =
-        await http.get(url + (id != null ? "/$id" : ""), headers: _header());
+    var response = await http.get(Uri.parse(url + (id != null ? "/$id" : "")),
+        headers: _header());
     log(response.body);
     return _returnResponse(response);
   }
 
   Future<dynamic> _post(
-      {@required String url, ApiRequest transferObject}) async {
-    var response = await http.post(url,
-        headers: _header(), body: jsonEncode(transferObject.toJson()));
+      {@required String url,
+      ApiRequest transferObject,
+      int id,
+      int secondId,
+      List<int> answerId}) async {
+    var response = await http.post(
+        Uri.parse(url +
+            (id != null ? "/$id" : "") +
+            (secondId != null ? "/$secondId" : "")),
+        headers: _header(),
+        body: answerId != null
+            ? answerId.toString()
+            : jsonEncode(transferObject.toJson()));
     return _returnResponse(response);
   }
 
@@ -104,14 +121,18 @@ class ApiBase {
   }
 
   dynamic _returnResponse(http.Response response) {
+    log('Response body: ${response.body}');
     switch (response.statusCode) {
       case 200:
-        var responseDecoded = json.decode(response.body);
-        return responseDecoded;
+        var _response = json.decode(response.body);
+        return _response;
       case 400:
         throw BadRequestException();
       case 401:
         throw UnauthorizedException();
+      case 409:
+        var _response = json.decode(response.body);
+        throw PlayException(_response['ErrorCode'], _response['Message']);
     }
   }
 }

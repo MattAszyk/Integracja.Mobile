@@ -1,21 +1,20 @@
-class Answer {
-  int id;
-  String content;
-  bool isCorrect;
+import 'package:equatable/equatable.dart';
 
-  Answer({
-    this.id,
-    this.content,
-  });
+class Answer extends Equatable {
+  final int id;
+  final bool isCorrect;
+  final String content;
+  Answer({this.id, this.isCorrect, this.content});
 
   @override
   String toString() {
-    return 'Answer(id: $id, content: $content';
+    return 'Answers(id: $id, isCorrect: $isCorrect, content: $content)';
   }
 
   factory Answer.fromJson(Map<String, dynamic> json) {
     return Answer(
       id: json['id'] as int,
+      isCorrect: json['isCorrect'] != null ? json['isCorrect'] : null,
       content: json['content'] as String,
     );
   }
@@ -23,7 +22,11 @@ class Answer {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'isCorrect': isCorrect,
       'content': content,
     };
   }
+
+  @override
+  List<Object> get props => [id, isCorrect, content];
 }

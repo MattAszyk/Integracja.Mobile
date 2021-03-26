@@ -5,7 +5,7 @@ class ApiException implements Exception {
   final String _message;
   final int _codeStatus;
   ApiException([this._codeStatus, this._message]);
-
+  int get codeStatus => _codeStatus;
   @override
   String toString() {
     return "$_codeStatus: $_message";
@@ -20,4 +20,8 @@ class UnauthorizedException extends ApiException {
   UnauthorizedException() : super(401, "Unauthorized") {
     Get.find<AuthenticationController>().signOut();
   }
+}
+
+class PlayException extends ApiException {
+  PlayException(int code, String message) : super(code, message);
 }

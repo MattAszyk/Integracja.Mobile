@@ -1,48 +1,54 @@
-import 'package:integracja/models/play_game/answer.dart';
+import 'package:equatable/equatable.dart';
 
-class Question {
-  int id;
-  int categoryId;
-  String categoryName;
-  String content;
-  int positivePoints;
-  int negativePoints;
-  String questionScoring;
-  bool isPublic;
-  List<Answer> answers;
-  int ownerId;
+import 'answer.dart';
 
-  Question({
+class Question extends Equatable {
+  final int id;
+  final int categoryId;
+  final String categoryName;
+  final int ownerId;
+  final bool isPublic;
+  final String content;
+  final num positivePoints;
+  final num negativePoints;
+  final String questionScoring;
+  final int correctAnswersCount;
+  final List<Answer> answers;
+
+  const Question({
     this.id,
     this.categoryId,
     this.categoryName,
+    this.ownerId,
+    this.isPublic,
     this.content,
     this.positivePoints,
     this.negativePoints,
     this.questionScoring,
-    this.isPublic,
+    this.correctAnswersCount,
     this.answers,
-    this.ownerId,
   });
 
   @override
   String toString() {
-    return 'Question(id: $id, content: $content, positivePoints: $positivePoints, negativePoints: $negativePoints, questionScoring: $questionScoring, isPublic: $isPublic, categoryId: $categoryId, answers: $answers, ownerId: $ownerId';
+    return 'Question(id: $id, categoryId: $categoryId, categoryName: $categoryName, ownerId: $ownerId, isPublic: $isPublic, content: $content, positivePoints: $positivePoints, negativePoints: $negativePoints, questionScoring: $questionScoring, answers: $answers)';
   }
 
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
-      id: json['id'] as int,
-      categoryId: json['categoryId'] as int,
-      categoryName: json['categoryName'] as String,
-      content: json['content'] as String,
-      positivePoints: json['positivePoints'] as int,
-      negativePoints: json['negativePoints'] as int,
-      questionScoring: json['questionScoring'] as String,
-      isPublic: json['isPublic'] as bool,
-      answers: json['answers'] as List<Answer>,
-      ownerId: json['ownerId'] as int,
-    );
+        id: json['id'] as int,
+        categoryId: json['categoryId'] as int,
+        categoryName: json['categoryName'] as String,
+        ownerId: json['ownerId'] as int,
+        isPublic: json['isPublic'] as bool,
+        content: json['content'] as String,
+        positivePoints: json['positivePoints'] as num,
+        negativePoints: json['negativePoints'] as num,
+        questionScoring: json['questionScoring'] as String,
+        correctAnswersCount: json['correctAnswersCount'] as int,
+        answers: (json['answers'] as List)
+            ?.map((e) => e == null ? null : Answer.fromJson(e))
+            ?.toList());
   }
 
   Map<String, dynamic> toJson() {
@@ -50,13 +56,30 @@ class Question {
       'id': id,
       'categoryId': categoryId,
       'categoryName': categoryName,
+      'ownerId': ownerId,
+      'isPublic': isPublic,
       'content': content,
       'positivePoints': positivePoints,
       'negativePoints': negativePoints,
       'questionScoring': questionScoring,
-      'isPublic': isPublic,
-      'answers': answers,
-      'ownerId': ownerId,
+      'answers': answers?.map((e) => e?.toJson())?.toList(),
     };
+  }
+
+  @override
+  List<Object> get props {
+    return [
+      id,
+      categoryId,
+      categoryName,
+      ownerId,
+      isPublic,
+      content,
+      positivePoints,
+      negativePoints,
+      questionScoring,
+      correctAnswersCount,
+      answers,
+    ];
   }
 }
