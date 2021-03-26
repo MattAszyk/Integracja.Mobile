@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:integracja/models/game/detail_game_user.dart';
 
-class GameDetailsBodyCurrentState extends StatelessWidget {
+class GameDetailsBodyYourScore extends StatelessWidget {
   final DetailGameUser _gameUser;
-  GameDetailsBodyCurrentState(this._gameUser);
+  GameDetailsBodyYourScore(this._gameUser);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class GameDetailsBodyCurrentState extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Aktualny stan",
+          "Twój wynik",
           style: TextStyle(
             fontSize: 22,
             color: Colors.white,
@@ -26,7 +26,7 @@ class GameDetailsBodyCurrentState extends StatelessWidget {
           ),
         ),
         Text(
-          "Odpowiedziane pytania: ${_gameUser.answeredQuestions}",
+          "Ilość odpowiedzi: ${_gameUser.answeredQuestions}",
           style: TextStyle(
             fontSize: 18,
             color: Colors.grey,
