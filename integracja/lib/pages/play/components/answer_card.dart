@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:integracja/controllers/play/play_controller.dart';
-import 'package:integracja/utils/constrains.dart';
 import 'package:integracja/utils/icon_repository.dart';
 
 class AnswerCard extends StatelessWidget {

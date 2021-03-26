@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:integracja/models/authentication/user.dart';
 import 'package:integracja/network/api/login_repository.dart';
 import 'package:integracja/utils/safe_storage.dart';

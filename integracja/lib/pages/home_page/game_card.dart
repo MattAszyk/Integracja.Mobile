@@ -3,15 +3,17 @@ import 'package:integracja/models/game/game.dart';
 import 'package:integracja/utils/constrains.dart';
 
 class GameCard extends StatelessWidget {
-  Game _game;
-  String _text;
-  int _seconds;
-  Color _incoming = Color(0xffE09F36);
-  Color _active = Color(0xff36E0BB);
-  Color _color = Colors.black;
+  final Game _game;
 
-  GameCard(Game game) {
-    this._game = game;
+  GameCard(this._game);
+
+  @override
+  Widget build(BuildContext context) {
+    String _text;
+    int _seconds;
+    Color _incoming = Color(0xffE09F36);
+    Color _active = Color(0xff36E0BB);
+    Color _color = Colors.black;
 
     _seconds = _game.endTime.difference(DateTime.now()).inSeconds;
     int seconds = _seconds;
@@ -30,10 +32,6 @@ class GameCard extends StatelessWidget {
       _text = 'Pozostało $hours:$zero${minutes}h';
       _color = _incoming;
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Card(
       color: Color(0xff30334a),
       clipBehavior: Clip.antiAlias,
