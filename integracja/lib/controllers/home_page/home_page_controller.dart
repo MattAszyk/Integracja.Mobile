@@ -13,6 +13,10 @@ class HomePageController extends GetxController {
     super.onInit();
   }
 
+  Future<void> refresh() async {
+    await _loadData();
+  }
+
   Future<void> _loadData() async {
     try {
       _homePageStateStream.value = HomePageLoading();

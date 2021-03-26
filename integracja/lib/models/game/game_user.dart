@@ -4,7 +4,7 @@ import 'package:integracja/models/api_item.dart';
 import "game.dart";
 
 class GameUser extends Equatable implements ApiRequest {
-  final int gameScore;
+  final num gameScore;
   final String gameStartTime;
   final String gameEndTime;
   final bool gameOver;
@@ -31,7 +31,7 @@ class GameUser extends Equatable implements ApiRequest {
 
   factory GameUser.fromJson(Map<String, dynamic> json) {
     return GameUser(
-      gameScore: json['gameScore'] as int,
+      gameScore: json['gameScore'] as num,
       gameStartTime: json['gameStartTime'] as String,
       gameEndTime: json['gameEndTime'] as String,
       gameOver: json['gameOver'] as bool,

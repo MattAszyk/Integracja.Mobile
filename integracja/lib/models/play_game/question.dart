@@ -9,8 +9,8 @@ class Question extends Equatable {
   final int ownerId;
   final bool isPublic;
   final String content;
-  final int positivePoints;
-  final int negativePoints;
+  final num positivePoints;
+  final num negativePoints;
   final String questionScoring;
   final int correctAnswersCount;
   final List<Answer> answers;
@@ -36,22 +36,19 @@ class Question extends Equatable {
 
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
-      id: json['id'] as int,
-      categoryId: json['categoryId'] as int,
-      categoryName: json['categoryName'] as String,
-      ownerId: json['ownerId'] as int,
-      isPublic: json['isPublic'] as bool,
-      content: json['content'] as String,
-      positivePoints: json['positivePoints'] as int,
-      negativePoints: json['negativePoints'] as int,
-      questionScoring: json['questionScoring'] as String,
-      correctAnswersCount: json['correctAnswersCount'] as int,
-      answers: (json['answers'] as List)
-          ?.map((e) => e == null
-              ? null
-              : Answer.fromJson(json['answers'] as Map<String, dynamic>))
-          ?.toList(),
-    );
+        id: json['id'] as int,
+        categoryId: json['categoryId'] as int,
+        categoryName: json['categoryName'] as String,
+        ownerId: json['ownerId'] as int,
+        isPublic: json['isPublic'] as bool,
+        content: json['content'] as String,
+        positivePoints: json['positivePoints'] as num,
+        negativePoints: json['negativePoints'] as num,
+        questionScoring: json['questionScoring'] as String,
+        correctAnswersCount: json['correctAnswersCount'] as int,
+        answers: (json['answers'] as List)
+            ?.map((e) => e == null ? null : Answer.fromJson(e))
+            ?.toList());
   }
 
   Map<String, dynamic> toJson() {

@@ -4,7 +4,7 @@ import 'package:integracja/models/game/game.dart';
 import 'package:integracja/models/game/players.dart';
 
 class DetailGameUser extends Equatable implements ApiRequest {
-  final int gameScore;
+  final num gameScore;
   final DateTime gameStartTime;
   final DateTime gameEndTime;
   final bool gameOver;

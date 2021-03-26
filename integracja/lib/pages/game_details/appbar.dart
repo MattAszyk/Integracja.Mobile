@@ -45,7 +45,7 @@ class GameDetailsAppBar extends StatelessWidget {
                 children: [
                   OutlinedButton(
                     onPressed: () {
-                      Get.to(() => Play(_detailGameUser.game.id));
+                      Get.off(() => Play(_detailGameUser));
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(10),
@@ -62,9 +62,9 @@ class GameDetailsAppBar extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    "Tu czas ogółem",
+                    "czas",
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 15,
                     ),
                   ),
                 ],

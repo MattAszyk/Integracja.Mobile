@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:integracja/models/game/detail_game_user.dart';
-import 'package:integracja/models/game/game_user.dart';
 
 class GameDetailsState extends Equatable {
   @override

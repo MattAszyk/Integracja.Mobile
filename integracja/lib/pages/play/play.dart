@@ -1,160 +1,121 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:integracja/controllers/home_page/home_page_controller.dart';
 import 'package:integracja/controllers/play/play_controller.dart';
+import 'package:integracja/models/game/detail_game_user.dart';
 import 'package:integracja/pages/common/logo.dart';
+import 'package:integracja/pages/play/components/answer_card.dart';
 import 'package:integracja/utils/constrains.dart';
 
-class Play extends StatefulWidget {
-  PlayController _controller;
-  int _gameId;
-  Play(int gameId) {
-    _gameId = gameId;
-    _controller = Get.put(PlayController(gameId));
-  }
+class Play extends StatelessWidget {
+  final DetailGameUser _detailGameUser;
 
-  @override
-  _PlayState createState() => _PlayState();
-}
+  Play(this._detailGameUser);
 
-class _PlayState extends State<Play> {
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
-          backgroundColor: backgroundColor,
-          appBar: AppBar(
-            leading: IconButton(
-              onPressed: () => Get.back(),
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              ),
-            ),
-            centerTitle: true,
-            title: Text(
-              widget._controller.gameName.toString(),
-              style: TextStyle(color: Colors.black),
-            ),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                if (!widget._controller.isGameLoaded) Logo() else _game()
-              ],
-            ),
-          ),
-        ));
+    PlayController _controller =
+        Get.put(PlayController(_detailGameUser.game.id, _detailGameUser));
+    return Scaffold(
+        backgroundColor: backgroundColor,
+        appBar: AppBar(
+          backgroundColor: primaryColor,
+          title: Text(_detailGameUser.game.name),
+          centerTitle: true,
+        ),
+        body: GetBuilder(
+            init: _controller,
+            builder: (_) {
+              return _controller.notShowGameEnd
+                  ? _controller.isGameLoaded
+                      ? _game()
+                      : Logo()
+                  : _endScreen();
+            }));
   }
 
-  Column _game() {
-    return Column(
-      children: [
-        LinearProgressIndicator(
-          minHeight: 5,
-          value: widget._controller.progress,
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Container(
-          width: Get.width,
-          color: Colors.blue[100],
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Center(
-              child: Text(
-                widget._controller.question.question.content,
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-                textAlign: TextAlign.center,
+  Center _endScreen() {
+    var _controller = Get.find<PlayController>();
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+              _controller.lastMessage == null
+                  ? "Nieznany błąd"
+                  : _controller.lastMessage,
+              style: TextStyle(color: Colors.white, fontSize: 30)),
+          ElevatedButton(
+              onPressed: () {
+                Get.find<HomePageController>().refresh();
+                Get.back();
+              },
+              style: ElevatedButton.styleFrom(
+                primary: primaryColor,
               ),
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Column(
-          children: _answers(),
-        ),
-        SizedBox(
-          height: 30,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: RaisedButton(
-                  disabledColor: Colors.grey[600],
-                  disabledElevation: 1,
-                  disabledTextColor: Colors.blueGrey,
-                  onPressed: () => Get.to(() => Play(widget._gameId)),
-                  color: primaryColor,
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      !widget._controller.isQuestionAnswered
-                          ? 'Następne pytanie'
-                          : 'Zobacz wyniki',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
+              child: Text("POWRÓT")),
+        ],
+      ),
     );
   }
 
-  List<Widget> _answers() {
-    List<Widget> uiComponents;
-    widget._controller.question.question.answers.forEach((element) {
-      uiComponents.add(SizedBox(
-        height: 10,
-      ));
+  Padding _game() {
+    var _controller = Get.find<PlayController>();
 
-      uiComponents.add(Row(
+    return Padding(
+      padding: const EdgeInsets.all(6.0),
+      child: Column(
         children: [
-          Expanded(
-            child: RaisedButton(
-              onPressed: () => widget._controller.addAnswer(element.id),
-              color: _buttonColor(
-                  element.isCorrect, widget._controller.isSelected(element)),
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Text(
-                  element.content,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
+          Obx(() => LinearProgressIndicator(
+              minHeight: 5.0, value: _controller.progress)),
+          Card(
+            color: backgroundColor,
+            child: Column(
+              children: [
+                ListTile(
+                  leading: Icon(
+                    Icons.help_outline,
+                    color: Colors.white,
                   ),
-                ),
-              ),
+                  title: Text(""),
+                  subtitle: Text(
+                    _detailGameUser.game.name,
+                    style: TextStyle(color: Colors.white, fontSize: 25),
+                  ),
+                )
+              ],
             ),
           ),
+          Expanded(
+              child: ListView.builder(
+            itemCount: _controller.question.question.answers.length,
+            itemBuilder: (_, int index) {
+              return GestureDetector(
+                  onTap: () => _controller.addAnswer(index),
+                  child: Container(
+                    child: AnswerCard(index),
+                  ));
+            },
+          )),
+          _controller.isQuestionAnswered
+              ? ElevatedButton(
+                  onPressed: () => _controller.next(),
+                  style: ElevatedButton.styleFrom(
+                    primary: primaryColor,
+                  ),
+                  child: Text("NASTĘPNE"))
+              : _controller.question.question.correctAnswersCount != 1
+                  ? ElevatedButton(
+                      onPressed: () => _controller.answer(),
+                      style: ElevatedButton.styleFrom(
+                        primary: primaryColor,
+                      ),
+                      child: Text("ODPOWIEDZ"))
+                  : Container(),
         ],
-      ));
-    });
-    return uiComponents;
-  }
-
-  Color _buttonColor(bool isCorrect, bool isSelected) {
-    if (isSelected) return Colors.blue;
-    switch (isCorrect) {
-      case true:
-        return Colors.green;
-      case false:
-        return Colors.red;
-      default:
-        return Colors.white;
-    }
+      ),
+    );
   }
 }

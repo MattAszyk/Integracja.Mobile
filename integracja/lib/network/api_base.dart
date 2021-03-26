@@ -84,8 +84,8 @@ class ApiBase {
 
   Future<dynamic> _get(
       {@required String url, ApiRequest transferObject, int id}) async {
-    var response =
-        await http.get(url + (id != null ? "/$id" : ""), headers: _header());
+    var response = await http.get(Uri.parse(url + (id != null ? "/$id" : "")),
+        headers: _header());
     log(response.body);
     return _returnResponse(response);
   }
@@ -97,12 +97,13 @@ class ApiBase {
       int secondId,
       List<int> answerId}) async {
     var response = await http.post(
-        url +
+        Uri.parse(url +
             (id != null ? "/$id" : "") +
-            (secondId != null ? "/$secondId" : ""),
+            (secondId != null ? "/$secondId" : "")),
         headers: _header(),
-        body:
-            jsonEncode(answerId != null ? answerId : transferObject.toJson()));
+        body: answerId != null
+            ? answerId.toString()
+            : jsonEncode(transferObject.toJson()));
     return _returnResponse(response);
   }
 
@@ -120,14 +121,18 @@ class ApiBase {
   }
 
   dynamic _returnResponse(http.Response response) {
+    log('Response body: ${response.body}');
     switch (response.statusCode) {
       case 200:
-        var responseDecoded = json.decode(response.body);
-        return responseDecoded;
+        var _response = json.decode(response.body);
+        return _response;
       case 400:
         throw BadRequestException();
       case 401:
         throw UnauthorizedException();
+      case 409:
+        var _response = json.decode(response.body);
+        throw PlayException(_response['ErrorCode'], _response['Message']);
     }
   }
 }
