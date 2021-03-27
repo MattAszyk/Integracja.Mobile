@@ -18,21 +18,23 @@ class Play extends StatelessWidget {
     PlayController _controller =
         Get.put(PlayController(_detailGameUser.game.id, _detailGameUser));
     return Scaffold(
-        backgroundColor: backgroundColor,
-        appBar: AppBar(
-          backgroundColor: primaryColor,
-          title: Text(_detailGameUser.game.name),
-          centerTitle: true,
-        ),
-        body: GetBuilder(
-            init: _controller,
-            builder: (_) {
-              return _controller.notShowGameEnd
-                  ? _controller.isGameLoaded
-                      ? _game()
-                      : Logo()
-                  : _endScreen();
-            }));
+      backgroundColor: backgroundColor,
+      appBar: AppBar(
+        backgroundColor: primaryColor,
+        title: Text(_detailGameUser.game.name),
+        centerTitle: true,
+      ),
+      body: GetBuilder(
+        init: _controller,
+        builder: (_) {
+          return _controller.notShowGameEnd
+              ? _controller.isGameLoaded
+                  ? _game()
+                  : Logo()
+              : _endScreen();
+        },
+      ),
+    );
   }
 
   Center _endScreen() {

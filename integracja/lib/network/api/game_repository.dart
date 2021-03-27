@@ -14,6 +14,16 @@ class GameRepository {
     return List<GameUser>.from(list.map((e) => GameUser.fromJson(e)));
   }
 
+  static Future<List<GameUser>> fetchAllArchived() async {
+    final apiBase = Get.find<ApiBase>();
+    Iterable list = await apiBase.request(
+      requestType: RequestType.GET,
+      api: API.Users_GamesArchived,
+    );
+
+    return List<GameUser>.from(list.map((e) => GameUser.fromJson(e)));
+  }
+
   static Future<DetailGameUser> fetchById(int gameId) async {
     final apiBase = Get.find<ApiBase>();
     var response = await apiBase.request(

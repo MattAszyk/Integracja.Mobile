@@ -7,28 +7,33 @@ import 'package:integracja/pages/game_details/appbar.dart';
 import 'package:integracja/pages/game_details/body.dart';
 import 'package:integracja/utils/constrains.dart';
 
-class GameDetails extends StatelessWidget {
-  final int _gameId;
-
-  GameDetails(this._gameId);
+class GameDetails extends StatefulWidget {
+  final int gameId;
+  GameDetailsController _gameDetailsController;
+  GameDetails(this.gameId) {
+    _gameDetailsController = Get.put(GameDetailsController(gameId));
+  }
 
   @override
-  Widget build(BuildContext context) {
-    var _gameDetailsController = Get.put(GameDetailsController(_gameId));
+  _GameDetailsState createState() => _GameDetailsState();
+}
 
+class _GameDetailsState extends State<GameDetails> {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Obx(() {
-        if (_gameDetailsController.state is GameDetailsLoading)
+        if (widget._gameDetailsController.state is GameDetailsLoading)
           return Logo();
-        else if (_gameDetailsController.state is GameDetailsLoaded)
+        else if (widget._gameDetailsController.state is GameDetailsLoaded)
           return CustomScrollView(
             slivers: <Widget>[
               GameDetailsAppBar(
-                  (_gameDetailsController.state as GameDetailsLoaded)
+                  (widget._gameDetailsController.state as GameDetailsLoaded)
                       .detailGameUser),
               GameDetailsBody(
-                  (_gameDetailsController.state as GameDetailsLoaded)
+                  (widget._gameDetailsController.state as GameDetailsLoaded)
                       .detailGameUser),
             ],
           );

@@ -4,7 +4,7 @@ class Answer extends Equatable {
   final int id;
   final bool isCorrect;
   final String content;
-  Answer({this.id, this.isCorrect, this.content});
+  Answer({this.id, this.content, this.isCorrect});
 
   @override
   String toString() {
