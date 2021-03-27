@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:integracja/controllers/authentication/authentication_controller.dart';
 import 'package:integracja/models/game/detail_game_user.dart';
-import 'package:integracja/models/game/game_user.dart';
 import 'package:integracja/pages/play/play.dart';
 
 class GameDetailsAppBar extends StatelessWidget {

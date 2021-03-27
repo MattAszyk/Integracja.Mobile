@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:integracja/models/game/detail_game_user.dart';
 
 class GameDetailsBodyPlayers extends StatelessWidget {
-  final DetailGameUser _game;
+  final DetailGameUser game;
   String _maxPlayers;
-  GameDetailsBodyPlayers(this._game) {
-    _maxPlayers = (_game.game.players.length == 0)
+  GameDetailsBodyPlayers(this.game) {
+    _maxPlayers = (game.game.players.length == 0)
         ? '∞'
-        : _game.game.players.length.toString();
+        : game.game.players.length.toString();
   }
 
   @override
@@ -22,14 +22,14 @@ class GameDetailsBodyPlayers extends StatelessWidget {
         ),
       ),
       subtitle: Text(
-        "${_game.game.players.length.toString()}/$_maxPlayers",
+        "${game.game.players.length.toString()}/$_maxPlayers",
         style: TextStyle(
           fontSize: 18,
           color: Colors.grey,
         ),
       ),
       children: <Widget>[
-        for (var player in _game.game.players)
+        for (var player in game.game.players)
           Column(
             children: [
               Text(

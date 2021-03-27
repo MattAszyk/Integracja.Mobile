@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:integracja/models/game/detail_game_user.dart';
 import 'package:integracja/models/game/game_user.dart';
@@ -12,6 +9,16 @@ class GameRepository {
     Iterable list = await apiBase.request(
       requestType: RequestType.GET,
       api: API.Users_Games,
+    );
+
+    return List<GameUser>.from(list.map((e) => GameUser.fromJson(e)));
+  }
+
+  static Future<List<GameUser>> fetchAllArchived() async {
+    final apiBase = Get.find<ApiBase>();
+    Iterable list = await apiBase.request(
+      requestType: RequestType.GET,
+      api: API.Users_GamesArchived,
     );
 
     return List<GameUser>.from(list.map((e) => GameUser.fromJson(e)));

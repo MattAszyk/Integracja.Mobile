@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:integracja/pages/home_page/home_page.dart';
+import 'package:integracja/pages/archives/archives.dart';
 import 'package:integracja/pages/settings/settings.dart';
 import 'package:integracja/utils/constrains.dart';
 
@@ -30,7 +30,7 @@ class BottomNavBar extends StatelessWidget {
           IconButton(
               icon: Icon(Icons.history),
               onPressed: () {
-                Get.offAll(HomePage());
+                Get.to(() => Archives());
               }),
           Spacer(),
         ],

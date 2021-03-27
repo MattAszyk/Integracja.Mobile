@@ -5,9 +5,9 @@ import 'package:integracja/models/game/game_user.dart';
 import 'package:integracja/pages/common/game_card.dart';
 import 'package:integracja/pages/game_details/game_details.dart';
 
-class ActiveGames extends StatelessWidget {
+class ArchivedGames extends StatelessWidget {
   final List<GameUser> _gameUserList;
-  ActiveGames(this._gameUserList);
+  ArchivedGames(this._gameUserList);
   Widget build(BuildContext context) {
     return Expanded(
         child: RefreshIndicator(

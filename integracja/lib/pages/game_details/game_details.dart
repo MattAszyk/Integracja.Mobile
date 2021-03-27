@@ -8,10 +8,10 @@ import 'package:integracja/pages/game_details/body.dart';
 import 'package:integracja/utils/constrains.dart';
 
 class GameDetails extends StatefulWidget {
-  final int _gameId;
+  final int gameId;
   GameDetailsController _gameDetailsController;
-  GameDetails(this._gameId) {
-    _gameDetailsController = Get.put(GameDetailsController(_gameId));
+  GameDetails(this.gameId) {
+    _gameDetailsController = Get.put(GameDetailsController(gameId));
   }
 
   @override
@@ -19,24 +19,6 @@ class GameDetails extends StatefulWidget {
 }
 
 class _GameDetailsState extends State<GameDetails> {
-  Column _loading() {
-    return Column(
-      children: [
-        Spacer(),
-        Center(
-          child: SizedBox(
-            width: 60,
-            height: 60,
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
-            ),
-          ),
-        ),
-        Spacer(),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

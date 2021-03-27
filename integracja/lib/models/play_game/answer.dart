@@ -2,12 +2,9 @@ import 'package:equatable/equatable.dart';
 
 class Answer extends Equatable {
   final int id;
-  bool isCorrect;
+  final bool isCorrect;
   final String content;
-  bool isSelected = false;
-  Answer({this.id, this.content, bool isCorrect}) {
-    this.isCorrect = isCorrect;
-  }
+  Answer({this.id, this.content, this.isCorrect});
 
   @override
   String toString() {
