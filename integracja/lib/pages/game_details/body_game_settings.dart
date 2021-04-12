@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:integracja/models/game/game.dart';
+import 'package:integracja/utils/constrains.dart';
+import 'package:intl/intl.dart';
 
 class GameDetailsBodyGameSettings extends StatelessWidget {
   final Game _game;
@@ -7,42 +9,46 @@ class GameDetailsBodyGameSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String _formattedStartTime =
+        DateFormat('dd.MM.yyyy kk:mm').format(_game.startTime);
+    String _formattedEndTime =
+        DateFormat('dd.MM.yyyy kk:mm').format(_game.endTime);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           "Ustawienia gry",
           style: TextStyle(
-            fontSize: 22,
+            fontSize: textBigSize,
             color: Colors.white,
           ),
         ),
         SizedBox(height: 10),
         Text(
-          "Początek: ${_game.startTime}",
+          "Początek: $_formattedStartTime",
           style: TextStyle(
-            fontSize: 18,
+            fontSize: textDefaultSize,
             color: Colors.grey,
           ),
         ),
         Text(
-          "Koniec: ${_game.endTime}",
+          "Koniec: $_formattedEndTime",
           style: TextStyle(
-            fontSize: 18,
+            fontSize: textDefaultSize,
             color: Colors.grey,
           ),
         ),
         Text(
           "Maksymalna liczba graczy: ${_game.maxPlayersCount}",
           style: TextStyle(
-            fontSize: 18,
+            fontSize: textDefaultSize,
             color: Colors.grey,
           ),
         ),
         Text(
           "Ilość pytań: ${_game.questionsCount}",
           style: TextStyle(
-            fontSize: 18,
+            fontSize: textDefaultSize,
             color: Colors.grey,
           ),
         ),

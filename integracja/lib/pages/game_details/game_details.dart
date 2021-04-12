@@ -27,16 +27,9 @@ class _GameDetailsState extends State<GameDetails> {
         if (widget._gameDetailsController.state is GameDetailsLoading)
           return Logo();
         else if (widget._gameDetailsController.state is GameDetailsLoaded)
-          return CustomScrollView(
-            slivers: <Widget>[
-              GameDetailsAppBar(
-                  (widget._gameDetailsController.state as GameDetailsLoaded)
-                      .detailGameUser),
-              GameDetailsBody(
-                  (widget._gameDetailsController.state as GameDetailsLoaded)
-                      .detailGameUser),
-            ],
-          );
+          return GameDetailsBody(
+              (widget._gameDetailsController.state as GameDetailsLoaded)
+                  .detailGameUser);
         else
           return Container();
       }),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:integracja/models/game/detail_game_user.dart';
 import 'package:integracja/pages/play/play.dart';
+import 'package:integracja/utils/constrains.dart';
 
 class GameDetailsAppBar extends StatelessWidget {
   final DetailGameUser _detailGameUser;
@@ -29,7 +30,7 @@ class GameDetailsAppBar extends StatelessWidget {
       centerTitle: true,
       floating: true,
       pinned: true,
-      expandedHeight: 180,
+      expandedHeight: 160,
       title: Text(_detailGameUser.game.name),
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.parallax,
@@ -51,18 +52,9 @@ class GameDetailsAppBar extends StatelessWidget {
                         'GRAJ',
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 30,
+                          fontSize: textBigSize,
                         ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "czas",
-                    style: TextStyle(
-                      fontSize: 15,
                     ),
                   ),
                 ],

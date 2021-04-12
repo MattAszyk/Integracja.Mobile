@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:integracja/models/game/detail_game_user.dart';
+import 'package:integracja/utils/constrains.dart';
 
 class GameDetailsBodyPlayers extends StatelessWidget {
   final DetailGameUser game;
@@ -12,23 +13,19 @@ class GameDetailsBodyPlayers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _maxPlayers;
-    _maxPlayers = (game.game.players.length == 0)
-        ? '∞'
-        : game.game.players.length.toString();
     return ExpansionTile(
       tilePadding: const EdgeInsets.all(0),
       title: Text(
         "Gracze",
         style: TextStyle(
-          fontSize: 22,
+          fontSize: textBigSize,
           color: Colors.white,
         ),
       ),
       subtitle: Text(
         "${game.game.players.length.toString()}/$_maxPlayers",
         style: TextStyle(
-          fontSize: 18,
+          fontSize: textDefaultSize,
           color: Colors.grey,
         ),
       ),
@@ -36,12 +33,22 @@ class GameDetailsBodyPlayers extends StatelessWidget {
         for (var player in game.game.players)
           Column(
             children: [
-              Text(
-                player.username,
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.grey,
-                ),
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 12.0,
+                    backgroundImage: NetworkImage(player.profileThumbnail),
+                    backgroundColor: Colors.transparent,
+                  ),
+                  SizedBox(width: 10.0),
+                  Text(
+                    player.username,
+                    style: TextStyle(
+                      fontSize: textDefaultSize,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 5,

@@ -9,3 +9,7 @@ const backgroundColor = Color(
 
 String registrationPage = websiteURL + "Identity/Account/Register";
 String forgotPasswordPage = websiteURL + "Identity/Account/ForgotPassword";
+
+const textDefaultSize = 16.0;
+const textSmallSize = 14.0;
+const textBigSize = 22.0;

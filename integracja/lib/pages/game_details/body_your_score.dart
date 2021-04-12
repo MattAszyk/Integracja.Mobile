@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:integracja/models/game/detail_game_user.dart';
+import 'package:integracja/utils/constrains.dart';
 
 class GameDetailsBodyYourScore extends StatelessWidget {
   final DetailGameUser _gameUser;
@@ -13,7 +14,7 @@ class GameDetailsBodyYourScore extends StatelessWidget {
         Text(
           "Twój wynik",
           style: TextStyle(
-            fontSize: 22,
+            fontSize: textBigSize,
             color: Colors.white,
           ),
         ),
@@ -21,28 +22,28 @@ class GameDetailsBodyYourScore extends StatelessWidget {
         Text(
           "Ilość punktów: ${_gameUser.gameScore}",
           style: TextStyle(
-            fontSize: 18,
+            fontSize: textDefaultSize,
             color: Colors.grey,
           ),
         ),
         Text(
           "Ilość odpowiedzi: ${_gameUser.answeredQuestions}",
           style: TextStyle(
-            fontSize: 18,
+            fontSize: textDefaultSize,
             color: Colors.grey,
           ),
         ),
         Text(
           "Poprawne odpowiedzi: ${_gameUser.correctlyAnsweredQuestions}",
           style: TextStyle(
-            fontSize: 18,
+            fontSize: textDefaultSize,
             color: Colors.grey,
           ),
         ),
         Text(
           "Błędne odpowiedzi: ${_gameUser.incorrectlyAnsweredQuestions}",
           style: TextStyle(
-            fontSize: 18,
+            fontSize: textDefaultSize,
             color: Colors.grey,
           ),
         ),

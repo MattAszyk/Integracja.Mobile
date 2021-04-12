@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:integracja/models/game/game.dart';
 import 'package:integracja/utils/constrains.dart';
+import 'package:intl/intl.dart';
 
 class GameCard extends StatelessWidget {
   final Game game;
@@ -29,7 +30,7 @@ class GameCard extends StatelessWidget {
     if (now.isAfter(game.endTime)) {
       _state = 3;
       _color = _finished;
-      _text = 'Gra zakończona ${game.endTime}';
+      _text = 'Gra zakończona';
     } else if (now.isAfter(game.startTime) && now.isBefore(game.endTime)) {
       _state = 1;
       _color = _active;
@@ -53,7 +54,7 @@ class GameCard extends StatelessWidget {
             ),
             Text(
               "AKTYWNA",
-              style: new TextStyle(fontSize: 10, color: _color),
+              style: TextStyle(fontSize: textSmallSize, color: _color),
             )
           ],
         );
@@ -68,7 +69,7 @@ class GameCard extends StatelessWidget {
             ),
             Text(
               "WKRÓTCE",
-              style: new TextStyle(fontSize: 10, color: _color),
+              style: TextStyle(fontSize: textSmallSize, color: _color),
             ),
           ],
         );
@@ -77,13 +78,13 @@ class GameCard extends StatelessWidget {
         return Column(
           children: [
             Icon(
-              Icons.close,
+              Icons.power_settings_new,
               size: 40,
               color: _color,
             ),
             Text(
               "KONIEC",
-              style: new TextStyle(fontSize: 10, color: _color),
+              style: TextStyle(fontSize: textSmallSize, color: _color),
             )
           ],
         );
@@ -100,10 +101,11 @@ class GameCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: ListTile(
         leading: Container(
-            padding: EdgeInsets.only(right: 12),
-            decoration: new BoxDecoration(
-                border: new Border(
-                    right: new BorderSide(width: 1.0, color: backgroundColor))),
+            decoration: BoxDecoration(
+              border: Border(
+                right: BorderSide(width: 1.0, color: backgroundColor),
+              ),
+            ),
             child: gameLeadingBasedOnState(_state)),
         trailing: Icon(
           Icons.keyboard_arrow_right,
@@ -113,12 +115,15 @@ class GameCard extends StatelessWidget {
         title: Text(
           game.name,
           style: TextStyle(
-              fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20),
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontSize: textDefaultSize),
         ),
         subtitle: Text(
           _text,
           style: TextStyle(
             color: _color,
+            fontSize: textSmallSize,
           ),
         ),
       ),

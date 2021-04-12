@@ -96,7 +96,7 @@ class __SignInFormState extends State<_SignInForm> {
                   "Zaloguj się",
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: textDefaultSize,
                       fontWeight: FontWeight.bold),
                 ),
               ))
@@ -133,7 +133,9 @@ class __SignInFormState extends State<_SignInForm> {
         child: Text(
           isRegister ? "Zarejestruj się" : "Przypomnij hasło",
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: textSmallSize),
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:integracja/models/game/gamemode.dart';
+import 'package:integracja/utils/constrains.dart';
 
 class GameDetailsBodyModeSettings extends StatelessWidget {
   final Gamemode _gameMode;
@@ -13,7 +14,7 @@ class GameDetailsBodyModeSettings extends StatelessWidget {
         Text(
           "Ustawienia trybu",
           style: TextStyle(
-            fontSize: 22,
+            fontSize: textBigSize,
             color: Colors.white,
           ),
         ),
@@ -21,28 +22,28 @@ class GameDetailsBodyModeSettings extends StatelessWidget {
         Text(
           "Nazwa trybu: ${_gameMode.name}",
           style: TextStyle(
-            fontSize: 18,
+            fontSize: textDefaultSize,
             color: Colors.grey,
           ),
         ),
         Text(
           "Czas na cały quiz: ${_gameMode.timeForFullQuiz} sekund",
           style: TextStyle(
-            fontSize: 18,
+            fontSize: textDefaultSize,
             color: Colors.grey,
           ),
         ),
         Text(
           "Czas na pytanie: ${_gameMode.timeForOneQuestion} sekund",
           style: TextStyle(
-            fontSize: 18,
+            fontSize: textDefaultSize,
             color: Colors.grey,
           ),
         ),
         Text(
           "Ilość żyć: ${_gameMode.numberOfLives}",
           style: TextStyle(
-            fontSize: 18,
+            fontSize: textDefaultSize,
             color: Colors.grey,
           ),
         ),
