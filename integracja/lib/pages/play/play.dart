@@ -50,14 +50,15 @@ class Play extends StatelessWidget {
                   : _controller.lastMessage,
               style: TextStyle(color: Colors.white, fontSize: 30)),
           ElevatedButton(
-              onPressed: () {
-                Get.find<HomePageController>().refresh();
-                Get.back();
-              },
-              style: ElevatedButton.styleFrom(
-                primary: primaryColor,
-              ),
-              child: Text("POWRÓT")),
+            onPressed: () {
+              Get.find<HomePageController>().refresh();
+              Get.back();
+            },
+            style: ElevatedButton.styleFrom(
+              primary: primaryColor,
+            ),
+            child: Text("POWRÓT"),
+          ),
         ],
       ),
     );
