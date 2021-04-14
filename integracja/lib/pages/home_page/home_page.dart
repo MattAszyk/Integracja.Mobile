@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:integracja/controllers/home_page/home_page_controller.dart';
 import 'package:integracja/controllers/home_page/home_page_state.dart';
 import 'package:integracja/pages/common/logo.dart';
-import 'package:integracja/pages/qr_code/qr_code.dart';
+
+import 'package:integracja/pages/qr_scanner/qr_scanner.dart';
+
 import 'package:integracja/utils/constrains.dart';
 import 'active_games.dart';
 import 'bottom_nav_bar.dart';
@@ -56,9 +58,9 @@ class _HomePageState extends State<HomePage> {
             size: 35,
             color: Colors.black,
           ),
-          onPressed: () {
-            Get.to(() => QRCode());
-          }),
+
+          onPressed: () => Get.to(() => QrScanner())),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }

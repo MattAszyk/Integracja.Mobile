@@ -33,4 +33,10 @@ class GameRepository {
     );
     return DetailGameUser.fromJson(response);
   }
+
+  static Future<void> join(String uuid) async {
+    final apiBase = Get.find<ApiBase>();
+    await apiBase.request(
+        requestType: RequestType.GET, api: API.Games_Join, uuid: uuid);
+  }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:integracja/models/game/game.dart';
 import 'package:integracja/utils/constrains.dart';
-import 'package:intl/intl.dart';
 
 class GameCard extends StatelessWidget {
   final Game game;
