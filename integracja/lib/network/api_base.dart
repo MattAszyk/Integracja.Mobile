@@ -63,11 +63,15 @@ class ApiBase {
       ApiRequest transferObject,
       List<int> answerId,
       int id,
+      String uuid,
       int secondId}) async {
     switch (requestType) {
       case RequestType.GET:
         return _get(
-            url: _urlResolver(api), transferObject: transferObject, id: id);
+            url: _urlResolver(api),
+            transferObject: transferObject,
+            id: id,
+            uuid: uuid);
       case RequestType.POST:
         return _post(
             url: _urlResolver(api),
@@ -83,8 +87,13 @@ class ApiBase {
   }
 
   Future<dynamic> _get(
-      {@required String url, ApiRequest transferObject, int id}) async {
-    var response = await http.get(Uri.parse(url + (id != null ? "/$id" : "")),
+      {@required String url,
+      ApiRequest transferObject,
+      int id,
+      String uuid}) async {
+    var response = await http.get(
+        Uri.parse(
+            url + (uuid != null ? "/$uuid" : "") + (id != null ? "/$id" : "")),
         headers: _header());
     log(response.body);
     return _returnResponse(response);
@@ -94,11 +103,13 @@ class ApiBase {
       {@required String url,
       ApiRequest transferObject,
       int id,
+      String uuid,
       int secondId,
       List<int> answerId}) async {
     var response = await http.post(
         Uri.parse(url +
             (id != null ? "/$id" : "") +
+            (uuid != null ? "/$uuid" : "") +
             (secondId != null ? "/$secondId" : "")),
         headers: _header(),
         body: answerId != null
