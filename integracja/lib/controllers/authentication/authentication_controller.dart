@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:integracja/controllers/authentication/authentication_state.dart';
+import 'package:integracja/controllers/home_page/home_page_controller.dart';
 import 'package:integracja/services/authentication_service.dart';
 
 class AuthenticationController extends GetxController {
@@ -24,6 +25,9 @@ class AuthenticationController extends GetxController {
       final user = await _authenticationService.signInWithCredentials(
           username, password);
       _authenticationStateStream.value = Authenticated(user: user);
+      try {
+        Get.find<HomePageController>().refresh();
+      } catch (e) {}
     } catch (e) {}
   }
 

@@ -24,10 +24,6 @@ class GameDetailsController extends GetxController {
       var game = await GameRepository.fetchById(_gameId);
 
       _homePageStateStream.value = GameDetailsLoaded(game);
-    } on UnauthorizedException {
-      log('User logged out');
-      Get.find<AuthenticationController>().signOut();
-      Get.back();
     } catch (e) {
       log('error with fetching ${e.toString()}');
     }

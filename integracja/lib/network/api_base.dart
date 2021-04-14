@@ -140,6 +140,8 @@ class ApiBase {
       case 400:
         throw BadRequestException();
       case 401:
+        Get.find<AuthenticationController>().signOut();
+        Get.back();
         throw UnauthorizedException();
       case 409:
         var _response = json.decode(response.body);

@@ -18,8 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  HomePageController _homePageController = Get.put(HomePageController());
-
+  final _homePageController = Get.put(HomePageController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,9 +57,7 @@ class _HomePageState extends State<HomePage> {
             size: 35,
             color: Colors.black,
           ),
-
           onPressed: () => Get.to(() => QrScanner())),
-
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
