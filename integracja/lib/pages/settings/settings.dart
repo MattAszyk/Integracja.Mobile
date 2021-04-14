@@ -11,12 +11,8 @@ class Settings extends StatelessWidget {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-          ),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+            icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+            onPressed: () => Get.back()),
         centerTitle: true,
         title: const Text(
           'Ustawienia',
