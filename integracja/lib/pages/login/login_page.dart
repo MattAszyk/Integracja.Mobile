@@ -39,8 +39,8 @@ class __SignInFormState extends State<_SignInForm> {
 
   @override
   Widget build(BuildContext context) {
-    _usernameController.text = 'user';
-    _passwordController.text = '12345aA!';
+    // _usernameController.text = 'user';
+    // _passwordController.text = '12345aA!';
     return Obx(() {
       return Form(
         key: _key,
@@ -128,7 +128,7 @@ class __SignInFormState extends State<_SignInForm> {
     return Padding(
       padding: EdgeInsets.only(
           bottom: isRegister ? 0 : 0.005 * height, top: 0.005 * height),
-      child: OutlinedButton(
+      child: TextButton(
         onPressed: isRegister ? registrationForm : forgotPasswordForm,
         child: Text(
           isRegister ? "Zarejestruj się" : "Przypomnij hasło",

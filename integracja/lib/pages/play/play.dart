@@ -84,7 +84,7 @@ class Play extends StatelessWidget {
                   ),
                   title: Text(""),
                   subtitle: Text(
-                    _detailGameUser.game.name,
+                    _controller.question.question.content,
                     style: TextStyle(color: Colors.white, fontSize: 25),
                   ),
                 )
