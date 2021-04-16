@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:integracja/models/game/detail_game_user.dart';
+import 'package:integracja/models/game/game_user.dart';
 import 'package:integracja/utils/constrains.dart';
 
 class GameDetailsBodyPlayers extends StatelessWidget {
-  final DetailGameUser game;
+  final GameUser game;
   String _maxPlayers;
   GameDetailsBodyPlayers(this.game) {
-    _maxPlayers = (game.game.players.length == 0)
+    _maxPlayers = (game.game.maxPlayersCount == 0)
         ? '∞'
-        : game.game.players.length.toString();
+        : game.game.maxPlayersCount.toString();
   }
 
   @override

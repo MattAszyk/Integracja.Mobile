@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:integracja/models/game/detail_game_user.dart';
 import 'package:integracja/models/game/game_user.dart';
+import 'package:integracja/models/game/history.dart';
 import 'package:integracja/network/api_base.dart';
 
 class GameRepository {
@@ -24,19 +24,29 @@ class GameRepository {
     return List<GameUser>.from(list.map((e) => GameUser.fromJson(e)));
   }
 
-  static Future<DetailGameUser> fetchById(int gameId) async {
+  static Future<GameUser> fetchById(int gameId) async {
     final apiBase = Get.find<ApiBase>();
     var response = await apiBase.request(
       requestType: RequestType.GET,
       api: API.Users_Games,
       id: gameId,
     );
-    return DetailGameUser.fromJson(response);
+    return GameUser.fromJson(response);
   }
 
   static Future<void> join(String uuid) async {
     final apiBase = Get.find<ApiBase>();
     await apiBase.request(
         requestType: RequestType.GET, api: API.Games_Join, uuid: uuid);
+  }
+
+  static Future<History> fetchGameHistoryById(int gameId) async {
+    final apiBase = Get.find<ApiBase>();
+    var response = await apiBase.request(
+      requestType: RequestType.GET,
+      api: API.History,
+      id: gameId,
+    );
+    return History.fromJson(response);
   }
 }

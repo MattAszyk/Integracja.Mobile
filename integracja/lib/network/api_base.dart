@@ -51,6 +51,8 @@ class ApiBase {
         return _baseUrl + '/api/Users/GamesArchived';
       case API.Questions:
         return _baseUrl + '/api/Questions';
+      case API.History:
+        return _baseUrl + '/api/Games/History';
       default:
         return _baseUrl;
     }
@@ -152,14 +154,15 @@ class ApiBase {
 
 enum API {
   Auth,
+  Games_Join,
+  Games_Leave,
+  Games_Play,
   Users_Games,
   Users_GamesArchived,
   Games,
   Games_Accept,
-  Games_Join,
-  Games_Leave,
   Games_MyGames,
-  Games_Play,
-  Questions
+  Questions,
+  History,
 }
 enum RequestType { GET, POST, PUT, DELETE }

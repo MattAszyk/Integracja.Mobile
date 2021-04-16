@@ -39,14 +39,14 @@ class GameDetailsBodyGameSettings extends StatelessWidget {
           ),
         ),
         Text(
-          "Maksymalna liczba graczy: ${_game.maxPlayersCount}",
+          "Maksymalna liczba graczy: ${_game.maxPlayersCount == 0 ? '∞' : _game.maxPlayersCount}",
           style: TextStyle(
             fontSize: textDefaultSize,
             color: Colors.grey,
           ),
         ),
         Text(
-          "Ilość pytań: ${_game.questionsCount}",
+          "Liczba pytań: ${_game.questionsCount}",
           style: TextStyle(
             fontSize: textDefaultSize,
             color: Colors.grey,

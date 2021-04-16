@@ -11,7 +11,6 @@ import 'package:integracja/utils/constrains.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
   initialize();
   runApp(MyApp());
 }

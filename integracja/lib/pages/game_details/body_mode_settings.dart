@@ -4,7 +4,19 @@ import 'package:integracja/utils/constrains.dart';
 
 class GameDetailsBodyModeSettings extends StatelessWidget {
   final Gamemode _gameMode;
-  GameDetailsBodyModeSettings(this._gameMode);
+  String timeForFullQuiz;
+  String timeForOneQuestion;
+  GameDetailsBodyModeSettings(this._gameMode) {
+    if (_gameMode.timeForFullQuiz == null)
+      timeForFullQuiz = 'nieograniczony';
+    else
+      timeForFullQuiz = _gameMode.timeForFullQuiz.toString() + ' sekund';
+
+    if (_gameMode.timeForOneQuestion == null)
+      timeForOneQuestion = 'nieograniczony';
+    else
+      timeForOneQuestion = _gameMode.timeForOneQuestion.toString() + ' sekund';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,21 +39,21 @@ class GameDetailsBodyModeSettings extends StatelessWidget {
           ),
         ),
         Text(
-          "Czas na cały quiz: ${_gameMode.timeForFullQuiz} sekund",
+          "Czas na cały quiz: $timeForFullQuiz",
           style: TextStyle(
             fontSize: textDefaultSize,
             color: Colors.grey,
           ),
         ),
         Text(
-          "Czas na pytanie: ${_gameMode.timeForOneQuestion} sekund",
+          "Czas na pytanie: $timeForOneQuestion",
           style: TextStyle(
             fontSize: textDefaultSize,
             color: Colors.grey,
           ),
         ),
         Text(
-          "Ilość żyć: ${_gameMode.numberOfLives}",
+          "Liczba żyć: ${_gameMode.numberOfLives == null ? '∞' : _gameMode.numberOfLives}",
           style: TextStyle(
             fontSize: textDefaultSize,
             color: Colors.grey,

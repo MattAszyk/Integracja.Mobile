@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:integracja/models/game/detail_game_user.dart';
+import 'package:integracja/models/game/game_user.dart';
 import 'package:integracja/utils/constrains.dart';
 
 class GameDetailsBodyYourScore extends StatelessWidget {
-  final DetailGameUser _gameUser;
+  final GameUser _gameUser;
   GameDetailsBodyYourScore(this._gameUser);
 
   @override
@@ -20,14 +20,14 @@ class GameDetailsBodyYourScore extends StatelessWidget {
         ),
         SizedBox(height: 10),
         Text(
-          "Ilość punktów: ${_gameUser.gameScore}",
+          "Liczba punktów: ${_gameUser.gameScore}",
           style: TextStyle(
             fontSize: textDefaultSize,
             color: Colors.grey,
           ),
         ),
         Text(
-          "Ilość odpowiedzi: ${_gameUser.answeredQuestions}",
+          "Liczba odpowiedzi: ${_gameUser.answeredQuestions}",
           style: TextStyle(
             fontSize: textDefaultSize,
             color: Colors.grey,

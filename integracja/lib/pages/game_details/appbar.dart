@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:integracja/models/game/detail_game_user.dart';
+import 'package:integracja/models/game/game_user.dart';
 import 'package:integracja/pages/play/play.dart';
 import 'package:integracja/utils/constrains.dart';
 
 class GameDetailsAppBar extends StatelessWidget {
-  final DetailGameUser _detailGameUser;
+  final GameUser _detailGameUser;
   GameDetailsAppBar(this._detailGameUser);
 
   @override

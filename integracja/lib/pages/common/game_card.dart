@@ -53,8 +53,8 @@ class GameCard extends StatelessWidget {
             ),
             Text(
               "AKTYWNA",
-              style: TextStyle(fontSize: textSmallSize, color: _color),
-            )
+              style: TextStyle(fontSize: textMicroSize, color: _color),
+            ),
           ],
         );
         break;
@@ -63,12 +63,12 @@ class GameCard extends StatelessWidget {
           children: [
             Icon(
               Icons.hourglass_empty_outlined,
-              size: 41,
+              size: 40,
               color: _color,
             ),
             Text(
               "WKRÓTCE",
-              style: TextStyle(fontSize: textSmallSize, color: _color),
+              style: TextStyle(fontSize: textMicroSize, color: _color),
             ),
           ],
         );
@@ -76,14 +76,16 @@ class GameCard extends StatelessWidget {
       case 3:
         return Column(
           children: [
+            SizedBox(height: 5.0),
             Icon(
               Icons.power_settings_new,
-              size: 40,
+              size: 30,
               color: _color,
             ),
+            SizedBox(height: 5.0),
             Text(
-              "KONIEC",
-              style: TextStyle(fontSize: textSmallSize, color: _color),
+              "WYGASŁA",
+              style: TextStyle(fontSize: textMicroSize, color: _color),
             )
           ],
         );
@@ -105,7 +107,9 @@ class GameCard extends StatelessWidget {
                 right: BorderSide(width: 1.0, color: backgroundColor),
               ),
             ),
-            child: gameLeadingBasedOnState(_state)),
+            child: Container(
+                margin: EdgeInsets.only(right: 15.0),
+                child: gameLeadingBasedOnState(_state))),
         trailing: Icon(
           Icons.keyboard_arrow_right,
           color: _color,

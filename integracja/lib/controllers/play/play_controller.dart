@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:get/get.dart';
-import 'package:integracja/models/game/detail_game_user.dart';
+import 'package:integracja/models/game/game_user.dart';
 import 'package:integracja/models/play_game/question_detail_answers.dart';
 import 'package:integracja/network/api/play_repository.dart';
 import 'package:integracja/network/api_exception.dart';
 
 class PlayController extends GetxController {
-  final DetailGameUser _detailGameUser;
+  final GameUser _detailGameUser;
   final int gameId;
   //"STATES" VARIABLES
   bool _loaded = false;

@@ -12,4 +12,5 @@ String forgotPasswordPage = websiteURL + "Identity/Account/ForgotPassword";
 
 const textDefaultSize = 16.0;
 const textSmallSize = 14.0;
+const textMicroSize = 10.0;
 const textBigSize = 22.0;

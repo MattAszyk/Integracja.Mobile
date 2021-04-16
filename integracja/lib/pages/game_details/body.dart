@@ -1,20 +1,79 @@
 import 'package:flutter/material.dart';
-import 'package:integracja/models/game/detail_game_user.dart';
+import 'package:integracja/models/game/game_user.dart';
 import 'package:integracja/pages/game_details/body_game_settings.dart';
 import 'package:integracja/pages/game_details/body_mode_settings.dart';
 import 'package:integracja/pages/game_details/body_players.dart';
 import 'package:get/get.dart';
+import 'package:integracja/pages/game_history/game_history.dart';
 import 'package:integracja/pages/play/play.dart';
 import 'package:integracja/utils/constrains.dart';
 
 import 'body_your_score.dart';
 
 class GameDetailsBody extends StatelessWidget {
-  final DetailGameUser _gameUser;
+  final GameUser _gameUser;
   GameDetailsBody(this._gameUser);
 
   @override
   Widget build(BuildContext context) {
+    Center button() {
+      if (!_gameUser.gameOver) {
+        return Center(
+          child: TextButton(
+              onPressed: () {
+                Get.to(() => GameHistory(_gameUser.game.id));
+              },
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+                child: Text(
+                  'PODSUMOWANIE',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: textBigSize,
+                  ),
+                ),
+              ),
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.resolveWith<Color>((states) {
+                  if (states.contains(MaterialState.disabled)) {
+                    return Colors.grey[100];
+                  }
+                  return primaryColor;
+                }),
+              )),
+        );
+      } else {
+        return Center(
+          child: TextButton(
+              onPressed: () {
+                Get.off(() => Play(_gameUser));
+              },
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+                child: Text(
+                  'GRAJ',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: textBigSize,
+                  ),
+                ),
+              ),
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.resolveWith<Color>((states) {
+                  if (states.contains(MaterialState.disabled)) {
+                    return Colors.grey[100];
+                  }
+                  return primaryColor;
+                }),
+              )),
+        );
+      }
+    }
+
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
@@ -46,33 +105,7 @@ class GameDetailsBody extends StatelessWidget {
               if (!_gameUser.gameOver)
                 Column(
                   children: [
-                    Center(
-                      child: TextButton(
-                          onPressed: () {
-                            Get.off(() => Play(_gameUser));
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10.0, vertical: 0.0),
-                            child: Text(
-                              'GRAJ',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: textBigSize,
-                              ),
-                            ),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.resolveWith<Color>(
-                                    (states) {
-                              if (states.contains(MaterialState.disabled)) {
-                                return Colors.grey[100];
-                              }
-                              return primaryColor;
-                            }),
-                          )),
-                    ),
+                    button(),
                     SizedBox(height: 10.0),
                   ],
                 ),

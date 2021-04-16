@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:integracja/controllers/home_page/home_page_controller.dart';
 import 'package:integracja/controllers/play/play_controller.dart';
-import 'package:integracja/models/game/detail_game_user.dart';
+import 'package:integracja/models/game/game_user.dart';
 import 'package:integracja/pages/common/logo.dart';
 import 'package:integracja/pages/play/components/answer_card.dart';
 import 'package:integracja/utils/constrains.dart';
 
 class Play extends StatelessWidget {
-  final DetailGameUser _detailGameUser;
+  final GameUser _detailGameUser;
 
   Play(this._detailGameUser);
 
