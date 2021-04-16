@@ -15,7 +15,7 @@ class GameDetailsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Center button() {
-      if (!_gameUser.gameOver) {
+      if (_gameUser.answeredQuestions == _gameUser.game.questionsCount) {
         return Center(
           child: TextButton(
               onPressed: () {
