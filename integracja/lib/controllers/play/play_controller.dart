@@ -62,7 +62,7 @@ class PlayController extends GetxController {
   List<int> _generateAnswerList() {
     var list = <int>[];
     for (int i = 0; i < _answerList.length; ++i)
-      if (_answerList[i]) list.add(i);
+      if (_answerList[i]) list.add(question.question.answers.elementAt(i).id);
     return list;
   }
 

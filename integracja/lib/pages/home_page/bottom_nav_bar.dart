@@ -28,7 +28,7 @@ class BottomNavBar extends StatelessWidget {
           Spacer(),
           Spacer(),
           IconButton(
-              icon: Icon(Icons.history),
+              icon: Icon(Icons.archive),
               onPressed: () {
                 Get.to(() => Archives());
               }),
