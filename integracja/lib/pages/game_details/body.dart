@@ -8,8 +8,6 @@ import 'package:integracja/pages/game_history/game_history.dart';
 import 'package:integracja/pages/play/play.dart';
 import 'package:integracja/utils/constrains.dart';
 
-import 'body_your_score.dart';
-
 class GameDetailsBody extends StatelessWidget {
   final GameUser _gameUser;
   GameDetailsBody(this._gameUser);
@@ -109,7 +107,6 @@ class GameDetailsBody extends StatelessWidget {
                     SizedBox(height: 10.0),
                   ],
                 ),
-              GameDetailsBodyYourScore(_gameUser),
               GameDetailsBodyGameSettings(_gameUser.game),
               GameDetailsBodyModeSettings(_gameUser.game.gamemode),
               GameDetailsBodyPlayers(_gameUser),

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:integracja/controllers/game_details/game_details_controller.dart';
 import 'package:integracja/controllers/game_details/game_details_state.dart';
 import 'package:integracja/pages/common/logo.dart';
-import 'package:integracja/pages/game_details/appbar.dart';
 import 'package:integracja/pages/game_details/body.dart';
 import 'package:integracja/utils/constrains.dart';
 
