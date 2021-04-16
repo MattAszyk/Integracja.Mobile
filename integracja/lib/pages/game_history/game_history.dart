@@ -4,6 +4,7 @@ import 'package:integracja/controllers/game_history/game_history_controller.dart
 import 'package:integracja/controllers/game_history/game_history_state.dart';
 import 'package:integracja/models/game/game_user_questions.dart';
 import 'package:integracja/models/game/history.dart';
+import 'package:integracja/models/game/player_scores.dart';
 import 'package:integracja/pages/common/logo.dart';
 import 'package:integracja/pages/game_history/your_score.dart';
 import 'package:integracja/utils/constrains.dart';
@@ -57,16 +58,19 @@ class GameHistoryBody extends StatelessWidget {
         centerTitle: true,
         title: Text('Podsumowanie gry'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: YourScore(history: _history),
-            ),
-            YourAnswers(gameUserQuestions: _history.gameUserQuestions),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: YourScore(history: _history),
+              ),
+              YourAnswers(gameUserQuestions: _history.gameUserQuestions),
+              PlayersScore(_history.playerScores),
+            ],
+          ),
         ),
       ),
     );
@@ -86,7 +90,7 @@ class YourAnswers extends StatelessWidget {
   Widget build(BuildContext context) {
     return ExpansionTile(
       tilePadding: const EdgeInsets.all(0.0),
-      initiallyExpanded: true,
+      initiallyExpanded: false,
       title: Text(
         "Odpowiedzi",
         style: TextStyle(
@@ -101,7 +105,9 @@ class YourAnswers extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  question.question.content,
+                  (_gameUserQuestions.indexOf(question) + 1).toString() +
+                      '. ' +
+                      question.question.content,
                   style: TextStyle(
                       fontWeight: FontWeight.bold, fontSize: textDefaultSize),
                 ),
@@ -111,6 +117,48 @@ class YourAnswers extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(answer.content),
                 ),
+              SizedBox(height: 10.0),
+            ],
+          ),
+      ],
+    );
+  }
+}
+
+class PlayersScore extends StatelessWidget {
+  PlayersScore(this._playersScore) {}
+
+  final List<PlayerScores> _playersScore;
+
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+      tilePadding: const EdgeInsets.all(0.0),
+      initiallyExpanded: false,
+      title: Text(
+        "Ranking graczy",
+        style: TextStyle(
+          fontSize: textBigSize,
+          color: Colors.white,
+        ),
+      ),
+      children: <Widget>[
+        for (var player in _playersScore)
+          Column(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  (_playersScore.indexOf(player) + 1).toString() +
+                      '. ' +
+                      player.username +
+                      '(' +
+                      player.gameScore.toString() +
+                      ')',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: textDefaultSize),
+                ),
+              ),
               SizedBox(height: 10.0),
             ],
           ),
