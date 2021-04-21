@@ -19,32 +19,34 @@ class GameDetailsBody extends StatelessWidget {
       DateTime end = _gameUser.game.endTime;
 
       if (_gameUser.answeredQuestions == _gameUser.game.questionsCount ||
+          _gameUser.gameOver ||
           now.isAfter(end)) {
         return Center(
           child: TextButton(
-              onPressed: () {
-                Get.to(() => GameHistory(_gameUser.game.id));
-              },
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
-                child: Text(
-                  'PODSUMOWANIE',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: textBigSize,
-                  ),
+            onPressed: () {
+              Get.to(() => GameHistory(_gameUser.game.id));
+            },
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+              child: Text(
+                'PODSUMOWANIE',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: textBigSize,
                 ),
               ),
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.resolveWith<Color>((states) {
-                  if (states.contains(MaterialState.disabled)) {
-                    return Colors.grey[100];
-                  }
-                  return primaryColor;
-                }),
-              )),
+            ),
+            style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.resolveWith<Color>((states) {
+                if (states.contains(MaterialState.disabled)) {
+                  return Colors.grey[100];
+                }
+                return primaryColor;
+              }),
+            ),
+          ),
         );
       } else {
         return Center(
@@ -104,13 +106,8 @@ class GameDetailsBody extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (!_gameUser.gameOver)
-                Column(
-                  children: [
-                    button(),
-                    SizedBox(height: 10.0),
-                  ],
-                ),
+              button(),
+              SizedBox(height: 10.0),
               GameDetailsBodyGameSettings(_gameUser.game),
               GameDetailsBodyModeSettings(_gameUser.game.gamemode),
               GameDetailsBodyPlayers(_gameUser),

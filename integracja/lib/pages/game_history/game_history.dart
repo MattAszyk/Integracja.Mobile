@@ -94,6 +94,7 @@ class YourAnswers extends StatelessWidget {
       title: Text(
         "Odpowiedzi",
         style: TextStyle(
+          fontWeight: FontWeight.bold,
           fontSize: textBigSize,
           color: Colors.white,
         ),
@@ -109,15 +110,27 @@ class YourAnswers extends StatelessWidget {
                       '. ' +
                       question.question.content,
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: textDefaultSize),
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                    fontSize: textDefaultSize,
+                  ),
                 ),
               ),
               for (var answer in question.question.answers)
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(answer.content),
+                  child: Text(
+                    '- ' + answer.content,
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
                 ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 5.0),
+              Divider(
+                height: 2.0,
+              ),
+              SizedBox(height: 5.0),
             ],
           ),
       ],
@@ -138,6 +151,7 @@ class PlayersScore extends StatelessWidget {
       title: Text(
         "Ranking graczy",
         style: TextStyle(
+          fontWeight: FontWeight.bold,
           fontSize: textBigSize,
           color: Colors.white,
         ),
@@ -146,20 +160,34 @@ class PlayersScore extends StatelessWidget {
         for (var player in _playersScore)
           Column(
             children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  (_playersScore.indexOf(player) + 1).toString() +
-                      '. ' +
-                      player.username +
-                      '(' +
-                      player.gameScore.toString() +
-                      ')',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: textDefaultSize),
-                ),
+              Row(
+                children: [
+                  Text(
+                    (_playersScore.indexOf(player) + 1).toString() + '.',
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  SizedBox(width: 5.0),
+                  CircleAvatar(
+                    radius: 10.0,
+                    backgroundImage: NetworkImage(player.profileThumbnail),
+                    backgroundColor: Colors.transparent,
+                  ),
+                  SizedBox(width: 10.0),
+                  Text(
+                    player.username +
+                        ' ( punkty: ' +
+                        player.gameScore.toString() +
+                        ' )',
+                    style: TextStyle(
+                      fontSize: textDefaultSize,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 5.0),
             ],
           ),
       ],

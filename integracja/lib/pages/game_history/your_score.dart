@@ -19,6 +19,7 @@ class YourScore extends StatelessWidget {
         Text(
           "Twój wynik",
           style: TextStyle(
+            fontWeight: FontWeight.bold,
             fontSize: textBigSize,
             color: Colors.white,
           ),

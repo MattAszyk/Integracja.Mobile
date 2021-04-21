@@ -36,7 +36,7 @@ class GameDetailsBodyPlayers extends StatelessWidget {
               Row(
                 children: [
                   CircleAvatar(
-                    radius: 12.0,
+                    radius: 10.0,
                     backgroundImage: NetworkImage(player.profileThumbnail),
                     backgroundColor: Colors.transparent,
                   ),
