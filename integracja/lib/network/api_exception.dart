@@ -19,6 +19,9 @@ class BadRequestException extends ApiException {
 class UnauthorizedException extends ApiException {
   UnauthorizedException() : super(401, "Unauthorized") {
     Get.find<AuthenticationController>().signOut();
+    try {
+      for (int i = 0; i < 10; ++i) Get.back();
+    } catch (e) {}
   }
 }
 
