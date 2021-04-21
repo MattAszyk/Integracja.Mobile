@@ -28,7 +28,9 @@ class AuthenticationController extends GetxController {
       try {
         Get.find<HomePageController>().refresh();
       } catch (e) {}
-    } catch (e) {}
+    } catch (e) {
+      _authenticationStateStream.value = AuthenticationFailure();
+    }
   }
 
   void signOut() async {

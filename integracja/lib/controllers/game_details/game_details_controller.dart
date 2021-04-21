@@ -1,9 +1,7 @@
 import 'dart:developer';
 import 'package:get/get.dart';
-import 'package:integracja/controllers/authentication/authentication_controller.dart';
 import 'package:integracja/controllers/game_details/game_details_state.dart';
 import 'package:integracja/network/api/game_repository.dart';
-import 'package:integracja/network/api_exception.dart';
 
 class GameDetailsController extends GetxController {
   int _gameId;

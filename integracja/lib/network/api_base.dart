@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/cupertino.dart';
@@ -93,10 +94,13 @@ class ApiBase {
       ApiRequest transferObject,
       int id,
       String uuid}) async {
-    var response = await http.get(
-        Uri.parse(
-            url + (uuid != null ? "/$uuid" : "") + (id != null ? "/$id" : "")),
-        headers: _header());
+    var response = await http
+        .get(
+            Uri.parse(url +
+                (uuid != null ? "/$uuid" : "") +
+                (id != null ? "/$id" : "")),
+            headers: _header())
+        .timeout(Duration(seconds: 15));
     log(response.body);
     return _returnResponse(response);
   }
@@ -108,15 +112,17 @@ class ApiBase {
       String uuid,
       int secondId,
       List<int> answerId}) async {
-    var response = await http.post(
-        Uri.parse(url +
-            (id != null ? "/$id" : "") +
-            (uuid != null ? "/$uuid" : "") +
-            (secondId != null ? "/$secondId" : "")),
-        headers: _header(),
-        body: answerId != null
-            ? answerId.toString()
-            : jsonEncode(transferObject.toJson()));
+    var response = await http
+        .post(
+            Uri.parse(url +
+                (id != null ? "/$id" : "") +
+                (uuid != null ? "/$uuid" : "") +
+                (secondId != null ? "/$secondId" : "")),
+            headers: _header(),
+            body: answerId != null
+                ? answerId.toString()
+                : jsonEncode(transferObject.toJson()))
+        .timeout(Duration(seconds: 15));
     return _returnResponse(response);
   }
 
