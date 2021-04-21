@@ -8,9 +8,10 @@ import 'package:integracja/utils/constrains.dart';
 
 class GameDetails extends StatefulWidget {
   final int gameId;
+
   GameDetailsController _gameDetailsController;
-  GameDetails(this.gameId) {
-    _gameDetailsController = Get.put(GameDetailsController(gameId));
+  GameDetails(this.gameId, bool play) {
+    _gameDetailsController = Get.put(GameDetailsController(gameId, play));
   }
 
   @override
