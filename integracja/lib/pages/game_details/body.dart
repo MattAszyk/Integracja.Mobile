@@ -51,29 +51,30 @@ class GameDetailsBody extends StatelessWidget {
       } else {
         return Center(
           child: TextButton(
-              onPressed: () {
-                Get.off(() => Play(_gameUser));
-              },
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
-                child: Text(
-                  'GRAJ',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: textBigSize,
-                  ),
+            onPressed: () {
+              Get.off(() => Play(_gameUser));
+            },
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+              child: Text(
+                'GRAJ',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: textBigSize,
                 ),
               ),
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.resolveWith<Color>((states) {
-                  if (states.contains(MaterialState.disabled)) {
-                    return Colors.grey[100];
-                  }
-                  return primaryColor;
-                }),
-              )),
+            ),
+            style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.resolveWith<Color>((states) {
+                if (states.contains(MaterialState.disabled)) {
+                  return Colors.grey[100];
+                }
+                return primaryColor;
+              }),
+            ),
+          ),
         );
       }
     }

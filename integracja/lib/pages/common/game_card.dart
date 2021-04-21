@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:integracja/models/game/game.dart';
+import 'package:integracja/pages/play/play.dart';
 import 'package:integracja/utils/constrains.dart';
 
 class GameCard extends StatelessWidget {
   final Game game;
+  final bool userFinishedPlay;
   String _text;
   int _seconds;
   Color _incoming = Color(0xffE09F36);
@@ -14,7 +17,7 @@ class GameCard extends StatelessWidget {
   // 1 - active, 2 - icnoming, 3 - finished
   int _state;
 
-  GameCard(this.game) {
+  GameCard(this.game, this.userFinishedPlay) {
     DateTime now = DateTime.now();
 
     _seconds = game.endTime.difference(DateTime.now()).inSeconds;
@@ -26,7 +29,7 @@ class GameCard extends StatelessWidget {
 
     String zero = (minutes > 9) ? '' : '0';
 
-    if (now.isAfter(game.endTime)) {
+    if (userFinishedPlay) {
       _state = 3;
       _color = _finished;
       _text = 'Gra zakończona';
@@ -84,7 +87,7 @@ class GameCard extends StatelessWidget {
             ),
             SizedBox(height: 5.0),
             Text(
-              "WYGASŁA",
+              "KONIEC",
               style: TextStyle(fontSize: textMicroSize, color: _color),
             )
           ],
@@ -93,6 +96,38 @@ class GameCard extends StatelessWidget {
     }
 
     return null;
+  }
+
+  gameTrailingBasedOnState(int state) {
+    if (state == 1) {
+      return TextButton(
+        onPressed: () {
+          // ODPALANIE GRY
+        },
+        child: Text(
+          'GRAJ',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: textDefaultSize,
+          ),
+        ),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
+            if (states.contains(MaterialState.disabled)) {
+              return Colors.grey[100];
+            }
+            return _color;
+          }),
+        ),
+      );
+    } else {
+      return null;
+      /*Icon(
+      Icons.keyboard_arrow_right,
+      color: _color,
+      size: 35,
+      );*/
+    }
   }
 
   @override
@@ -110,11 +145,7 @@ class GameCard extends StatelessWidget {
             child: Container(
                 margin: EdgeInsets.only(right: 15.0),
                 child: gameLeadingBasedOnState(_state))),
-        trailing: Icon(
-          Icons.keyboard_arrow_right,
-          color: _color,
-          size: 35,
-        ),
+        trailing: gameTrailingBasedOnState(_state),
         title: Text(
           game.name,
           style: TextStyle(

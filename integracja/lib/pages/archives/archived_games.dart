@@ -17,7 +17,7 @@ class ArchivedGames extends StatelessWidget {
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
-                    child: GameCard(_gameUserList[index].game),
+                    child: GameCard(_gameUserList[index].game, true),
                     onTap: () =>
                         _onGameCardTap(context, _gameUserList[index].game.id),
                   );
