@@ -14,8 +14,9 @@ class GameDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Center button() {
+    button() {
       DateTime now = DateTime.now();
+      DateTime start = _gameUser.game.startTime;
       DateTime end = _gameUser.game.endTime;
 
       if (_gameUser.answeredQuestions == _gameUser.game.questionsCount ||
@@ -48,6 +49,8 @@ class GameDetailsBody extends StatelessWidget {
             ),
           ),
         );
+      } else if (now.isBefore(start)) {
+        return Container();
       } else {
         return Center(
           child: TextButton(

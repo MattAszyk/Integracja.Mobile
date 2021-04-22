@@ -23,6 +23,13 @@ class Play extends StatelessWidget {
         backgroundColor: primaryColor,
         title: Text(_detailGameUser.game.name),
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
+          onPressed: () => Get.back(),
+        ),
       ),
       body: GetBuilder(
         init: _controller,

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:integracja/models/game/game.dart';
 import 'package:integracja/pages/play/play.dart';
 import 'package:integracja/utils/constrains.dart';
+import 'package:intl/intl.dart';
 
 class GameCard extends StatelessWidget {
   final Game game;
@@ -19,9 +20,27 @@ class GameCard extends StatelessWidget {
 
   GameCard(this.game, this.userFinishedPlay) {
     DateTime now = DateTime.now();
+    DateTime time;
 
-    _seconds = game.endTime.difference(DateTime.now()).inSeconds;
+    if (userFinishedPlay) {
+      _state = 3;
+      time = game.endTime;
+    } else if (now.isAfter(game.startTime) && now.isBefore(game.endTime)) {
+      _state = 1;
+      time = game.endTime;
+    } else {
+      _state = 2;
+      time = game.startTime;
+    }
+
+    _seconds = time.difference(DateTime.now()).inSeconds;
     int seconds = _seconds;
+    int days = 0;
+
+    if (seconds > 86400) {
+      days = (seconds / 86400).floor();
+      seconds %= 86400;
+    }
 
     int hours = (seconds / 3600).floor();
     seconds %= 3600;
@@ -29,18 +48,21 @@ class GameCard extends StatelessWidget {
 
     String zero = (minutes > 9) ? '' : '0';
 
-    if (userFinishedPlay) {
-      _state = 3;
+    if (_state == 1) {
+      _color = _active;
+      if (days > 0)
+        _text = 'Pozostało ${days}d $hours:$zero${minutes}h';
+      else
+        _text = 'Pozostało $hours:$zero${minutes}h';
+    } else if (_state == 2) {
+      _color = _incoming;
+      if (days > 0)
+        _text = 'Zaczynamy za ${days}d $hours:$zero${minutes}h';
+      else
+        _text = 'Zaczynamy za $hours:$zero${minutes}h';
+    } else {
       _color = _finished;
       _text = 'Gra zakończona';
-    } else if (now.isAfter(game.startTime) && now.isBefore(game.endTime)) {
-      _state = 1;
-      _color = _active;
-      _text = 'Pozostało $hours:$zero${minutes}h';
-    } else {
-      _state = 2;
-      _color = _incoming;
-      _text = 'Zaczynamy za $hours:$zero${minutes}h';
     }
   }
 

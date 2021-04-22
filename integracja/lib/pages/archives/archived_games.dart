@@ -9,6 +9,7 @@ class ArchivedGames extends StatelessWidget {
   final List<GameUser> _gameUserList;
   ArchivedGames(this._gameUserList);
   Widget build(BuildContext context) {
+    _gameUserList.sort((a, b) => b.game.endTime.compareTo(a.game.endTime));
     return Expanded(
         child: RefreshIndicator(
       child: Container(
