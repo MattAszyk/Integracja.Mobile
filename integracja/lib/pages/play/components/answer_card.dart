@@ -15,13 +15,11 @@ class AnswerCard extends StatelessWidget {
     return Card(
         color: _controller.question.question.answers[_index].isCorrect == null
             ? Color(0xff30334a)
-            : (_controller.question.question.answers[_index].isCorrect &&
-                    _controller.answerList[_index]
-                ? Color(0xff184d47)
-                : !_controller.question.question.answers[_index].isCorrect &&
-                        _controller.answerList[_index]
-                    ? Color(0xff046582)
-                    : Color(0xffe84545)),
+            : (_controller.answerList[_index])
+                ? (_controller.question.question.answers[_index].isCorrect
+                    ? Color(0xff184d47)
+                    : Color(0xffe84545))
+                : Color(0xff30334a),
         clipBehavior: Clip.antiAlias,
         child: ListTile(
           leading: Container(
