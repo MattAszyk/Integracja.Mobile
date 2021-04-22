@@ -42,6 +42,6 @@ class ArchivedGames extends StatelessWidget {
   }
 
   _onGameCardTap(BuildContext context, int gameId) {
-    Get.to(() => GameDetails(gameId));
+    Get.to(() => GameDetails(gameId, false));
   }
 }
