@@ -139,12 +139,12 @@ class YourAnswers extends StatelessWidget {
 }
 
 class PlayersScore extends StatelessWidget {
-  PlayersScore(this._playersScore) {}
-
   final List<PlayerScores> _playersScore;
+  PlayersScore(this._playersScore);
 
   @override
   Widget build(BuildContext context) {
+    _playersScore.sort((a, b) => b.gameScore.compareTo(a.gameScore));
     return ExpansionTile(
       tilePadding: const EdgeInsets.all(0.0),
       initiallyExpanded: false,

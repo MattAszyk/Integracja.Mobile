@@ -143,44 +143,95 @@ class GameCard extends StatelessWidget {
       );
     } else {
       return null;
-      /*Icon(
-      Icons.keyboard_arrow_right,
-      color: _color,
-      size: 35,
-      );*/
     }
+  }
+
+  textIcon(IconData icon, String text) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          size: 20.0,
+          color: Colors.white,
+        ),
+        SizedBox(width: 5.0),
+        Text(
+          text,
+          style: TextStyle(color: Colors.white),
+        )
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Color(0xff30334a),
+      color: Color(0xff202239),
       clipBehavior: Clip.antiAlias,
-      child: ListTile(
-        leading: Container(
-            decoration: BoxDecoration(
-              border: Border(
-                right: BorderSide(width: 1.0, color: backgroundColor),
+      child: Column(
+        children: [
+          ListTile(
+            leading: Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    right: BorderSide(width: 1.0, color: backgroundColor),
+                  ),
+                ),
+                child: Container(
+                    margin: EdgeInsets.only(right: 15.0),
+                    child: gameLeadingBasedOnState(_state))),
+            trailing: gameTrailingBasedOnState(_state),
+            title: Text(
+              game.name,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: textDefaultSize),
+            ),
+            subtitle: Text(
+              _text,
+              style: TextStyle(
+                color: _color,
+                fontSize: textSmallSize,
               ),
             ),
-            child: Container(
-                margin: EdgeInsets.only(right: 15.0),
-                child: gameLeadingBasedOnState(_state))),
-        trailing: gameTrailingBasedOnState(_state),
-        title: Text(
-          game.name,
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              fontSize: textDefaultSize),
-        ),
-        subtitle: Text(
-          _text,
-          style: TextStyle(
-            color: _color,
-            fontSize: textSmallSize,
           ),
-        ),
+          Container(
+            padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 5.0),
+            child: Column(
+              children: [
+                Divider(color: primaryLightColor),
+                Row(
+                  children: [
+                    textIcon(
+                      Icons.favorite,
+                      game.gamemode.numberOfLives == 0
+                          ? '∞'
+                          : game.gamemode.numberOfLives.toString(),
+                    ),
+                    Spacer(),
+                    textIcon(
+                      Icons.group,
+                      game.maxPlayersCount == 0
+                          ? '∞'
+                          : game.maxPlayersCount.toString(),
+                    ),
+                    Spacer(),
+                    textIcon(
+                      Icons.hourglass_full,
+                      game.gamemode.timeForOneQuestion.toString() + ' sekund',
+                    ),
+                    Spacer(),
+                    textIcon(
+                      Icons.watch_later_rounded,
+                      game.gamemode.timeForFullQuiz.toString() + ' sekund',
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

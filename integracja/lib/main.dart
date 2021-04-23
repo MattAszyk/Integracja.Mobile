@@ -26,6 +26,12 @@ class MyApp extends GetWidget<AuthenticationController> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      builder: (BuildContext context, Widget child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          child: child,
+        );
+      },
       title: 'inteGRAcja',
       theme: customTheme(),
       debugShowCheckedModeBanner: false,
