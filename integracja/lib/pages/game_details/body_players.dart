@@ -4,15 +4,14 @@ import 'package:integracja/utils/constrains.dart';
 
 class GameDetailsBodyPlayers extends StatelessWidget {
   final GameUser game;
-  String _maxPlayers;
-  GameDetailsBodyPlayers(this.game) {
-    _maxPlayers = (game.game.maxPlayersCount == 0)
-        ? '∞'
-        : game.game.maxPlayersCount.toString();
-  }
+  GameDetailsBodyPlayers(this.game);
 
   @override
   Widget build(BuildContext context) {
+    String _maxPlayers = (game.game.maxPlayersCount == 0)
+        ? '∞'
+        : game.game.maxPlayersCount.toString();
+
     return ExpansionTile(
       tilePadding: const EdgeInsets.all(0),
       title: Text(
@@ -21,6 +20,10 @@ class GameDetailsBodyPlayers extends StatelessWidget {
           fontSize: textBigSize,
           color: Colors.white,
         ),
+      ),
+      trailing: Icon(
+        Icons.keyboard_arrow_down,
+        color: primaryColor,
       ),
       subtitle: Text(
         "${game.game.players.length.toString()}/$_maxPlayers",

@@ -14,3 +14,53 @@ const textDefaultSize = 16.0;
 const textSmallSize = 14.0;
 const textMicroSize = 10.0;
 const textBigSize = 22.0;
+
+class Constants {
+  static Row favorite = Row(
+    children: [
+      Icon(Icons.favorite),
+      SizedBox(
+        width: 20.0,
+      ),
+      Text('Ilość żyć'),
+    ],
+  );
+  static Row group = Row(
+    children: [
+      Icon(Icons.group),
+      SizedBox(
+        width: 20.0,
+      ),
+      Text('Maksymalna liczba graczy'),
+    ],
+  );
+  static Row hourglass = Row(
+    children: [
+      Icon(Icons.hourglass_full),
+      SizedBox(
+        width: 20.0,
+      ),
+      Text('Czas na jedno pytanie'),
+    ],
+  );
+  static Row watch = Row(
+    children: [
+      Icon(Icons.watch_later_rounded),
+      SizedBox(
+        width: 20.0,
+      ),
+      Text('Czas na cały quiz'),
+    ],
+  );
+  static Row infinity = Row(
+    children: [
+      Icon(Icons.all_inclusive),
+      SizedBox(
+        width: 20.0,
+      ),
+      Text('Nieograniczony'),
+    ],
+  );
+
+  static List<Row> choices = <Row>[favorite, group, hourglass, watch, infinity];
+}

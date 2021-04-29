@@ -19,17 +19,14 @@ class GameDetailsBody extends StatelessWidget {
       DateTime start = _gameUser.game.startTime;
       DateTime end = _gameUser.game.endTime;
 
-      if (_gameUser.answeredQuestions == _gameUser.game.questionsCount ||
-          _gameUser.gameOver ||
-          now.isAfter(end)) {
+      if (now.isAfter(end)) {
         return Center(
           child: TextButton(
             onPressed: () {
               Get.to(() => GameHistory(_gameUser.game.id));
             },
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
               child: Text(
                 'PODSUMOWANIE',
                 style: TextStyle(
@@ -49,33 +46,57 @@ class GameDetailsBody extends StatelessWidget {
             ),
           ),
         );
-      } else if (now.isBefore(start)) {
-        return Container();
-      } else {
-        return Center(
-          child: TextButton(
-            onPressed: () {
-              Get.off(() => Play(_gameUser));
-            },
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+      } else if (now.isAfter(start) && now.isBefore(end)) {
+        if ((_gameUser.answeredQuestions == _gameUser.game.questionsCount ||
+            _gameUser.gameOver)) {
+          return Center(
+            child: Container(
+              color: primaryColor,
+              padding: EdgeInsets.all(8.0),
               child: Text(
-                'GRAJ',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: textBigSize,
-                ),
+                'Poczekaj do końca gry aby wyświetlić podsumowanie',
+                style: TextStyle(fontSize: textDefaultSize),
+                textAlign: TextAlign.center,
               ),
             ),
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.resolveWith<Color>((states) {
-                if (states.contains(MaterialState.disabled)) {
-                  return Colors.grey[100];
-                }
-                return primaryColor;
-              }),
+          );
+        } else {
+          return Center(
+            child: TextButton(
+              onPressed: () {
+                Get.off(() => Play(_gameUser));
+              },
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
+                child: Text(
+                  'GRAJ',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: textBigSize,
+                  ),
+                ),
+              ),
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.resolveWith<Color>((states) {
+                  if (states.contains(MaterialState.disabled)) {
+                    return Colors.grey[100];
+                  }
+                  return primaryColor;
+                }),
+              ),
+            ),
+          );
+        }
+      } else {
+        return Center(
+          child: Container(
+            color: primaryColor,
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'Gra jeszcze nie rozpoczęta',
+              style: TextStyle(fontSize: textDefaultSize),
+              textAlign: TextAlign.center,
             ),
           ),
         );

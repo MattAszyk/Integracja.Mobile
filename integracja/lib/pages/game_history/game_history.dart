@@ -5,6 +5,7 @@ import 'package:integracja/controllers/game_history/game_history_state.dart';
 import 'package:integracja/models/game/game_user_questions.dart';
 import 'package:integracja/models/game/history.dart';
 import 'package:integracja/models/game/player_scores.dart';
+import 'package:integracja/models/play_game/answer.dart';
 import 'package:integracja/pages/common/logo.dart';
 import 'package:integracja/pages/game_history/your_score.dart';
 import 'package:integracja/utils/constrains.dart';
@@ -86,6 +87,33 @@ class YourAnswers extends StatelessWidget {
 
   final List<GameUserQuestions> _gameUserQuestions;
 
+  getAnswer(GameUserQuestions question, Answer answer) {
+    Color _color = Colors.grey;
+    String _text = '';
+
+    if (answer.isCorrect) {
+      _color = Colors.green;
+      if (question.selectedAnswers.contains(answer.id)) {
+        _text = ' ✓';
+      }
+    } else {
+      if (question.selectedAnswers.contains(answer.id)) {
+        _color = Colors.red;
+        _text = ' ✗';
+      }
+    }
+
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        '\t\t• ' + answer.content + _text,
+        style: TextStyle(
+          color: _color,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
@@ -98,6 +126,10 @@ class YourAnswers extends StatelessWidget {
           fontSize: textBigSize,
           color: Colors.white,
         ),
+      ),
+      trailing: Icon(
+        Icons.keyboard_arrow_down,
+        color: primaryColor,
       ),
       children: <Widget>[
         for (var question in _gameUserQuestions)
@@ -117,15 +149,7 @@ class YourAnswers extends StatelessWidget {
                 ),
               ),
               for (var answer in question.question.answers)
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    '- ' + answer.content,
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
+                getAnswer(question, answer),
               SizedBox(height: 5.0),
               Divider(
                 height: 2.0,
@@ -155,6 +179,10 @@ class PlayersScore extends StatelessWidget {
           fontSize: textBigSize,
           color: Colors.white,
         ),
+      ),
+      trailing: Icon(
+        Icons.keyboard_arrow_down,
+        color: primaryColor,
       ),
       children: <Widget>[
         for (var player in _playersScore)

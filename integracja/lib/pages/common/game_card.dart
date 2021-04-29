@@ -14,23 +14,25 @@ class GameCard extends StatelessWidget {
   Color _incoming = Color(0xffE09F36);
   Color _active = Color(0xff36E0BB);
   Color _finished = Color(0xffe03655);
-  Color _color = Colors.black;
+
+  Color _iconColor = Colors.black;
+  Color _subTitleColor = Colors.black;
 
   // 1 - active, 2 - icnoming, 3 - finished
-  int _state;
+  int _gameState;
 
   GameCard(this.game, this.userFinishedPlay) {
     DateTime now = DateTime.now();
     DateTime time;
 
-    if (userFinishedPlay) {
-      _state = 3;
+    if (now.isAfter(game.endTime)) {
+      _gameState = 3;
       time = game.endTime;
     } else if (now.isAfter(game.startTime) && now.isBefore(game.endTime)) {
-      _state = 1;
+      _gameState = 1;
       time = game.endTime;
     } else {
-      _state = 2;
+      _gameState = 2;
       time = game.startTime;
     }
 
@@ -49,25 +51,33 @@ class GameCard extends StatelessWidget {
 
     String zero = (minutes > 9) ? '' : '0';
 
-    if (_state == 1) {
-      _color = _active;
-      if (days > 0)
-        _text = 'Pozostało ${days}d $hours:$zero${minutes}h';
-      else
-        _text = 'Pozostało $hours:$zero${minutes}h';
-    } else if (_state == 2) {
-      _color = _incoming;
+    if (_gameState == 1) {
+      _iconColor = _active;
+      _subTitleColor = _active;
+      if (userFinishedPlay) {
+        _subTitleColor = _finished;
+        _text = 'Twoja gra dobiegła końca';
+      } else {
+        if (days > 0)
+          _text = 'Pozostało ${days}d $hours:$zero${minutes}h';
+        else
+          _text = 'Pozostało $hours:$zero${minutes}h';
+      }
+    } else if (_gameState == 2) {
+      _iconColor = _incoming;
+      _subTitleColor = _incoming;
       if (days > 0)
         _text = 'Zaczynamy za ${days}d $hours:$zero${minutes}h';
       else
         _text = 'Zaczynamy za $hours:$zero${minutes}h';
     } else {
-      _color = _finished;
+      _iconColor = _finished;
+      _subTitleColor = _finished;
       _text = 'Gra zakończona';
     }
   }
 
-  Column gameLeadingBasedOnState(int state) {
+  gameLeadingBasedOnState(int state) {
     switch (state) {
       case 1:
         return Column(
@@ -75,11 +85,11 @@ class GameCard extends StatelessWidget {
             Icon(
               Icons.play_arrow_outlined,
               size: 40,
-              color: _color,
+              color: _iconColor,
             ),
             Text(
               "AKTYWNA",
-              style: TextStyle(fontSize: textMicroSize, color: _color),
+              style: TextStyle(fontSize: textMicroSize, color: _iconColor),
             ),
           ],
         );
@@ -90,11 +100,11 @@ class GameCard extends StatelessWidget {
             Icon(
               Icons.hourglass_empty_outlined,
               size: 40,
-              color: _color,
+              color: _iconColor,
             ),
             Text(
               "WKRÓTCE",
-              style: TextStyle(fontSize: textMicroSize, color: _color),
+              style: TextStyle(fontSize: textMicroSize, color: _iconColor),
             ),
           ],
         );
@@ -106,12 +116,12 @@ class GameCard extends StatelessWidget {
             Icon(
               Icons.power_settings_new,
               size: 30,
-              color: _color,
+              color: _iconColor,
             ),
             SizedBox(height: 5.0),
             Text(
-              "KONIEC",
-              style: TextStyle(fontSize: textMicroSize, color: _color),
+              "WYGASŁA",
+              style: TextStyle(fontSize: textMicroSize, color: _iconColor),
             )
           ],
         );
@@ -137,7 +147,7 @@ class GameCard extends StatelessWidget {
             if (states.contains(MaterialState.disabled)) {
               return Colors.grey[100];
             }
-            return _color;
+            return _iconColor;
           }),
         ),
       );
@@ -179,8 +189,9 @@ class GameCard extends StatelessWidget {
                 ),
                 child: Container(
                     margin: EdgeInsets.only(right: 15.0),
-                    child: gameLeadingBasedOnState(_state))),
-            trailing: gameTrailingBasedOnState(_state),
+                    child: gameLeadingBasedOnState(_gameState))),
+            trailing:
+                userFinishedPlay ? null : gameTrailingBasedOnState(_gameState),
             title: Text(
               game.name,
               style: TextStyle(
@@ -191,7 +202,7 @@ class GameCard extends StatelessWidget {
             subtitle: Text(
               _text,
               style: TextStyle(
-                color: _color,
+                color: _subTitleColor,
                 fontSize: textSmallSize,
               ),
             ),
@@ -202,29 +213,37 @@ class GameCard extends StatelessWidget {
               children: [
                 Divider(color: primaryLightColor),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     textIcon(
                       Icons.favorite,
-                      game.gamemode.numberOfLives == 0
+                      (game.gamemode.numberOfLives == 0 ||
+                              game.gamemode.numberOfLives == null)
                           ? '∞'
                           : game.gamemode.numberOfLives.toString(),
                     ),
-                    Spacer(),
                     textIcon(
                       Icons.group,
-                      game.maxPlayersCount == 0
+                      (game.maxPlayersCount == 0 ||
+                              game.maxPlayersCount == null)
                           ? '∞'
                           : game.maxPlayersCount.toString(),
                     ),
-                    Spacer(),
                     textIcon(
                       Icons.hourglass_full,
-                      game.gamemode.timeForOneQuestion.toString() + ' sekund',
+                      (game.gamemode.timeForOneQuestion == 0 ||
+                              game.gamemode.numberOfLives == null)
+                          ? '∞'
+                          : game.gamemode.timeForOneQuestion.toString() +
+                              ' sekund',
                     ),
-                    Spacer(),
                     textIcon(
                       Icons.watch_later_rounded,
-                      game.gamemode.timeForFullQuiz.toString() + ' sekund',
+                      (game.gamemode.timeForFullQuiz == 0 ||
+                              game.gamemode.timeForFullQuiz == null)
+                          ? '∞'
+                          : game.gamemode.timeForFullQuiz.toString() +
+                              ' sekund',
                     ),
                   ],
                 ),

@@ -32,6 +32,23 @@ class _ArchivesState extends State<Archives> {
             color: Colors.black,
           ),
         ),
+        actions: <Widget>[
+          PopupMenuButton<String>(
+            offset: Offset(0, 40),
+            icon: Icon(
+              Icons.help_outline,
+              size: 30,
+            ),
+            itemBuilder: (BuildContext context) {
+              return Constants.choices.map((Row choice) {
+                return PopupMenuItem<String>(
+                  enabled: false,
+                  child: choice,
+                );
+              }).toList();
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
