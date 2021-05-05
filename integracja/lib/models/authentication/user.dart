@@ -31,7 +31,7 @@ class User extends Equatable {
       email: json['email'] as String,
       profilePicture: json['profilePicture'] as String,
       profileThumbnail: json['profileThumbnail'] as String,
-      validTo: DateTime.parse(json['validTo']),
+      validTo: DateTime.parse(json['validTo']).toLocal(),
       token: json['token'] as String,
     );
   }
