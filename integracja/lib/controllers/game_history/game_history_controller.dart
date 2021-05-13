@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:integracja/controllers/game_history/game_history_state.dart';
 import 'package:integracja/network/api/game_repository.dart';
+import 'package:integracja/pages/error/error_page.dart';
 
 class GameHistoryController extends GetxController {
   int _gameId;
@@ -22,6 +24,9 @@ class GameHistoryController extends GetxController {
       var game = await GameRepository.fetchGameHistoryById(_gameId);
 
       _homePageStateStream.value = GameHistoryLoaded(game);
+    } on TimeoutException {
+      Get.off(() =>
+          ErrorPage("Serwer nie odpowiada. Sprawdź połączenie z internetem."));
     } catch (e) {
       log('error with fetching ${e.toString()}');
     }

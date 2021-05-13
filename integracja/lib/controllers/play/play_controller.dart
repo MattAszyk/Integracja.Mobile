@@ -5,6 +5,7 @@ import 'package:integracja/models/game/game_user.dart';
 import 'package:integracja/models/play_game/question_detail_answers.dart';
 import 'package:integracja/network/api/play_repository.dart';
 import 'package:integracja/network/api_exception.dart';
+import 'package:integracja/pages/error/error_page.dart';
 
 class PlayController extends GetxController {
   final GameUser _detailGameUser;
@@ -74,6 +75,9 @@ class PlayController extends GetxController {
         _answerList.add(false);
       }
       await _progresBar();
+    } on TimeoutException {
+      Get.off(() =>
+          ErrorPage("Serwer nie odpowiada. Sprawdź połączenie z internetem."));
     } on PlayException catch (e) {
       _messageCode = e.codeStatus;
       _notShowEndGame = false;

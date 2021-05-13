@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:integracja/pages/archives/archives.dart';
+import 'package:integracja/pages/error/error_page.dart';
 import 'package:integracja/pages/settings/settings.dart';
 import 'package:integracja/utils/constrains.dart';
 

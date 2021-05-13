@@ -3,8 +3,15 @@ import 'package:get/get.dart';
 import 'package:integracja/controllers/authentication/authentication_controller.dart';
 import 'package:integracja/utils/constrains.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Settings extends StatelessWidget {
+  Future<void> _launchSite(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +32,7 @@ class Settings extends StatelessWidget {
         backgroundColor: backgroundColor,
         contentPadding: EdgeInsets.only(top: 10),
         sections: [
-          SettingsSection(
+          /* SettingsSection(
             title: 'Główne',
             titleTextStyle: TextStyle(
               color: primaryColor,
@@ -58,7 +65,7 @@ class Settings extends StatelessWidget {
                 onPressed: (BuildContext context) {},
               ),
             ],
-          ),
+          ),*/
           SettingsSection(
             title: 'Konto',
             titleTextStyle: TextStyle(
@@ -74,7 +81,9 @@ class Settings extends StatelessWidget {
                   Icons.mail,
                   color: Colors.white,
                 ),
-                onPressed: (BuildContext context) {},
+                onPressed: ((BuildContext context) {
+                  _launchSite(websiteURL + 'Identity/Account/Manage/Email');
+                }),
               ),
               SettingsTile(
                 title: 'Zmień hasło',
@@ -85,7 +94,10 @@ class Settings extends StatelessWidget {
                   Icons.lock,
                   color: Colors.white,
                 ),
-                onPressed: (BuildContext context) {},
+                onPressed: (BuildContext context) {
+                  _launchSite(
+                      websiteURL + 'Identity/Account/Manage/ChangePassword');
+                },
               ),
               SettingsTile(
                 title: 'Wyloguj',
