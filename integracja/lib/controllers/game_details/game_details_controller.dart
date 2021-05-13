@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:integracja/controllers/game_details/game_details_state.dart';
 import 'package:integracja/network/api/game_repository.dart';
+import 'package:integracja/pages/error/error_page.dart';
 import 'package:integracja/pages/play/play.dart';
 
 class GameDetailsController extends GetxController {
@@ -25,6 +27,9 @@ class GameDetailsController extends GetxController {
         Get.off(() => Play(game));
       else
         _homePageStateStream.value = GameDetailsLoaded(game);
+    } on TimeoutException {
+      Get.off(() =>
+          ErrorPage("Serwer nie odpowiada. Sprawdź połączenie z internetem."));
     } catch (e) {
       log('error with fetching ${e.toString()}');
     }

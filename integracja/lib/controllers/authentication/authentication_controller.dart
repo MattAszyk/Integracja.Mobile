@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:integracja/controllers/authentication/authentication_state.dart';
 import 'package:integracja/controllers/home_page/home_page_controller.dart';
+import 'package:integracja/pages/error/error_page.dart';
 import 'package:integracja/services/authentication_service.dart';
 
 class AuthenticationController extends GetxController {
@@ -28,8 +30,15 @@ class AuthenticationController extends GetxController {
       try {
         Get.find<HomePageController>().refresh();
       } catch (e) {}
+    } on TimeoutException {
+      Get.to(() => ErrorPage(
+            "Serwer nie odpowiada. Sprawdź połączenie z internetem.",
+            showImage: true,
+          ));
+      _authenticationStateStream.value = Unauthenticated();
     } catch (e) {
-      _authenticationStateStream.value = AuthenticationFailure();
+      Get.to(() => ErrorPage("Niepoprawne dane."));
+      _authenticationStateStream.value = Unauthenticated();
     }
   }
 
@@ -48,8 +57,11 @@ class AuthenticationController extends GetxController {
       } else {
         _authenticationStateStream.value = Authenticated(user: currentUser);
       }
+    } on TimeoutException {
+      _authenticationStateStream.value = Unauthenticated();
     } catch (e) {
       log('getUserFromSystem: ${e.toString()}');
+      _authenticationStateStream.value = Unauthenticated();
     }
   }
 }

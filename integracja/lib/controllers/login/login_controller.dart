@@ -26,7 +26,7 @@ class LoginController extends GetxController {
           username: username, password: password);
       _loginStateStream.value = LoginIdle();
     } catch (e) {
-      _loginStateStream.value = LoginFailure();
+      _loginStateStream.value = LoginIdle();
     }
   }
 }
