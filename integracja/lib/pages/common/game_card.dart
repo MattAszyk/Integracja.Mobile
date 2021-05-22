@@ -25,6 +25,11 @@ class GameCard extends StatelessWidget {
     DateTime now = DateTime.now();
     DateTime time;
 
+    print(game.name +
+        " " +
+        game.endTime.toString() +
+        " " +
+        DateTime.now().toString());
     if (now.isAfter(game.endTime)) {
       _gameState = 3;
       time = game.endTime;
@@ -36,7 +41,7 @@ class GameCard extends StatelessWidget {
       time = game.startTime;
     }
 
-    _seconds = time.difference(DateTime.now()).inSeconds;
+    _seconds = time.difference(now).inSeconds;
     int seconds = _seconds;
     int days = 0;
 
