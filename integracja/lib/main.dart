@@ -35,8 +35,6 @@ class MyApp extends GetWidget<AuthenticationController> {
       title: 'inteGRAcja',
       theme: customTheme(),
       debugShowCheckedModeBanner: false,
-      // BlocBuilder will listen to changes in AuthenticationState
-      // and build an appropriate widget based on the state.
       home: Obx(() {
         if (controller.state is Unauthenticated) {
           return LoginPage();
