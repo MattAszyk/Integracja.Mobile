@@ -53,7 +53,7 @@ class GameDetailsBodyModeSettings extends StatelessWidget {
           ),
         ),
         Text(
-          "Liczba żyć: ${_gameMode.numberOfLives == 0 ? '∞' : _gameMode.numberOfLives}",
+          "Liczba żyć: ${_gameMode.numberOfLives == null || _gameMode.numberOfLives == 0 ? '∞' : _gameMode.numberOfLives}",
           style: TextStyle(
             fontSize: textDefaultSize,
             color: Colors.grey,

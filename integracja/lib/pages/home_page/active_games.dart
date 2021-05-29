@@ -30,23 +30,13 @@ class ActiveGames extends StatelessWidget {
                   itemCount: _gameUserList.length)
               : GestureDetector(
                   onTap: () => Get.find<HomePageController>().refresh(),
-                  child: Center(
-                    child: Text(
-                      'Nic tu jeszcze nie ma :(',
-                      style: TextStyle(
-                        fontSize: textBigSize,
-                        color: Colors.white,
-                      ),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Image.asset(
+                      'assets/images/arrow.png',
+                      fit: BoxFit.fill,
                     ),
-                  ),
-                  /*child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: Image.asset(
-                    'assets/images/arrow.png',
-                    fit: BoxFit.fill,
-                  ),
-                ),*/
-                ),
+                  )),
         ),
         onRefresh: () => Get.find<HomePageController>().refresh(),
       ),

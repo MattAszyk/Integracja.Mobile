@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:integracja/controllers/game_details/game_details_controller.dart';
 import 'package:integracja/models/game/game_user.dart';
 import 'package:integracja/pages/game_details/body_game_settings.dart';
 import 'package:integracja/pages/game_details/body_mode_settings.dart';
@@ -10,15 +11,17 @@ import 'package:integracja/utils/constrains.dart';
 
 class GameDetailsBody extends StatelessWidget {
   final GameUser _gameUser;
-  GameDetailsBody(this._gameUser);
+  DateTime now = DateTime.now();
+  DateTime start;
+  DateTime end;
+  GameDetailsBody(this._gameUser) {
+    start = _gameUser.game.startTime;
+    end = _gameUser.game.endTime;
+  }
 
   @override
   Widget build(BuildContext context) {
     button() {
-      DateTime now = DateTime.now();
-      DateTime start = _gameUser.game.startTime;
-      DateTime end = _gameUser.game.endTime;
-
       if (now.isAfter(end)) {
         return Center(
           child: TextButton(
@@ -114,13 +117,14 @@ class GameDetailsBody extends StatelessWidget {
           onPressed: () => Get.back(),
         ),
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.logout,
-              color: Colors.black,
+          if (!_gameUser.gameOver && _gameUser.answeredQuestions == 0)
+            IconButton(
+              icon: Icon(
+                Icons.logout,
+                color: Colors.black,
+              ),
+              onPressed: () => Get.find<GameDetailsController>().leaveGame(),
             ),
-            onPressed: () => Get.back(),
-          ),
         ],
         centerTitle: true,
         title: Text(_gameUser.game.name),

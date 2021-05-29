@@ -15,11 +15,11 @@ class PlayController extends GetxController {
   bool get isGameLoaded => _loaded;
   int _messageCode = 0;
   var _messageText = {
-    1: 'GRA ZAKOŃCZONA',
-    4: 'GRA ANULOWANA',
-    5: "GRA SIĘ SKOŃCZYŁA",
-    7: "GRA SIĘ SKOŃCZYŁA ZGODNIE Z ZASADAMI",
-    8: "GRA WYGASŁA"
+    1: 'Gra zakończona.',
+    4: 'Gra anulowana.',
+    5: "Gra się skończyła.",
+    7: "Gra ukończona.",
+    8: "Minął czas na grę."
   };
   String get lastMessage => _messageText[_messageCode];
 
@@ -54,7 +54,7 @@ class PlayController extends GetxController {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (counter == 0) {
         timer.cancel();
-        answer();
+        next();
       }
       _progress.value -= valueOfMinus;
     });

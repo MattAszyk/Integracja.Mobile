@@ -51,11 +51,14 @@ class Play extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-              _controller.lastMessage == null
-                  ? "Nieznany błąd"
-                  : _controller.lastMessage,
-              style: TextStyle(color: Colors.white, fontSize: 30)),
+          Center(
+            child: Text(
+                _controller.lastMessage == null
+                    ? "Nieznany błąd"
+                    : _controller.lastMessage,
+                style: TextStyle(color: Colors.white, fontSize: 30),
+                textAlign: TextAlign.center),
+          ),
           ElevatedButton(
             onPressed: () {
               Get.find<HomePageController>().refresh();

@@ -232,7 +232,7 @@ class GameCard extends StatelessWidget {
                     textIcon(
                       Icons.hourglass_full,
                       (game.gamemode.timeForOneQuestion == 0 ||
-                              game.gamemode.numberOfLives == null)
+                              game.gamemode.timeForOneQuestion == null)
                           ? '∞'
                           : game.gamemode.timeForOneQuestion.toString() +
                               ' sekund',

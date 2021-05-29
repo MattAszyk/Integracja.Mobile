@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:integracja/controllers/game_details/game_details_state.dart';
+import 'package:integracja/controllers/home_page/home_page_controller.dart';
 import 'package:integracja/network/api/game_repository.dart';
 import 'package:integracja/pages/error/error_page.dart';
 import 'package:integracja/pages/play/play.dart';
@@ -17,6 +18,17 @@ class GameDetailsController extends GetxController {
     _homePageStateStream.value = GameDetailsLoading();
     _loadData();
     super.onInit();
+  }
+
+  Future<void> leaveGame() async {
+    try {
+      await GameRepository.leave(_gameId);
+      Get.find<HomePageController>().refresh();
+      Get.back();
+    } catch (e) {
+      Get.to(
+          () => ErrorPage("Wystąpił błąd z wyjściem z gry. Spróbuj później."));
+    }
   }
 
   Future<void> _loadData() async {

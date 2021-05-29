@@ -34,6 +34,15 @@ class GameRepository {
     return GameUser.fromJson(response);
   }
 
+  static Future<void> leave(int id) async {
+    final apiBase = Get.find<ApiBase>();
+    await apiBase.request(
+      requestType: RequestType.GET,
+      api: API.Games_Leave,
+      id: id,
+    );
+  }
+
   static Future<void> join(String uuid) async {
     final apiBase = Get.find<ApiBase>();
     await apiBase.request(

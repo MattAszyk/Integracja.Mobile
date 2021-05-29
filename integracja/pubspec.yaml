@@ -43,9 +43,8 @@ dependencies:
 flutter_icons:
   android: "integracja"
   ios: true
-  image_path: "assets/icons/integracja.ico"
-
-
+  image_path: "assets/icons/integracja.png"
+  adaptive_icon_background: "#FF375034"
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -63,7 +62,7 @@ flutter:
   assets:
       - assets/images/login_screen/login_background.jpg
       - assets/images/arrow.png
-      - assets/icons/integracja.ico
+      - assets/icons/integracja.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
