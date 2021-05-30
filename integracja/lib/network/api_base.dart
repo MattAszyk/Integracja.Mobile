@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -17,7 +16,7 @@ class ApiBase {
     if (authenticationController.state is Authenticated) {
       _tokenRefreshIfNeeded();
       User user = (authenticationController.state as Authenticated).user;
-      log(user.token);
+      //log(user.token);
       return {
         'Content-Type': 'application/json',
         'accept': 'text/plain',
@@ -101,7 +100,7 @@ class ApiBase {
                 (id != null ? "/$id" : "")),
             headers: _header())
         .timeout(Duration(seconds: 15));
-    log(response.body);
+    //log(response.body);
     return _returnResponse(response);
   }
 
@@ -140,7 +139,7 @@ class ApiBase {
   }
 
   dynamic _returnResponse(http.Response response) {
-    log('Response body: ${response.body}');
+    //log('Response body: ${response.body}');
     switch (response.statusCode) {
       case 200:
         var _response = json.decode(response.body);

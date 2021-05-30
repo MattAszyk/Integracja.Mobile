@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:integracja/models/play_game/question_detail_answers.dart';
 import 'package:integracja/network/api_base.dart';
@@ -14,7 +12,7 @@ class PlayRepository {
         id: gameId,
         secondId: questionId,
         answerId: answerId);
-    log('sendAnswer: ${response.toString()}');
+    //log('sendAnswer: ${response.toString()}');
     return QuestionDetailAnswers.fromJson(response);
   }
 

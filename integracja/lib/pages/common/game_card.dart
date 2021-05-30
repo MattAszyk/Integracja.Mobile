@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:integracja/models/game/game.dart';
 import 'package:integracja/pages/game_details/game_details.dart';
-import 'package:integracja/pages/play/play.dart';
 import 'package:integracja/utils/constrains.dart';
-import 'package:intl/intl.dart';
 
 class GameCard extends StatelessWidget {
   final Game game;

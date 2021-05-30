@@ -117,7 +117,9 @@ class GameDetailsBody extends StatelessWidget {
           onPressed: () => Get.back(),
         ),
         actions: [
-          if (!_gameUser.gameOver && _gameUser.answeredQuestions == 0)
+          if (!_gameUser.gameOver &&
+              _gameUser.answeredQuestions == 0 &&
+              !now.isAfter(end))
             IconButton(
               icon: Icon(
                 Icons.logout,

@@ -48,14 +48,16 @@ class PlayController extends GetxController {
 
   Timer _timer;
   Future<void> _progresBar() async {
-    int counter = _detailGameUser.game.gamemode.timeForOneQuestion;
-
+    int counter = _detailGameUser.game.gamemode.timeForOneQuestion + 1;
     double valueOfMinus = 1.0 / counter;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (counter == 0) {
+        answer(automatic: true);
         timer.cancel();
-        next();
+        //next();
+        //log("Counter is 0");
       }
+      counter--;
       _progress.value -= valueOfMinus;
     });
   }
@@ -100,7 +102,7 @@ class PlayController extends GetxController {
 
   //Send answer to server
   bool _temporaryBlockUI = false;
-  void answer() async {
+  void answer({bool automatic = false}) async {
     if (_temporaryBlockUI)
       return;
     else
@@ -108,14 +110,16 @@ class PlayController extends GetxController {
     try {
       _question = await PlayRepository.sendAnswer(
           gameId, _question.question.id, _generateAnswerList());
-      _answered = true;
-      _timer.cancel();
     } on PlayException catch (e) {
-      _messageCode = e.codeStatus;
-      _notShowEndGame = false;
+      if (!automatic) {
+        _messageCode = e.codeStatus;
+        _notShowEndGame = false;
+      }
     } catch (e) {
       log('answer: ${e.toString()}');
     } finally {
+      _answered = true;
+      _timer.cancel();
       _temporaryBlockUI = false;
       update();
     }
