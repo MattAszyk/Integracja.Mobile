@@ -1,15 +1,15 @@
-# Integracja.Server
-This repository contains server-side part of inteGRAcja, carried out as team programming project course at Nicolaus Copernicus University.
+# Integracja.Mobile
+This repository mobile-app part of inteGRAcja, carried out as team programming project course at Nicolaus Copernicus University.
  
 # Integracja.Mobile
-Mobile part of [inteGRAcja](https://github.com/MattAszyk/Integracja.Mobile).
+Server part of [inteGRAcja](https://github.com/guzlewski/Integracja.Server).
  
 ## Authors
  
-- **Michał Guźlewski ([guzlewski](https://github.com/guzlewski/Integracja.Server))**: Integracja.Server.Api, Integracja.Server.Core, Integracja.Server.Infrastructure  
+--**Maciej Aszyk ([MattAszyk](https://github.com/MattAszyk))**: Integracja.Mobile
+- **Michał Guźlewski ([guzlewski](https://github.com/guzlewski/))**: Integracja.Server.Api, Integracja.Server.Core, Integracja.Server.Infrastructure  
 - **Mikołaj Suchodolski ([miksuch](https://github.com/miksuch))**: Integracja.Server.Web 
 - **Michał Wiciński ([michwicinski](https://github.com/michwicinski))**: Integracja.Server.Web
-- **Maciej Aszyk ([MattAszyk](https://github.com/MattAszyk))**: Integracja.Mobile
 - **Jakub Fladziński ([fladzio](https://github.com/fladzio))**: Integracja.Mobile
  
 ## License
