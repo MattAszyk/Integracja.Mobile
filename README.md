@@ -6,7 +6,7 @@ Server part of [inteGRAcja](https://github.com/guzlewski/Integracja.Server).
  
 ## Authors
  
---**Maciej Aszyk ([MattAszyk](https://github.com/MattAszyk))**: Integracja.Mobile
+- **Maciej Aszyk ([MattAszyk](https://github.com/MattAszyk))**: Integracja.Mobile
 - **Michał Guźlewski ([guzlewski](https://github.com/guzlewski/))**: Integracja.Server.Api, Integracja.Server.Core, Integracja.Server.Infrastructure  
 - **Mikołaj Suchodolski ([miksuch](https://github.com/miksuch))**: Integracja.Server.Web 
 - **Michał Wiciński ([michwicinski](https://github.com/michwicinski))**: Integracja.Server.Web
