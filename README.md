@@ -1,7 +1,7 @@
 # Integracja.Mobile
 This repository mobile-app part of inteGRAcja, carried out as team programming project course at Nicolaus Copernicus University.
  
-# Integracja.Mobile
+# Integracja.Server
 Server part of [inteGRAcja](https://github.com/guzlewski/Integracja.Server).
  
 ## Authors
